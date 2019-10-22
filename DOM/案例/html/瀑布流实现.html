@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .itemBox {
+        width: 1050px;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    .item {
+        border: 1px solid #ccc;
+        padding: 4px;
+        position: absolute;
+    }
+</style>
+
+<body>
+    <div class="itemBox">
+        <div class="item">
+            <img src="../img/瀑布流/P_000.jpg" alt="">
+        </div>
+        <div class="item">
+            <img src="../img/瀑布流/P_001.jpg" alt="">
+        </div>
+        <div class="item">
+            <img src="../img/瀑布流/P_002.jpg" alt="">
+        </div>
+        <div class="item">
+            <img src="../img/瀑布流/P_003.jpg" alt="">
+        </div>
+        <div class="item">
+            <img src="../img/瀑布流/P_004.jpg" alt="">
+        </div>
+        <div class="item">
+            <img src="../img/瀑布流/P_008.jpg" alt="">
+        </div>
+        <div class="item">
+            <img src="../img/瀑布流/P_009.jpg" alt="">
+        </div>
+        <div class="item">
+            <img src="../img/瀑布流/P_010.jpg" alt="">
+        </div>
+        <div class="item">
+            <img src="../img/瀑布流/P_001.jpg" alt="">
+        </div>
+        <div class="item">
+            <img src="../img/瀑布流/P_004.jpg" alt="">
+        </div>
+        <div class="item">
+            <img src="../img/瀑布流/P_002.jpg" alt="">
+        </div>
+        <div class="item">
+            <img src="../img/瀑布流/P_003.jpg" alt="">
+        </div>
+        <div class="item">
+            <img src="../img/瀑布流/P_004.jpg" alt="">
+        </div>
+        <div class="item">
+            <img src="../img/瀑布流/P_008.jpg" alt="">
+        </div>
+        <div class="item">
+            <img src="../img/瀑布流/P_009.jpg" alt="">
+        </div>
+        <div class="item">
+            <img src="../img/瀑布流/P_010.jpg" alt="">
+        </div>
+        <div class="item">
+            <img src="../img/瀑布流/P_001.jpg" alt="">
+        </div>
+        <div class="item">
+            <img src="../img/瀑布流/P_004.jpg" alt="">
+        </div>
+    </div>
+</body>
+<script>
+    /**
+    思路：
+    1、获取大盒子与小盒子的宽度
+    2、计算列数与间距，并用定位作为排版
+    3、获取最小的一列，并将盒子定位到该列
+    4、当滚动条距离大于最小列距离时，加载数据
+    */
+    //当获取宽度时，该内容还未被加载完成，所以得不到盒子的宽度
+    window.onload = function () {
+        // 1、获取大盒子与小盒子的宽度
+        var itemBox = document.getElementsByClassName('itemBox')[0];    //大盒子
+        var item = document.getElementsByClassName('item');          //小盒子
+        //获取宽度
+        var itemBoxW = itemBox.offsetWidth;
+        var itemW = item[0].offsetWidth;
+        // 2、计算列数与间距，并用定位作为排版
+        var line = parseInt(itemBoxW / itemW);        //列数
+        var space = (itemBoxW - line * itemW) / (line - 1); //间距
+        var arr = [];                               //用于存放每一列的高度
+        //定义数组存储左移动的距离坐标
+        waterFull();
+        // 4、当滚动条距离大于最小列距离时，加载数据
+        window.onscroll = function () {
+            if (window.scrollY + window.innerHeight > getMinline(arr).minValue) {
+                var json = [
+                    { "src": "../img/瀑布流/P_001.jpg" },
+                    { "src": "../img/瀑布流/P_002.jpg" },
+                    { "src": "../img/瀑布流/P_003.jpg" },
+                    { "src": "../img/瀑布流/P_004.jpg" },
+                    { "src": "../img/瀑布流/P_005.jpg" },
+                    { "src": "../img/瀑布流/P_006.jpg" },
+                    { "src": "../img/瀑布流/P_007.jpg" },
+                    { "src": "../img/瀑布流/P_008.jpg" },
+                    { "src": "../img/瀑布流/P_009.jpg" },
+                    { "src": "../img/瀑布流/P_010.jpg" },
+                    { "src": "../img/瀑布流/P_000.jpg" }
+                ];
+                for (let i = 0; i < json.length; i++) {
+                    var div = document.createElement('div');
+                    div.className = 'item';
+                    var img = document.createElement('img');
+                    img.src = json[i].src;
+                    itemBox.appendChild(div);
+                    div.appendChild(img);
+
+                }
+                waterFull();
+            }
+        }
+        //排版方式实现
+        function waterFull() {
+            for (let i = 0, l = item.length; i < l; i++) {
+                if (i < line) {
+                    item[i].style.left = i * (space + itemW) + 'px';
+                    arr[i] = item[i].offsetHeight;
+                }
+                else {
+                    var minObj = getMinline(arr);
+                    item[i].style.left = minObj.minIndex * (space + itemW) + 'px';
+                    item[i].style.top = minObj.minValue + space + 'px';
+                    arr[minObj.minIndex] = minObj.minValue + item[i].offsetHeight + space;
+                }
+            }
+
+
+        }
+        // 3、获取最小的一列，并将盒子定位到该列
+        function getMinline(arr) {
+            var obj = {
+                minValue: arr[0],
+                minIndex: 0
+            }
+            //得到最小值
+            for (let i = 0, l = arr.length; i < l; i++) {
+                if (obj.minValue > arr[i]) {
+                    obj.minValue = arr[i];
+                    obj.minIndex = i;
+                }
+            }
+            return obj;
+        }
+    }
+
+</script>
+
+</html>

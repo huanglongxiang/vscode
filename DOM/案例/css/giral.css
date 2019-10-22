@@ -1,0 +1,26 @@
+.center{
+    background-color: pink;
+    width: 830px;
+    height: 610px;
+    margin:0 auto;
+}
+.center div{
+    float: left;
+    margin-right: 10px;
+    width: 200px;
+    height: 300px;
+    background-color: #86d0ea;
+    text-align: center;
+}
+.center div:nth-child(4n){
+    margin-right:0px; 
+}
+.marginbutton{
+    margin-bottom:10px; 
+}
+.center div>img{
+    display: block;
+    margin: 10px auto;
+    width: 149px;
+    height: 180px;
+}

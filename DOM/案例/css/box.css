@@ -1,0 +1,82 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.overall,.bottonall {
+    width: 1221px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.bottonall{
+    margin-top: 2px;
+}
+
+.overall>div {
+    float: left;
+}
+
+.o_left {
+    width: 660px;
+    height: 465px;
+    background-image: url('../img/一加手机.jpg');
+    background-size: 100%;
+    margin-right: 5px;
+}
+
+.o_right {
+    width: 556px;
+}
+
+.o_right>.o_r_top>img {
+    width: 275px;
+}
+
+.o_right>.o_r_bottom {
+    width: 556px;
+    height: 221px;
+    background-image: url('../img/毕业季.jpg');
+}
+.bottonall>div{
+    float: left;
+    margin-right: 18px;
+}
+.bottonall>div:last-child{
+    margin-right: 0;
+}
+.b_left img{
+    margin-bottom: 18px;
+}
+.b_left img:last-child{
+    width: 219px;
+}
+.b_left>.b_zeal{
+    width: 219px;
+    height: 126px;
+    background-image: url('../img/zealer.jpg');
+    background-size: 100%;
+}
+.b_center{
+    width: 686px;
+    overflow: hidden;
+}
+.b_center img{
+    width: 330px;
+    float: left;
+    margin-right: 16px;
+    margin-bottom: 16px;
+}
+.b_center img:nth-child(1),.b_center img:nth-child(2){
+    height: 225px;
+}
+.b_center img:nth-child(3),.b_center img:nth-child(4){
+    height: 220px;
+}
+.b_center img:nth-child(2),.b_center img:nth-child(4){
+    margin-right: 0px;
+}
+.b_right{
+    width: 278px;
+    height: 462px;
+    background-image: url('../img/华为手机.jpg');
+    background-size: 100%;
+}

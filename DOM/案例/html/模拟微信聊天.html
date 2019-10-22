@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>微信聊天窗口</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            font-family: '微软雅黑'
+        }
+
+        #container {
+            width: 450px;
+            height: 600px;
+            background: #eee;
+            margin: 10px auto 0;
+            position: relative;
+            box-shadow: 0px 0px 16px #999;
+        }
+
+        .header {
+            background: #000;
+            height: 34px;
+            color: #fff;
+            height: 40px;
+            line-height: 40px;
+            font-size: 20px;
+            padding: 0 10px;
+        }
+
+        .footer {
+            width: 430px;
+            height: 40px;
+            background: #999;
+            position: absolute;
+            bottom: 0;
+            padding: 10px;
+        }
+
+        .footer input {
+            width: 300px;
+            height: 38px;
+            outline: none;
+            font-size: 16px;
+            text-indent: 10px;
+            position: absolute;
+            border-radius: 6px;
+            right: 80px;
+        }
+
+        .footer span {
+            display: inline-block;
+            width: 62px;
+            height: 38px;
+            background: #ccc;
+            font-weight: 900;
+            line-height: 38px;
+            cursor: pointer;
+            text-align: center;
+            position: absolute;
+            right: 10px;
+            top: 14px;
+            border-radius: 6px;
+        }
+
+        .footer span:hover {
+            color: #777;
+            background: #ddd;
+        }
+
+        .icon {
+            display: inline-block;
+            background: red;
+            width: 50px;
+            height: 50px;
+            border-radius: 30px;
+            position: absolute;
+            bottom: 3px;
+            left: 10px;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        img {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+        }
+
+        .content {
+            font-size: 20px;
+            width: 435px;
+            height: 662px;
+            overflow: auto;
+            padding: 5px;
+        }
+
+        .content li {
+            margin-top: 10px;
+            padding-left: 10px;
+            width: 412px;
+            display: block;
+            clear: both;
+            overflow: hidden;
+        }
+
+        .content li img {
+            float: left;
+        }
+
+        .content li span {
+            background: #7cfc00;
+            padding: 10px;
+            border-radius: 10px;
+            float: left;
+            margin: 6px 10px 0 10px;
+            max-width: 310px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 3px #ccc;
+        }
+
+        .content li img.imgleft {
+            float: left;
+        }
+
+        .content li img.imgright {
+            float: right;
+        }
+
+        .content li span.spanleft {
+            float: left;
+            background: #fff;
+        }
+
+        .content li span.spanright {
+            float: right;
+            background: #7cfc00;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div class="header"> <span style="float: right;">20:30</span> <span style="float: left;">小泽老师</span> </div>
+
+        <ul class="content">
+            
+        </ul>
+
+        <div class="footer">
+            <div class="icon"> <img src="../img/微信聊天简短模拟/1.png" alt="" id="icon"> </div>
+            <input id="text" type="text" placeholder="说点什么吧..."> <span id="btn">发送</span>
+        </div>
+    </div>
+</body>
+<script>
+    /*
+        思路：
+        0、获取需要值
+        1、当点击图片时，图片切换，不同图片代表不同的角色
+        2、点击发送按钮时，生成记录，并且将内容添加到聊天面板
+        3、不同图片代表不同角色，不同角色需要分屏显示
+    */
+    // 0、获取需要值
+    var icon = document.getElementById('icon'); //图片
+    var text = document.getElementById('text'); //输入框
+    var btn = document.getElementById('btn');   //按钮
+    var ul = document.getElementsByTagName('ul')[0];//聊天面板
+    var target = true;//状态判断
+
+   //函数集
+    var arry = {
+        // 1、当点击图片时，图片切换，不同图片代表不同的角色
+        tabIcon:function(){
+            //定义数组存储图片地址
+            var imglist = ['../img/微信聊天简短模拟/1.png','../img/微信聊天简短模拟/2.png'];
+            if(target){
+                this.src = imglist[1];
+                target  = false;
+            }
+            else{
+                this.src = imglist[0];
+                target  = true;
+            }
+        },
+        // 2、点击发送按钮时，生成记录，并且将内容添加到聊天面板
+        sendText:function(){
+            //找到当前图片
+            var src = icon.src;
+            var txt = text.value;
+            //生成HTML元素
+            var li = document.createElement('li');
+            li.innerHTML += '<img src ="'+src+'"><span>'+txt+'</span>';
+            ul.appendChild(li);
+             // 3、不同图片代表不同角色，不同角色需要分屏显示
+            if(target){
+                li.children[0].className = 'imgright';
+                li.children[1].className = 'spanright';
+            }else{
+                li.children[0].className = 'imgleft';
+                li.children[1].className = 'spanleft';
+            }
+            //清空文本框
+            text.value = '';
+        }
+    }
+    // 调用方法
+    icon.addEventListener('click',arry.tabIcon,false);
+    btn.addEventListener('click',arry.sendText,false);
+</script>
+
+</html>

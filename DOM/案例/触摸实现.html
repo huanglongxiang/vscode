@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        (function(){
+            var bodys = document.getElementsByTagName('body')[0]
+            var touchControls = {
+                pokeThescreen:function(){
+                    bodys.innerHTML('干嘛戳我，真讨厌');
+                },
+                stopTheControls:function(){
+                    bodys.innerHTML('请别再这样做了');
+                }
+            }
+            bodys.addEventListener('touchstart',touchControls.pokeThescreen,false);
+            bodys.addEventListener('touchend',touchControls.stopTheControls,false);
+        })
+    </script>
+</body>
+</html>

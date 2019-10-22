@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            width: 300px;
+            height: 500px;
+            border: 1px solid red;
+            margin: 100px;
+            position: relative;
+
+            overflow: hidden;
+
+            /* 不让文字被选中 */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .content {
+            padding: 5px 18px 5px 5px;
+            position: absolute;
+            top: 0;
+            left: 0;
+
+        }
+
+        .scroll {
+            width: 18px;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: #eee;
+        }
+
+        .bar {
+            height: 100px;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: red;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box" class="box">
+        <div class="content" id="content">
+            我是文字内容，我是文字内容，我是文字内容，
+            我是文字内容，我是文字内容，我是文字内容，
+            我是文字内容，我是文字内容，我是文字内容，
+            我是文字内容，我是文字内容，我是文字内容，
+            我是文字内容，我是文字内容，我是文字内容，
+            我是文字内容，我是文字内容，我是文字内容，
+            我是文字内容，我是文字内容，我是文字内容，
+            我是文字内容，我是文字内容，我是文字内容，
+            我是文字内容，我是文字内容，我是文字内容，
+            我是文字内容，我是文字内容，我是文字内容，
+            我是文字内容，我是文字内容，我是文字内容，
+            我是文字内容，我是文字内容，我是文字内容，
+            我是文字内容，我是文字内容，我是文字内容，
+            我是文字内容，我是文字内容，我是文字内容，
+            我是文字内容，我是文字内容，我是文字内容，
+            我是文字内容，我是文字内容，我是文字内容，
+            我是文字内容，我是文字内容，我是文字内容，
+            我是文字内容，我是文字内容，我是文字内容，
+            我是文字内容，我是文字内容，我是文字内容，
+            我是文字内容，我是文字内容，我是文字内容，
+            我是文字内容，我是文字内容，我是文字内容，
+            我是文字内容，我是文字内容，我是文字内容，
+            我是文字内容，我是文字内容，我是文字内容，
+            我是文字内容，我是文字内容，我是文字内容，
+            我是文字内容，我是文字内容，我是文字内容，
+            我是文字内容，我是文字内容，我是文字内容，
+            我是文字内容，我是文字内容，我是文字内容，
+            我是文字内容，我是文字内容，我是文字内容，
+            我是文字内容，我是文字内容，我是文字内容，
+        </div>
+        <div class="scroll" id="scroll">
+            <div class="bar" id="bar"></div>
+        </div>
+    </div>
+    <script>
+        // 获取元素
+        // 运用算法： x1:y1=x:y; x=x1:y1*y;
+        var box = document.getElementById('box');       //大盒子
+        var Txt = document.getElementById('content');   //文本
+        var scroll = document.getElementById('scroll'); //滚动条父容器
+        var bar = document.getElementById('bar');       //滚动条
+        // 改变滚动条高度 根据文本的多少来修改滚动条的高度
+        var b_height = scroll.clientHeight * (box.clientHeight / Txt.scrollHeight);
+        //当内容小于父容器宽高时，滚动条消失
+        if (Txt.scrollHeight < box.clientHeight) {
+            bar.style.display = 'none';
+        }
+        //修改滚动条高度
+        bar.style.height = b_height + 'px';
+        var y, //盒子y轴距离
+            boxY,  //盒子移动距离
+            Ty;    //盒子文本需要移动距离
+        //移动滚动条
+        bar.onmousedown = function (e) {
+            //获取鼠标相对于盒子的距离 y 鼠标坐标y  - 盒子坐标
+            y = e.pageY - bar.offsetTop;
+            document.onmousemove = function (e) {
+                boxY = e.pageY - y;
+                // 控制最小允许值
+                boxY = boxY < 0 ? 0 : boxY;
+                //控制最大允许值
+                boxY = scroll.clientHeight - bar.clientHeight < boxY ? scroll.clientHeight - bar.clientHeight : boxY;
+                bar.style.top = boxY + 'px';
+                //获取滚动距离  
+                Ty = boxY / (scroll.clientHeight - bar.clientHeight) * (Txt.scrollHeight - box.clientHeight);
+                Txt.style.top = -Ty + 'px';
+            }
+        }
+        // 清除事件
+        document.onmouseup = function () {
+            document.onmousemove = null;
+        }
+    </script>
+</body>
+
+</html>

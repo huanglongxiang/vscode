@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>女神画廊</title>
+    <style>
+        body{
+            font-family: 'Helvetica','Arial',serif;
+            color: #333;
+            background-color: #ccc;
+            margin: 1em 10%;
+        }
+        h1{
+            color: #333;
+            background-color: transparent;
+        }
+        a{
+            color: #c60;
+            background-color: transparent;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        ul{
+            padding: 0;
+        }
+        li{
+            float: left;
+            padding: 1em;
+            list-style: none;
+        }
+        #imagegallery a{
+            margin: 0px 20px 20px 0px;
+            padding: 0px;
+            display: inline;
+        }
+        #imagegallery a img{
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <h2>美女画廊</h2>
+    <div id="imagegallery">
+        <a href="../img/1.jpg" title="美女A">
+            <img src="../img/1-small.jpg" alt="美女1">
+        </a>
+        <a href="../img/2.jpg" title="美女B">
+            <img src="../img/2-small.jpg" alt="美女2">
+        </a>
+        <a href="../img/3.jpg" title="美女C">
+            <img src="../img/3-small.jpg" alt="美女3">
+        </a>
+        <a href="../img/4.jpg" title="美女D">
+            <img src="../img/4-small.jpg" alt="美女4">
+        </a>
+    </div>
+    <div style="clear: both"></div>
+    <img src="../img/placeholder.png" alt="" id="showBig" width="450px" >
+    <p id="ps">选择一个图片</p>
+    <script>
+        var smallImgs = document.getElementById('imagegallery').getElementsByTagName('a');
+        var bigImg = document.getElementById('showBig');
+        var ps = document.getElementById('ps');
+        for (let i = 0; i < smallImgs.length; i++) {
+            smallImgs[i].onclick = function(){
+                bigImg.src = this.href;
+                ps.innerText = this.title;
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>

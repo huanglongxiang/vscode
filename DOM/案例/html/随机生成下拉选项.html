@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" value="随机" id="btn">
+    <select name="" id="tbselect">
+        <option value="1">北京</option>
+        <option value="2">上海</option>
+        <option value="3">广州</option>
+        <option value="4">深圳</option>
+        <option value="5">湖北</option>
+        <option selected='selected' value="6">湖南</option>
+        <option value="7">贵州</option>
+        <option value="8">重庆</option>
+        <option value="9">江西</option>
+    </select>
+
+    <input type="text" name="" placeholder="请输入搜索关键字" id="">
+    <script>
+        // 获取元素
+        var btn = document.getElementById('btn');
+        var options = document.getElementById('tbselect').getElementsByTagName('option');
+        // 绑定事件
+        btn.onclick = function(){
+            // 设置随机
+            var optionId = Math.floor(Math.random()*options.length);
+            //变更选项
+            options[optionId].selected = 'selected';
+        }
+    </script>
+</body>
+</html>

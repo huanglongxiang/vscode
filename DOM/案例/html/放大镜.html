@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            width: 350px;
+            height: 350px;
+            margin: 100px;
+            border: 1px solid #ccc;
+            position: relative;
+        }
+
+        .big {
+            width: 400px;
+            height: 400px;
+            position: absolute;
+            top: 0;
+            left: 360px;
+            border: 1px solid #ccc;
+            overflow: hidden;
+            display: none;
+        }
+
+        .big img {
+            position: absolute;
+        }
+
+        .mask {
+            width: 175px;
+            height: 175px;
+            background: rgba(255, 255, 0, 0.4);
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            cursor: move;
+            display: none;
+        }
+
+        .small {
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" id="box">
+        <div class="small">
+            <img src="../img/small.webp" width="350" alt="" />
+
+            <div class="mask"></div>
+        </div>
+        <div class="big">
+            <img src="../img/big.jpg" width="800" alt="" />
+        </div>
+    </div>
+    <script>
+        //初始化元素
+        var box = document.getElementById('box');
+        var smallBox = box.children[0];//获取第一个子元素   小盒子
+        var bigBox = box.children[1];  //大盒子
+
+        var smallImage = smallBox.children[0];  //小图片
+        var mask = smallBox.children[1];        //放大镜
+        var bigImage = bigBox.children[0];      //大图
+
+        //加入移入事件，当鼠标移入时显示放大镜与大图
+        box.onmouseover = function (e) {
+            bigBox.style.display = 'block';
+            mask.style.display = 'block';
+        }
+        box.onmouseout = function (e) {
+            bigBox.style.display = 'none';
+            mask.style.display = 'none';
+        }
+        //让放大镜与鼠标同步
+        var x, y;
+        box.onmousemove = function (e) {
+            //获取鼠标在盒子中的坐标
+            x = e.pageX - box.offsetLeft;
+            y = e.pageY - box.offsetTop;
+            //console.log(x,y);
+            //移动放大镜到鼠标上并让鼠标在盒子中心
+            x = x - mask.offsetWidth / 2;
+            y = y - mask.offsetHeight / 2;
+            //限制放大镜在盒子内
+            x = x < 0 ? 0 : x;//获取最小允许值
+            y = y < 0 ? 0 : y;
+            x = smallImage.offsetWidth - mask.offsetWidth < x ? smallImage.offsetWidth - mask.offsetWidth : x;//获取最大允许值
+            y = smallImage.offsetHeight - mask.offsetHeight < y ? smallImage.offsetHeight - mask.offsetHeight : y;
+            //修改放大镜位置
+            mask.style.top = y + 'px';
+            mask.style.left = x + 'px';
+            //比例计算  移动距离：最大移动距离 = 大（移动距离：最大移动距离）
+            bx = bigBox.offsetWidth * (x / (smallImage.offsetWidth - mask.offsetWidth));
+            by = bigBox.offsetHeight * (y / (smallImage.offsetHeight - mask.offsetHeight));
+            // 修改大图位置
+            bigImage.style.top = -by + 'px';
+            bigImage.style.left = -bx + 'px';
+        }
+    </script>
+</body>
+
+</html>

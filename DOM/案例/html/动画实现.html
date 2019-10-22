@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{margin:0;padding:0}
+        #box {
+          position: relative;
+          width: 100px;
+          height: 100px;
+          background-color: red;
+        }
+        #box1 {
+          position: relative;
+          width: 100px;
+          height: 100px;
+          background-color: yellow;
+        }
+      </style>
+</head>
+<body>
+    <input type="button" id="btn" value="动画 400">
+    <input type="button" id="btn2" value="动画 800">
+
+    <div id="box"></div>
+    <div id="box1"></div>
+    <script src="../js/animante.js"></script>
+    <script>
+        // 第一部动画简单实现
+        // 1、点击按钮时，让盒子移动
+        // 2、让盒子连续向前移动
+        var btn = document.getElementById('btn');
+        var box = document.getElementById('box');
+        var box1 = document.getElementById('box1');
+        var btn2 = document.getElementById('btn2');
+        //var timeAnimal = null;//这样定义会造成页面上只有一个定时器在执行
+        //通过动态给element对象添加一个定时器属性，让每一个元素具有自己独有的定时操作，以此来解决页面上覆盖定时器的问题
+        btn.onclick = function(){
+            animation(box,400);
+            animation(box1,400);
+        }
+        btn2.onclick = function(){
+            animation(box,800);
+            animation(box1,800);
+        }
+        // 第二部 封装动画
+        // function animation(element,target){
+        //     if (element.timeAnimal) {
+        //         clearInterval(element.timeAnimal);
+        //         element.timeAnimal = null;
+        //     }
+        //     var target = target; //限制距离
+        //     var step = 10;       //步进
+        //     var current = 0;
+        //     //使用定时器
+        //     element.timeAnimal = setInterval(function(){
+        //         // 当动画往回执行时，目标位置会小于开始位置，因此在执行动画时需要对开始与结束位置进行对比，如果是目标小于初始位置，就让步进为负数
+        //         if (current > target) {
+        //             // 通过绝对值的方式使得步进强制为负数，避免负负得正，左右摇摆的情况
+        //             step = -Math.abs(step);
+        //         }
+        //         current = element.offsetLeft;
+        //         //移动盒子
+        //         element.style.left = current + step +'px';
+        //         //判断盒子是否到达目标位置
+               
+        //         //还可以通过当前位置与目标位置的差值来确定是否到达目标位置 及 |目标位置-当前位置| <= |步进|，就代表到达了目标位置
+        //         if (Math.abs(target-current) < Math.abs(step)) {
+        //             clearInterval(element.timeAnimal);
+        //             element.style.left = target + 'px';
+        //             return;
+        //         } 
+        //     },30)
+        // }
+        // 从800到400
+
+    </script>
+</body>
+</html>

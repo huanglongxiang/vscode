@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" name="" >
+    <input type="text" name="">
+    <input type="text" name="">
+    <input type="text" name="">
+    <input type="text" name="">
+    <input type="text" name="">
+    <input type="text" name="">
+    <input type="text" name="">
+    <input type="text" name="">
+    <input type="button" id="btn" value="获取元素并进行拼接">
+    <script>
+        var inputs = document.getElementsByTagName('input');
+        var btn = document.getElementById('btn');
+        var getinputs = [];
+        for (let i = 0; i < inputs.length; i++) {
+            if (inputs[i].type === 'text') {
+                inputs[i].value = i;
+            }
+        }
+        btn.onclick = function(){
+            for (let i = 0; i < inputs.length; i++) {
+                if (inputs[i].type === 'text') {
+                    getinputs.push(inputs[i].value);
+                }
+            }
+            console.log(getinputs.join('|'));
+        }
+    </script>
+</body>
+</html>

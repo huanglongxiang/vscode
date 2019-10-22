@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>多选按钮</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        ;
+
+        .wrap {
+            width: 300px;
+            margin: 100px auto 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            border: 1px solid #c0c0c0;
+            width: 300px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d0d0d0;
+            color: #404046;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #09c;
+            font: bold 16px '微软雅黑';
+            color: #fff;
+        }
+
+        td {
+            font: 14px '微软雅黑';
+        }
+
+        tbody tr {
+            background-color: #f0f0f0;
+        }
+
+        ;
+
+        tbody tr:hover {
+            cursor: pointer;
+            background-color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" id="cheAll" />
+                    </th>
+                    <th>商品</th>
+                    <th>价钱</th>
+                </tr>
+            </thead>
+            <tbody id="cheAlls">
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>iPhone8</td>
+                    <td>8000</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>iPad Pro</td>
+                    <td>5000</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>iPad Air</td>
+                    <td>2000</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>Apple Watch</td>
+                    <td>2000</td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="button" value=" 反 选 " id="btn">
+    </div>
+    <script>
+        // 1.全选
+        // 1.1获取父checkbox，注册点击事件
+        // 1.2找到所有子的chekbox,让这些checbox的状态跟父chekbox保持一致
+        // 获取元素
+        var cheAll = document.getElementById('cheAll');
+        var cheboxs = document.getElementById('cheAlls');
+        var cheboxI = cheboxs.getElementsByTagName('input');
+        var btn = document.getElementById('btn');
+        // 全选与全不选实现
+        cheAll.onclick = function () {
+            for (let i = 0; i < cheboxI.length; i++) {
+                if (cheboxI[i].type === 'checkbox') {
+                    // 让父子相同，避免判断
+                    cheboxI[i].checked = this.checked;
+                }
+            }
+        }
+        //判断父状态的状态封装成函数
+        function checkAllCheckBox() {
+            var isCheboxTrue = true;
+            for (let i = 0; i < cheboxI.length; i++) {
+                var chebox = cheboxI[i];
+                if (cheboxI[i].type !== 'checkbox') {
+                    continue;
+                }
+                if (chebox.checked !== true) {
+                    isCheboxTrue = false;
+                }
+            }
+            cheAll.checked = isCheboxTrue;
+        }
+
+        // 子选择器操作逻辑
+        for (let i = 0; i < cheboxI.length; i++) {
+            if (cheboxI[i].type !== 'checkbox') {
+                continue;
+            }
+            cheboxI[i].onclick = function () {
+                checkAllCheckBox();
+            }
+        }
+        //反选实现
+        btn.onclick = function () {
+            for (let i = 0; i < cheboxI.length; i++) {
+                var chebox = cheboxI[i];
+                var isChebox = true;
+                if (chebox.type !== 'checkbox') {
+                    continue;
+                }
+                //实现反选
+                chebox.checked = !chebox.checked;
+                checkAllCheckBox();
+            }
+        }
+
+    </script>
+</body>
+
+</html>

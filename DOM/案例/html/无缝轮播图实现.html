@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>轮播图</title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            border: 0;
+        }
+
+        .all {
+            width: 500px;
+            height: 200px;
+            padding: 7px;
+            border: 1px solid #ccc;
+            margin: 100px auto;
+            position: relative;
+        }
+
+        .screen {
+            width: 500px;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .screen li {
+            width: 500px;
+            height: 200px;
+            overflow: hidden;
+            float: left;
+        }
+
+        .screen ul {
+            position: absolute;
+            left: 0;
+            top: 0px;
+            width: 3000px;
+        }
+
+        .all ol {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            line-height: 20px;
+            text-align: center;
+        }
+
+        .all ol li {
+            float: left;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .all ol li.current {
+            background: yellow;
+        }
+
+        #arr {
+            display: none;
+            z-index: 1000;
+
+        }
+
+        #arr span {
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            left: 5px;
+            top: 50%;
+            margin-top: -20px;
+            background: #000;
+            cursor: pointer;
+            line-height: 40px;
+            text-align: center;
+            font-weight: bold;
+            font-family: '黑体';
+            font-size: 30px;
+            color: #fff;
+            opacity: 0.3;
+            border: 1px solid #fff;
+        }
+
+        #arr #right {
+            right: 5px;
+            left: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="all" id='box'>
+        <div class="screen">
+            <ul>
+                <li><img src="../img/lbt/wf1.jpg" width="500" height="200" /></li>
+                <li><img src="../img/lbt/wf2.jpg" width="500" height="200" /></li>
+                <li><img src="../img/lbt/wf3.jpg" width="500" height="200" /></li>
+                <li><img src="../img/lbt/wf4.jpg" width="500" height="200" /></li>
+                <li><img src="../img/lbt/wf5.jpg" width="500" height="200" /></li>
+            </ul>
+            <ol>
+            </ol>
+        </div>
+        <div id="arr"><span id="left">&lt;</span><span id="right">&gt;</span></div>
+    </div>
+    <script src="../js/commen.js"></script>
+    <script src="../js/animante.js"></script>
+    <script>
+        // 1、动态生成图片序号标签
+        var box = my$('box');    //根元素
+        var screen = box.children[0];
+        var ul = screen.children[0];
+        var ol = screen.children[1];
+        var arr = my$('arr');    //操作按钮
+        var arrleft = arr.children[0]; //左按钮
+        var arrright = arr.children[1];//右按钮
+        //获取li长度
+        var Imgnum = ul.children.length;
+        var index = 0;  //获取当前图片索引
+        var width = screen.offsetWidth; // 获取相框宽度
+        var liIndex = 0;
+        var Timesout;
+
+
+
+        for (let i = 0; i < Imgnum; i++) {
+            var li = document.createElement('li');
+            ol.appendChild(li);
+            setInnerText(li, i + 1);
+            // 让第一张图高亮显示
+            if (i === 0) {
+                li.className = 'current';
+            }
+            // 2、点击序号让图片以动画的方式切换到对应图片
+            //2.1 点击序号，让当前序号高亮显示，其他序号默认
+            //2.2 获取序号，同时让图片进行切换（通过获取当前点击li的索引*相框的宽度，就可以得出胶卷（ul）需要移动的距离）
+            li.onclick = liClick;
+            // setAttribute所存储的形式都是以字符串形式存储
+            li.setAttribute("index", i);
+        }
+
+        // 声明方法，执行序号变色逻辑
+        function liClick() {
+            // 清空ol所有li的颜色
+            for (let i = 0; i < ol.children.length; i++) {
+                var li = ol.children[i];
+                li.className = '';
+            }
+            // 给当前点击li添加颜色
+            this.className = 'current';
+
+            liIndex = parseInt(this.getAttribute('index'));
+            console.log(liIndex);
+            //修改全局变量
+            index = liIndex;
+            // 执行动画
+            console.log(- width * liIndex);
+            animation(ul, - width * liIndex);
+        }
+
+
+        // 3、鼠标悬停时图片两侧显示切换按钮，动画停止播放
+        box.onmouseenter = function () {
+            arr.style.display = 'block';
+            clearTimeout(Timesout);
+        }
+        box.onmouseleave = function () {
+            arr.style.display = 'none';
+            // 5、当鼠标离开元素时，图片自动播放
+            Timesout = setInterval(function () {
+                arrright.click();
+            }, 1000)
+        }
+
+        // 4、点击按钮实现下一张图片切换
+        // 下一张图片切换
+        arrright.onclick = function () {
+            // 判断是否是被克隆的第一张图片，如果是，则让index重置，并且将ul坐标移动到开始位置
+            if (index === Imgnum) {
+                index = 0;
+                ul.style.left = '0px';
+            }
+            index++;
+            //判断是否是最后一张图片，是的话进入克隆的第一张图片，同时手动将胶卷移动，重置序号，让其高亮显示在第一个位置
+            if (index >= Imgnum) {
+                // 执行动画
+                animation(ul, -width * index);
+                // 重置样式
+                for (let i = 0; i < ol.children.length; i++) {
+                    ol.children[i].className = '';
+                }
+                ol.children[0].className = 'current';
+                return;
+            }
+            //通过索引来触发ol的点击事件，以此来切换下一张图片
+            ol.children[index].click();
+        }
+
+        // 上一张图片切换
+        arrleft.onclick = function () {
+            // 判断是否是第一张图片，如果是，就让ul移动到最后一张克隆图片上
+            if (index === 0) {
+                index = Imgnum;
+                ul.style.left = - Imgnum * width + 'px';
+            }
+            index--;
+            ol.children[index].click();
+        }
+
+        //无缝滚动逻辑实现(克隆第一张图片，将其加入到数组后面)
+        var liCope = ul.children[0].cloneNode(true);
+        ul.appendChild(liCope);
+
+        Timesout = setInterval(function () {
+            arrright.click();
+        }, 1000);
+
+    </script>
+</body>
+
+</html>

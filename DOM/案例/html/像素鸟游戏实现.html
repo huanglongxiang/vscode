@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .sky {
+            position: relative;
+            width: 800px;
+            height: 600px;
+            background: url('../img/像素鸟/sky.png');
+            overflow: hidden;
+        }
+
+        .bird {
+            position: absolute;
+            width: 36px;
+            height: 25px;
+            top: 10px;
+            left: 130px;
+            background: url('../img/像素鸟/birds.png') no-repeat center;
+
+        }
+        .pipebottom,
+        .pipetop {
+            position: absolute;
+            width: 52px;
+        }
+
+        .pipebottom {
+            background: url('../img/像素鸟/pipe1.png');
+        }
+
+        .pipetop {
+            background: url('../img/像素鸟/pipe2.png') no-repeat center bottom;
+            background-size: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 背景图片 -->
+    <div class="sky" id="sky">
+        <!-- 鸟 -->
+        <i class="bird" id="bird"></i>
+
+        <div class="pipe"></div>
+    </div>
+    <!-- 脚本 -->
+    <script>
+        /*
+        思路：
+        游戏规则：鼠标每点击一次，小鸟就会向上移动一段距离，之后继续向下运动，当小鸟触碰到上下边界的时候游戏结束，当小鸟触碰到途中的管道时，游戏结束。
+        实现：
+        1、让背景向后不断运动
+        2、通过鼠标点击，让小鸟不落地
+        3、动态生成水管，并让水管与背景图片的运动同步
+        4、计算小鸟途中是否触碰到水管
+        */
+        // 3、动态生成水管，并让水管与背景图片的运动同步
+        // 水管创建方法
+        function createPipe(positionX) {
+            //设置上管道，限制高度在200-300之间
+            var topheight = Math.random() * (300 - 200) + 200;
+            var bottomheight = objSky.bgH - topheight - 200;
+            var divTop = document.createElement('div');
+            divTop.className = 'pipetop';
+            divTop.style.top = 0;
+            divTop.style.height = topheight + 'px';
+            divTop.style.left = positionX + 'px';
+
+            var divBottom = document.createElement('div');
+            divBottom.className = 'pipebottom';
+            divBottom.style.bottom = 0;
+            divBottom.style.height = bottomheight + 'px';
+            divBottom.style.left = positionX + 'px';
+
+            sky.appendChild(divTop);
+            sky.appendChild(divBottom);
+        }
+        createPipe(343);
+        createPipe(595);
+        createPipe(847);
+        createPipe(1099);
+
+
+        // 1、让背景向后不断运动
+        //  1.1元素获取
+        var sky = document.getElementById('sky');
+        var bird = document.getElementById('bird');
+        //  1.2定义元素对象值
+        //背景对象
+        var objSky = {
+            stepx: 5,
+            bgW: sky.offsetWidth,
+            bgH: sky.offsetHeight
+        }
+        //小鸟对象
+        var objBird = {
+            x: bird.offsetLeft,
+            y: bird.offsetTop,
+            stepY: 0,
+            birdW: bird.offsetWidth,
+            birdH: bird.offsetHeight
+        }
+        //  1.3 控制背景图片移动
+        var move = 0;     //背景左移
+        var end = objSky.bgH - objBird.birdH;
+        var pipetop = document.getElementsByClassName('pipetop');
+        var pipebottom = document.getElementsByClassName('pipebottom');
+        console.log(end);
+        var timeId = setInterval(function () {
+            //1.4、移动背景，同时让小鸟开始向下运动
+            move += objSky.stepx;
+            sky.style.backgroundPositionX = -move + 'px';
+            // 小鸟移动
+            // 之前因为改变了步长，所以在这里需要重新给步长设值，避免在之后小鸟一直向上运动
+            objBird.stepY++;
+            objBird.y += objBird.stepY;
+            bird.style.top = objBird.y + 'px';
+            //水管移动
+            // pipetop.style.left +=
+            //判定游戏结束
+            if(objBird.y < 0 || Math.abs(objBird.y - end) < objBird.stepY) {
+                var y = (0 >= objBird.y) ? y : end;
+                bird.style.top = y + 'px';
+                clearInterval(timeId);
+            }
+
+        }, 30);
+        // 2、通过鼠标点击，让小鸟不落地 
+        // 算法：改变步进,让小鸟向上运动
+        document.onclick = function () {
+            objBird.stepY = -10;
+        }
+
+
+        // 4、计算小鸟途中是否触碰到水管
+    </script>
+</body>
+
+</html>

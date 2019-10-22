@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>显示与隐藏</title>
+    <style>
+        div{
+            background-color: red;
+            width: 200px;
+            height: 200px;
+        }
+        .hidde{
+            display: none;
+        }
+        .show{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <button id='btn' value="显示">隐藏</button>
+    <div id="box1"></div>
+    <script>
+        var btn = document.getElementById('btn');
+        var box = document.getElementById('box1');
+        var isShow = true;
+        btn.onclick = function(){
+            if (isShow) {
+                box.className='hidde';
+                btn.innerText='显示';
+                isShow = false;
+            } else {
+                box.className='show';
+                btn.innerText='隐藏';
+                isShow = true;
+            }
+        }
+    </script>
+</body>
+</html>

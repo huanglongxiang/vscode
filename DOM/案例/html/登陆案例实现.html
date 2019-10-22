@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../font/iconfont.css">
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+    <h1>
+        <a href="#" id="user_login">请点击我进行登录</a>
+    </h1>
+    <div class="bg" id="bg"></div>
+    <div class="login" id="login">
+        <i class="iconfont icon-close" id="close"></i>
+        <div class="userinfo">
+            <input type="text" placeholder="邮箱，手机">
+            <input type="password" placeholder="密码">
+        </div>
+        <div class="control">
+            <input type="checkbox" name="password" value="password">记住密码
+            <a href="#">忘记密码</a>
+        </div>
+        <div class="button"><a href="#">登录</a></div>
+        <div class="hint">
+            <span>还没有账号，</span>使用以下方式登录
+        </div>
+        <div class="outline">
+            <a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a>
+        </div>
+    </div>
+    <script src="../js/commen.js"></script>
+    <script>
+        //获取元素
+        var user_login = document.getElementById('user_login');
+        var logins = document.getElementById('login');
+        var bg = document.getElementById('bg');
+        var closee = document.getElementById('close');
+        //显示登录界面
+        user_login.onclick = function(){
+            //显示登陆框与阴影
+            logins.style.display = 'block';
+            bg.style.display = 'block';
+            //阻止默认跳转
+            return false;
+        }
+        // 添加关闭事件
+        closee.onclick = function(){
+            logins.style.display = 'none';
+            bg.style.display = 'none';
+        }
+        // 移动盒子实现
+        logins.onmousedown = function(e){
+                e = e || window.event;
+                //获取鼠标在盒子中的位置,鼠标在页面上的坐标减去盒子的坐标
+                var x = e.pageX - logins.offsetLeft;
+                var y = e.pageY - logins.offsetTop;
+                console.log(x,y);
+                // 让盒子实现移动
+                document.onmousemove = function(e){
+                    e = e || window.event;
+                    // 再次获取盒子的坐标 鼠标在页面上距离减去鼠标在盒子中的相对距离
+                    var boxX = e.pageX - x;
+                    var boxY = e.pageY - y;
+                    //找到盒子实现移动
+                    logins.style.top = boxY + 200 + 'px';//由于受到margin的影响，所以要将margin所设置的值重新加回来，才能让鼠标与盒子不偏移
+                    logins.style.left = boxX + 145 + 'px';
+                }
+            }
+        document.onmouseup = function(){
+            //清空事件
+            document.onmousemove = null;
+        }
+    </script>
+</body>
+
+</html>

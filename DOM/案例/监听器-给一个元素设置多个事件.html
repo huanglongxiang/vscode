@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" value="点击" id="btn"/>
+    <script>
+        var btn = document.getElementById('btn');
+        var adr = {
+            addActionSection:function(){
+                alert('别点我，疼');
+            },
+            removeActionSection:function(){
+                alert('你碰到我了，走开。');
+            }
+        }
+        btn.addEventListener('click',adr.addActionSection,false);
+        btn.addEventListener('mouseover',adr.removeActionSection,false);
+    </script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        select {
+            width: 200px;
+            height: 200px;
+            background-color: #33cccc;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <select id="all" multiple="multiple">
+        <option>苹果</option>
+        <option>橘子</option>
+        <option>梨</option>
+        <option>西瓜</option>
+        <option>水蜜桃</option>
+    </select>
+    <div style="width: 200px; height: 200px;"></div>
+    <input type="button" value=">>" id="btn1">
+    <input type="button" value="<<" id="btn2">
+    <input type="button" value=">" id="btn3">
+    <input type="button" value="<" id="btn4">
+    <select id="select" multiple="multiple"></select>
+    <script>
+        // 实现全部转移
+        var btn1 = document.getElementById('btn1');
+        var btn2 = document.getElementById('btn2');
+        var btn3 = document.getElementById('btn3');
+        var btn4 = document.getElementById('btn4');
+        var all = document.getElementById('all');
+        var select = document.getElementById('select');
+        //绑定事件
+        btn1.onclick = function(){
+            //注意select中option的索引是实时变化，当其值被转移时，数组重新
+            //思路：每次取索引为0的数，可保证顺序不发生变化。
+            let len = all.children.length;
+            for (let i = 0; i < len; i++) {
+                let option = all.children[0];
+                select.appendChild(option);
+            }
+        }
+        //实现反方向转移
+        btn2.onclick = function(){
+            let opnum = select.children.length
+            for (let i = 0; i < opnum; i++) {
+                let op = select.children[0];
+                all.appendChild(op);
+            }
+        }
+        //实现选中项转移
+        btn3.onclick = function(){
+           let array = [];
+            for (let i = 0; i < all.children.length; i++) {
+                //判断被选项
+                if (all.children[i].selected) {
+                    array.push(all.children[i]);
+                    // 去掉当前选中效果
+                    all.children[i].selected = false;
+                }
+            }
+            //把数组中的option移动到select里面
+            for (let i = 0; i < array.length; i++) {
+                select.appendChild(array[i]);
+            }
+        }
+        //实现反向选则
+        btn4.onclick = function(){
+           let array = [];
+           for (let i = 0; i < select.children.length; i++) {
+               if (select.children[i].selected) {
+                   array.push(select.children[i]);
+                   select.children[i].selected = false;
+               }
+           }
+           for (let i = 0; i < array.length; i++) {
+               all.appendChild(array[i]);      
+           }
+        }
+    </script>
+</body>
+
+</html>

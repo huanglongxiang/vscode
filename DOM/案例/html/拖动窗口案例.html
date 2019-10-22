@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    #tbl{
+        width: 200px;
+        height: 300px;
+        background-color: red;
+        position: absolute;
+        top: 50px;
+        left: 100px;
+    }
+    </style>
+</head>
+<body>
+    <div id="tbl"></div>
+    <script src="../commen.js"></script>
+    <script>
+      var box = my$('tbl');
+      //添加按下事件
+      box.onmousedown = function(e){
+        //获取鼠标坐标
+        var mouseXY = getPage(e);
+        // 获取鼠标相对于盒子中的坐标
+        var x = mouseXY.pageX - box.offsetLeft;
+        var y = mouseXY.pageY - box.offsetTop;
+        // 加入移动事件
+        document.onmousemove = function(e){
+            var xy = getPage(e);
+            var boxX = xy.pageX - x;
+            var boxY = xy.pageY - y;
+            box.style.left = boxX + 'px';
+            box.style.top = boxY + 'px';
+        }
+      }
+      //清空事件
+      document.onmouseup = function(e){
+        document.onmousemove = null;
+      }
+    </script>
+</body>
+</html>

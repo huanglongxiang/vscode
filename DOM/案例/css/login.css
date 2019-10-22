@@ -1,0 +1,112 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+a{
+    text-decoration: none;
+    color: black;
+    font-size: 12px;
+}
+.bg{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.5);
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+input{
+    /* 去除默认样式 */
+    outline: none;
+}
+.login{
+    width: 390px;
+    height: 400px;
+    background-color: #fafcff;
+    margin: 0 auto;
+    font-size: 12px;
+    font-family: '微软雅黑';
+    padding-left: 43px;
+    padding-top: 76px;
+    position: absolute;
+    display: none;
+    cursor: move;
+   left: 50%;
+     margin-left: -145px;
+    top: 50%;
+    margin-top: -200px; 
+}
+.login .iconfont{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    /* 添加小手 */
+    cursor: pointer;
+}
+.userinfo input{
+    width: 342px;
+    height: 45px;
+    border: 1px solid #e5e6e8;
+    border-radius: 4px;
+    margin-bottom: 31px;
+    padding-left: 19px;
+}
+.control{
+    width: 360px;
+    margin-bottom: 30px;
+}
+.control input{
+    vertical-align: middle;
+    margin-right: 12px;
+}
+.control a{
+    display: block;
+    float: right;
+}
+.button a{
+    display: block;
+    width: 360px;
+    height: 43px;
+    line-height: 43px;
+    text-align: center;
+    background-color: #000;
+    color: #fff;
+    border-radius: 4px;
+}
+.button{
+    margin-bottom: 30px;
+}
+.hint{
+    width: 360px;
+    text-align: right;
+    margin-bottom: 30px;
+}
+.hint span{
+    color: #ccc;
+}
+.outline a{
+    background-image: url('../img/login_icons.png');
+    width: 60px;
+    height: 60px;
+    display: block;
+    float: left;
+    margin-right: 40px;
+}
+.outline a:last-child{
+    margin-right:0px; 
+}
+.outline a:nth-child(2){
+    background-position: 60px 0;
+}
+.outline a:nth-child(3){
+    background-position: 120px 0;
+}
+.outline a:nth-child(4){
+    background-position: 180px 0;
+}
+.outline a:hover{
+    background-position-y: -60px
+}
