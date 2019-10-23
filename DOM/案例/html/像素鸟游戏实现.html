@@ -1,63 +1,63 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+      }
 
-        .sky {
-            position: relative;
-            width: 800px;
-            height: 600px;
-            background: url('../img/像素鸟/sky.png');
-            overflow: hidden;
-        }
+      .sky {
+        position: relative;
+        width: 800px;
+        height: 600px;
+        background: url("../img/像素鸟/sky.png");
+        overflow: hidden;
+      }
 
-        .bird {
-            position: absolute;
-            width: 36px;
-            height: 25px;
-            top: 10px;
-            left: 130px;
-            background: url('../img/像素鸟/birds.png') no-repeat center;
+      .bird {
+        position: absolute;
+        width: 36px;
+        height: 25px;
+        top: 10px;
+        left: 130px;
+        background: url("../img/像素鸟/birds.png") no-repeat center;
+      }
+      .pipebottom,
+      .pipetop {
+        position: absolute;
+        width: 52px;
+      }
 
-        }
-        .pipebottom,
-        .pipetop {
-            position: absolute;
-            width: 52px;
-        }
+      .pipebottom {
+        background: url("../img/像素鸟/pipe1.png");
+      }
 
-        .pipebottom {
-            background: url('../img/像素鸟/pipe1.png');
-        }
-
-        .pipetop {
-            background: url('../img/像素鸟/pipe2.png') no-repeat center bottom;
-            background-size: 100%;
-        }
+      .pipetop {
+        background: url("../img/像素鸟/pipe2.png") no-repeat center bottom;
+        background-size: 100%;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- 背景图片 -->
     <div class="sky" id="sky">
-        <!-- 鸟 -->
-        <i class="bird" id="bird"></i>
+      <!-- 鸟 -->
+      <i class="bird" id="bird"></i>
 
-        <div class="pipe"></div>
+      <div class="pipe"></div>
     </div>
     <!-- 脚本 -->
     <script>
-        /*
+      /*
         思路：
         游戏规则：鼠标每点击一次，小鸟就会向上移动一段距离，之后继续向下运动，当小鸟触碰到上下边界的时候游戏结束，当小鸟触碰到途中的管道时，游戏结束。
         实现：
@@ -66,86 +66,124 @@
         3、动态生成水管，并让水管与背景图片的运动同步
         4、计算小鸟途中是否触碰到水管
         */
-        // 3、动态生成水管，并让水管与背景图片的运动同步
-        // 水管创建方法
-        function createPipe(positionX) {
-            //设置上管道，限制高度在200-300之间
-            var topheight = Math.random() * (300 - 200) + 200;
-            var bottomheight = objSky.bgH - topheight - 200;
-            var divTop = document.createElement('div');
-            divTop.className = 'pipetop';
-            divTop.style.top = 0;
-            divTop.style.height = topheight + 'px';
-            divTop.style.left = positionX + 'px';
 
-            var divBottom = document.createElement('div');
-            divBottom.className = 'pipebottom';
-            divBottom.style.bottom = 0;
-            divBottom.style.height = bottomheight + 'px';
-            divBottom.style.left = positionX + 'px';
-
-            sky.appendChild(divTop);
-            sky.appendChild(divBottom);
+      // 1、让背景向后不断运动
+      //  1.1元素获取
+      var sky = document.getElementById("sky");
+      var bird = document.getElementById("bird");
+      //  1.2定义元素对象值
+      //背景对象
+      var objSky = {
+        stepx: 5,
+        bgW: sky.offsetWidth,
+        bgH: sky.offsetHeight
+      };
+      //小鸟对象
+      var objBird = {
+        x: bird.offsetLeft,
+        y: bird.offsetTop,
+        stepY: 0,
+        birdW: bird.offsetWidth,
+        birdH: bird.offsetHeight
+      };
+      //  1.3 控制背景图片移动
+      var move = 0; //背景左移
+      var end = objSky.bgH - objBird.birdH;
+      var gametype = true;
+      var pipetop = document.getElementsByClassName("pipetop");
+      var pipebottom = document.getElementsByClassName("pipebottom");
+      var timeId = setInterval(function() {
+        if (gametype) {
+          //1.4、移动背景，同时让小鸟开始向下运动
+          move += objSky.stepx;
+          sky.style.backgroundPositionX = -move + "px";
+          // 小鸟移动
+          // 之前因为改变了步长，所以在这里需要重新给步长设值，避免在之后小鸟一直向上运动
+          objBird.stepY++;
+          objBird.y += objBird.stepY;
+          bird.style.top = objBird.y + "px";
         }
-        createPipe(343);
-        createPipe(595);
-        createPipe(847);
-        createPipe(1099);
 
+        //判定游戏结束
+        if (objBird.y < 0 || Math.abs(objBird.y - end) < objBird.stepY) {
+          var y = 0 >= objBird.y ? y : end;
+          bird.style.top = y + "px";
+          gametype = false;
+          clearInterval(timeId);
+        }
+      }, 30);
+      // 2、通过鼠标点击，让小鸟不落地
+      // 算法：改变步进,让小鸟向上运动
+      document.onclick = function() {
+        objBird.stepY = -10;
+      };
 
-        // 1、让背景向后不断运动
-        //  1.1元素获取
-        var sky = document.getElementById('sky');
-        var bird = document.getElementById('bird');
-        //  1.2定义元素对象值
-        //背景对象
-        var objSky = {
-            stepx: 5,
-            bgW: sky.offsetWidth,
-            bgH: sky.offsetHeight
-        }
-        //小鸟对象
-        var objBird = {
-            x: bird.offsetLeft,
-            y: bird.offsetTop,
-            stepY: 0,
-            birdW: bird.offsetWidth,
-            birdH: bird.offsetHeight
-        }
-        //  1.3 控制背景图片移动
-        var move = 0;     //背景左移
-        var end = objSky.bgH - objBird.birdH;
-        var pipetop = document.getElementsByClassName('pipetop');
-        var pipebottom = document.getElementsByClassName('pipebottom');
-        console.log(end);
-        var timeId = setInterval(function () {
-            //1.4、移动背景，同时让小鸟开始向下运动
-            move += objSky.stepx;
-            sky.style.backgroundPositionX = -move + 'px';
-            // 小鸟移动
-            // 之前因为改变了步长，所以在这里需要重新给步长设值，避免在之后小鸟一直向上运动
-            objBird.stepY++;
-            objBird.y += objBird.stepY;
-            bird.style.top = objBird.y + 'px';
-            //水管移动
-            // pipetop.style.left +=
-            //判定游戏结束
-            if(objBird.y < 0 || Math.abs(objBird.y - end) < objBird.stepY) {
-                var y = (0 >= objBird.y) ? y : end;
-                bird.style.top = y + 'px';
-                clearInterval(timeId);
+      // 3、动态生成水管，并让水管与背景图片的运动同步
+      // 水管创建方法
+      function createPipe(positionX) {
+        var x = positionX;
+        //设置上管道，限制高度在200-300之间
+        var topheight = Math.random() * (300 - 200) + 200;
+        var bottomheight = objSky.bgH - topheight - 200;
+        var divTop = document.createElement("div");
+        divTop.className = "pipetop";
+        divTop.style.top = 0;
+        divTop.style.height = topheight + "px";
+        divTop.style.left = positionX + "px";
+
+        var divBottom = document.createElement("div");
+        divBottom.className = "pipebottom";
+        divBottom.style.bottom = 0;
+        divBottom.style.height = bottomheight + "px";
+        divBottom.style.left = positionX + "px";
+
+        sky.appendChild(divTop);
+        sky.appendChild(divBottom);
+
+      
+        var pipx = 0;
+        //水管移动
+        var timeId2 = setInterval(function() {
+          if (gametype) {
+            //  计算小鸟坐标与管道之间的距离
+            //当utop 和 ubottom都为true时，游戏结束
+            // 碰到管道的范围
+            // objBird.x + objBird.birdW > positionX          辅助条件，判定是否进入到管道中
+            // objBird.x < positionX+divTop.offsetWidth;  辅助条件，判定小鸟是否过了一组管道
+            // objBird.y < topheight          真正的条件，当小鸟y轴坐标 < 上管道坐标时，表示已经碰到了管道（控制小鸟是否超过上边界）
+            // 4、计算小鸟途中是否触碰到水管
+            var utop =
+              objBird.x + objBird.birdW > positionX &&
+              objBird.y < topheight &&
+              objBird.x < positionX + divTop.offsetWidth;
+            var ubottom =
+              objBird.x + objBird.birdW > positionX &&
+              objSky.bgH - (objBird.y + objBird.birdH) < bottomheight &&
+              objBird.x < positionX + divTop.offsetWidth;
+              
+            if (utop || ubottom) {
+              gametype = false;
+              clearInterval(timeId);
+              if (ubottom) {
+                bird.style.top =  objSky.bgH - bottomheight - objBird.birdH + 'px';
+              }
+              clearInterval(timeId2);
             }
-
+            //判断管道是否走完
+            if (positionX < -52) {
+              positionX = 800;
+            }
+            // 动画实现
+            positionX -= 2;
+            divBottom.style.left = positionX + "px";
+            divTop.style.left = positionX + "px";
+          }
         }, 30);
-        // 2、通过鼠标点击，让小鸟不落地 
-        // 算法：改变步进,让小鸟向上运动
-        document.onclick = function () {
-            objBird.stepY = -10;
-        }
-
-
-        // 4、计算小鸟途中是否触碰到水管
+      }
+      createPipe(343);
+      createPipe(543);
+      createPipe(743);
+      createPipe(943);
     </script>
-</body>
-
+  </body>
 </html>
