@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>飞机大战</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .bg {
+        width: 320px;
+        height: 561px;
+        margin: 20px auto;
+        background: url("../img/飞机大战（简易）/bg.png");
+      }
+      .myair {
+        display: block;
+        width: 34px;
+        height: 24px;
+        position: absolute;
+        left: 0;
+        background: url("../img/飞机大战（简易）/me.png");
+      }
+    </style>
+  </head>
+  <body>
+    <!--  
+    思路：
+   
+    7、敌机与飞机重合，敌机和飞机同时消失
+-->
+    <!-- 1、实现基本布局 -->
+    <div class="bg" id="bg"></div>
+    <i class="myair" id="air"></i>
+    <script>
+      // 2、鼠标进入界面区，让飞机移动至鼠标上，飞机跟随鼠标移动
+      // 2.1获取元素
+      var bg = document.getElementById("bg");
+      var air = document.getElementById("air");
+      var airx = 0;
+      var airy = 0;
+      // 2.2飞机移动至鼠标坐标
+      var min_x = bg.offsetLeft;
+      var max_x = bg.offsetLeft + bg.offsetWidth - air.offsetWidth;
+      var min_y = bg.offsetTop;
+      var max_y = bg.offsetTop + bg.offsetHeight - air.offsetHeight;
+      // 我的飞机
+      var objAir = {
+        width: air.offsetWidth,
+        height: air.offsetHeight,
+        hlefw: air.offsetWidth / 2,
+        hlefh: air.offsetHeight / 2
+      };
+      //子弹对象定义
+      var objbuller = {
+        name: "buller",
+        num: 0,
+        arr: [], //id\top\left
+        width: 6,
+        height: 14,
+        speen: 2,
+        url: "url(../img/飞机大战（简易）/b.png)"
+      };
+      //敌机对象定义
+      var objOtherAir = {
+        name: "air",
+        num: 0,
+        arr: [],
+        width: 34,
+        height: 24,
+        url: "url(../img/飞机大战（简易）/foe.png)",
+      };
+
+      document.onmousemove = function(e) {
+        // 获取鼠标坐标
+        airx = e.pageX;
+        airy = e.pageY;
+        // 飞机活动边界
+        airx = airx - objAir.hlefw;
+        airy = airy - objAir.hlefh;
+        airx = airx < min_x ? min_x : airx;
+        airx = max_x < airx ? max_x : airx;
+        airy = airy < min_y ? min_y : airy;
+        airy = max_y < airy ? max_y : airy;
+        if (airx > min_x && airx < max_x && airy > min_y && airy < max_y) {
+          air.style.left = airx + "px";
+          air.style.top = airy + "px";
+          air.filg = true;
+        }
+      };
+      var objbullerfb; //副本
+      // 3、创建子弹，并让子弹与飞机同一位置
+      function createBuller(objbuller) {
+        // 用定时器创建子弹的原因：因为子弹并不是一下全部创建，而是隔一段时间才创建的
+        var location = objAir.width / 2 - 3; //计算子弹相对于飞机出现的位置
+        objbullerfb = objbuller;
+        var speen = 0;
+        setInterval(function() {
+          if (air.filg) {
+            if (objbullerfb.arr.length < 5) {
+              //创建元素
+              var buller = document.createElement("div");
+              buller.id = objbullerfb.num + objbullerfb.name;
+              buller.style.position = "absolute";
+              buller.style.top = air.offsetTop + 6 + "px";
+              buller.style.left = air.offsetLeft + location + "px";
+              buller.style.background = objbullerfb.url;
+              buller.style.width = objbullerfb.width + "px";
+              buller.style.height = objbullerfb.height + "px";
+              document.body.appendChild(buller);
+              //存储元素(这里为了避免被之后的元素覆盖，需要在该数组下面在定义一个对象，用于存储每次创建子弹的行动数值，以及对应ID)
+              var bullers = {
+                id: buller.id,
+                y: air.offsetTop,
+                x: air.offsetLeft
+              };
+              objbullerfb.arr.push(bullers);
+              objbullerfb.num++;
+              if ( objbullerfb.num > 50) {
+                objbullerfb.num = 0;
+              }
+            }
+          }
+        }, 1000);
+      }
+
+      //让子弹动起来
+      createBuller(objbuller);
+      function moveBuller() {
+        if (air.filg) {
+          var arrs = objbullerfb.arr.slice();
+          // 动画
+          for (let i = 0, l = arrs.length; i < l; i++) {
+            var id = document.getElementById(arrs[i].id);
+            var bu_y = arrs[i].y != null ? arrs[i].y:0;
+            bu_y--;
+            if (objbullerfb.arr[i] != undefined && id != null) {
+              console.log(id,bu_y);
+              id.style.top = bu_y + "px";
+              arrs[i].y = bu_y;
+            }
+            if (arrs[i].y < min_y) {
+              //删除
+              objbullerfb.arr.splice(objbullerfb.arr[i], 1);
+              document.body.removeChild(id);
+            }
+          }
+        }
+      }
+
+      // 5、创建敌机，
+      createotherfly(objOtherAir);
+      function createotherfly(airArr) {
+        setInterval(function() {
+          if (air.filg) {
+            //创建飞机
+            if (objOtherAir.arr.length < 5) {
+              var random = Math.random() * (max_x - min_x) + min_x;
+              var divAir = document.createElement("div");
+              divAir.id = objOtherAir.name + objOtherAir.num;
+              divAir.style.position = "absolute";
+              divAir.style.top = 20 + "px";
+              divAir.style.left = random + "px";
+              divAir.style.width = objOtherAir.width + "px";
+              divAir.style.height = objOtherAir.height + "px";
+              divAir.style.background = objOtherAir.url;
+              document.body.appendChild(divAir);
+              objOtherAir.num++;
+              //存储数值
+              var airArrs = {
+                id: divAir.id,
+                y: divAir.offsetTop,
+                x: divAir.offsetLeft
+              };
+              objOtherAir.arr.push(airArrs);
+              if(objOtherAir.num > 10){
+                objOtherAir.num = 0;
+              }
+            }
+          }
+        }, 1000);
+      }
+
+      //并让敌机向下运动
+      function moveotherfly(){
+        if (air.filg) {
+          var arrd =objOtherAir.arr;
+          for (let i = 0; i < arrd.length; i++) {
+            let id = document.getElementById(arrd[i].id);
+            id.style.top = arrd[i].y++ + 'px';
+            if (arrd[i].y > max_y) {
+              arrd.splice(i,1);
+              document.body.removeChild(id);
+            }
+          }
+        }
+      }
+      
+      var timeID = setInterval(function() {
+        moveBuller();
+        moveotherfly();
+        // 6、子弹与敌机重合，目标敌机与子弹同时消失 
+        console.log(objbullerfb.arr,objOtherAir.arr);
+        for (let i = 0; i < objbullerfb.arr.length; i++) {
+          var bullerInde = objbullerfb.arr[i];
+          var idbuller = document.getElementById(bullerInde.id);
+          for (let j = 0; j < objOtherAir.arr.length; j++) {
+            var otherair = objOtherAir.arr[j];
+            var idair = document.getElementById(otherair.id)
+            var width = document.getElementById(otherair.id).offsetWidth;
+            var height = document.getElementById(otherair.id).offsetHeight;
+
+            var xjude = bullerInde.x > otherair.x && bullerInde.x < otherair.x+width;
+            var yjude = bullerInde.y > otherair.y  && bullerInde.y < otherair.y+width;
+            if (xjude && yjude) {
+              objbullerfb.arr.splice(i,1);
+              objOtherAir.arr.splice(j,1);
+              document.body.removeChild(idair);
+              document.body.removeChild(idbuller);
+            }
+          }
+          
+        }
+      }, 10);
+    </script>
+  </body>
+</html>
