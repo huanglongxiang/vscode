@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 矢量图形标签使用 -->
+    <svg  height="500">
+        <!-- 画圆  cx 坐标 cy坐标  r半径 fill颜色 -->
+        <!-- <circle id="redcircle" cx="100" cy="50" r="50" fill="blue"></circle> -->
+        <!-- 线性渐变 -->
+         <defs>
+            <!--<linearGradient id="orange_red" x1="10%" y1="100%" x2="10%" y2="10%">
+                <stop offset ="0%" style="stop-color: rgba(255,255,0,.3);stop-opacity:1"></stop>
+                <stop offset ="100%" style="stop-color: rgba(255,0,0,.3);stop-opacity:1"></stop>
+            </linearGradient>-->
+            <!-- 放射性渐变 -->
+            <!-- <radialGradient id="yellow_red" cx ="60%" cy="60%" r="50%" fx="60%" fy="30%">
+                <stop offset ="0%" style="stop-color: yellow;stop-opacity:0.4"></stop>
+                <stop offset ="20%" style="stop-color: blue;stop-opacity:0.1"></stop>
+                <stop offset ="100%" style="stop-color: red;stop-opacity:1"></stop>
+            </radialGradient> -->
+            <!-- 高斯模糊实现 -->
+            <filter id="Gaussian_Blur">
+                <feGaussianBlur  in="SourceGraphic" stdDeviation="3"></feGaussianBlur>
+            </filter>
+        </defs>
+        <!-- <rect id="redrect" width="200" height="100" style="fill: url(#orange_red);"></rect>  -->
+        <!-- <circle cx="100" cy="150" r="50" style="fill:url(#yellow_red)"></circle> -->
+        <ellipse cx="200" cy="150" rx="70" ry ="40" style="fill: #ff0000;stroke:#000000;stroke-width:2;filter:url(#Gaussian_Blur)"></ellipse>
+    </svg>
+    <svg height="500">
+        <!-- 画椭圆 -->
+        <!-- <ellipse cx="100" cy="100" rx="100" ry="50"></ellipse> -->
+    </svg>
+    <svg  height="500">
+        <!-- 画线  x1,y1控制开始坐标，x2,y2控制结束坐标；stroke svg特定属性，可以用来描边-->
+        <!-- <line x1 = "0" y1="0" x2 ="250" y2="250" style="stroke: red; stroke-width:1;"></line> -->
+    </svg>
+    <svg  height="200">
+        <!-- 多边形-->
+        <!-- <polygon points="10,10 300,20,160,190" fill = 'red'></polygon> -->
+    </svg>
+    <svg  height="200">
+        <!-- 折线  每一对坐标都对应着一个点，参考点依旧是容器的左上角-->
+        <!-- <polyline points="0,0 0,20 90,20 90,40 0,40 0,60" style="fill: white;stroke:red;stroke-width:1" ></polyline> -->
+    </svg>
+    <svg  height="200" >
+        <!-- 路径绘制三角形  开始坐标 250 150 第二个点 150 350 第三个点  350 350  坐标点是以元素左上角为原点-->
+        <!-- <path d="M150 0 L0 200 L450 450" style="stroke: aqua;" fill="aqua"></path> -->
+    </svg>
+</body>
+
+</html>

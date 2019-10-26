@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script>
+    function drawShape(){
+        var canvas = document.querySelector('canvas');
+        var ctx = canvas.getContext('2d');
+        // 控制元素渐变  前两个位置可以调整角度
+        var grd = ctx.createLinearGradient(0,175,175,0);
+        grd.addColorStop(0,'red');
+        grd.addColorStop(1,'yellow');
+        ctx.fillStyle = grd;
+        ctx.fillRect(0,0,375,600);
+        
+    }
+</script>
+<body onload="drawShape()">
+    <canvas id="myCanvas"></canvas>
+</body>
+</html>

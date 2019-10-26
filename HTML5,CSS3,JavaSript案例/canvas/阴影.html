@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script>
+    function drawShape(){
+        var canvas = document.querySelector('canvas');
+        var ctx = canvas.getContext('2d');
+        // 控制元素阴影
+        ctx.shadowOffsetX = 6; //控制阴影方向
+        ctx.shadowOffsetY = 5; 
+        ctx.shadowBlur = 4;     //控制模糊程度
+        ctx.shadowColor = 'rgba(0,0,0,.5)'; //控制颜色
+        ctx.font = '44px Times New Roman';
+        ctx.fillStyle = 'Blue';
+        ctx.fillText('hello world',5,30);
+    }
+</script>
+<body onload="drawShape()">
+    <canvas id="myCanvas">
+        不支持
+    </canvas>
+</body>
+</html>

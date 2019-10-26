@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script>
+    function drawShape(){
+        var canvas = document.querySelector('canvas');
+        var ctx = canvas.getContext('2d');
+        //控制容器大小
+        ctx.fillRect(1,2,150,150);
+        ctx.fillStyle = 'white';
+        //控制透明度
+        ctx.globalAlpha = 0.2;
+        for(var i = 0;i<7;i++){
+            ctx.beginPath();
+            ctx.arc(75,75,10+10*i,0,Math.PI*2,true);
+            ctx.fill();
+        }
+    }
+</script>
+<body onload="drawShape()">
+    <canvas id="myCanvas"></canvas>
+</body>
+</html>

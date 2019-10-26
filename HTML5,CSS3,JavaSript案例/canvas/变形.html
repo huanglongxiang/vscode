@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script>
+    function drawShape(){
+        var canvas = document.querySelector('canvas');
+        var ctx = canvas.getContext('2d');
+        // 控制元素阴影
+        ctx.fillStyle = 'Green';
+        ctx.fillRect(0,0,150,150);//最外层
+        ctx.save();                     //保存上面的矩形
+        ctx.fillStyle = 'yellow';
+        ctx.globalAlpha = 0.5;  //控制透明度
+        ctx.fillRect(30,30,90,90);//第二个色块
+        ctx.restore();                  //取出保存的矩形
+        ctx.fillRect(45,45,60,60);//最中间的绿色色块，参数前两个坐标，后两个长宽
+    }
+</script>
+<body onload="drawShape()">
+    <canvas id="myCanvas">
+        不支持
+    </canvas>
+</body>
+</html>

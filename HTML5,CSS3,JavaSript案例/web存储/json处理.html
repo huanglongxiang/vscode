@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var data1 = 1,data2 = 2;
+        var data3,data4,str1;
+        function handleBata() {
+            //对数据进行序列化   存储时
+            localStorage['data']=JSON.stringify(data1);
+            str1 = localStorage.getItem('data');
+            // 向文档写入数据并且换行
+            document.writeln(str1);
+            //对数据进行反序列化  读取时   序列化，保证数据类型
+            data3 = JSON.parse(localStorage['data']);
+            data4 = data3+data1;
+            document.write('<br>'+data4+'');
+        }
+        window.addEventListener('load',handleBata,false);
+    </script>
+</body>
+</html>

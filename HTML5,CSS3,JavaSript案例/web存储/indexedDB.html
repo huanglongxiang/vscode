@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body onload="init()">
+    编号：<input type="text" id="nid" width="80">
+    姓名：<input type="text" id="un" width="80">
+    <button onclick="clickAddBtn()">添加</button>
+    <div id="rs"></div>
+    编号：<input type="text" id="removes" width="80">
+    <button onclick="removebtn()">删除</button>    
+    <table id="racers" border="1" cellspacing="0" style="width: 100%;">
+        <th>编号</th>
+        <th>姓名</th>
+    </table>
+    <script>
+    var db;
+    function init() {
+        //打开一个数据库
+        var req = window.indexedDB.open('IndexedDBTest','1.1');
+
+        //判断连接状态
+        req.onsuccess = function(e){
+            db = this.result;
+            showObjectData();
+        };
+        req.onupgradeneeded = function(e){
+            db = this.result;
+            
+            //创建表对象，第一个参数是表明，keyPaht:设置列
+            db.createObjectStore('user_info',{keyPath:'user_id',autoIncrement:false});
+        }
+    }
+
+    // 查询数据库中的数据
+    function showObjectData(){
+        //获取表对象
+        var transaction = db.transaction('user_info');
+
+        var store = transaction.objectStore('user_info');
+
+        //创建关键字范围描述
+        var range = IDBKeyRange.lowerBound(0);
+
+        //创建在上述范围内遍历的游标
+        var req = store.openCursor(range,IDBCursor.PREV);
+
+        req.onsuccess = function(e){
+            var result = this.result;
+            if (result) {
+                var objectData = result.value;
+                appendObjectData(objectData);
+                result.continue();
+            }
+        }
+    }
+   
+    //向HTML写入读取数据
+    function appendObjectData(objectData){
+        //接收数据
+        var user_id = objectData.user_id;
+        var user_name = objectData.user_name;
+        
+        //创建HTML元素
+        var row = document.createElement('tr');
+        var idCell = document.createElement('td');
+        var nameCell = document.createElement('td');
+        idCell.textContent = user_id;
+        nameCell.textContent = user_name;
+        row.appendChild(idCell);
+        row.appendChild(nameCell);
+        
+        //将创建元素写入文档中
+        document.getElementById('racers').appendChild(row);
+    }
+
+    //添加事件
+    function clickAddBtn(){
+        //获取页面值
+        var user_id = document.getElementById('nid').value;
+        var user_name = document.getElementById('un').value;
+        //进入添加逻辑
+        add(user_id,user_name);
+        rows.clear();
+    }
+
+    //添加数据
+    function add(user_id,user_name){
+        //创建存储对象
+        var objectData = {
+            user_id:user_id,
+            user_name:user_name
+        };
+        console.dir(objectData);
+        //通过idbatebase得到IDBTransaction    正确设置：['表名'],'值'
+        var transaction = db.transaction(['user_info'],'readwrite');
+        console.dir(transaction);
+        // 通过IDBatabase 得到IDBObjectStore
+        var store = transaction.objectStore('user_info');
+
+        //添加事件
+        var req = store.add(objectData);
+
+        // 重新加载页面
+        location.reload();
+    }
+
+    //删除数据
+    function remove(user_id){
+        //设置操作类型
+        var transaction = db.transaction(['user_info'],'readwrite');
+        //设置操作表
+        var store =transaction.objectStore('user_info');
+        //删除数据
+        var req = store.delete(user_id);
+        location.reload();
+    }
+
+    //删除事件
+    function removebtn(){
+        var user_id = document.getElementById('removes').value;
+        remove(user_id);
+        rows.clear();
+    }
+    
+    var c= +prompt("几岁？");
+    </script>
+</body>
+
+</html>

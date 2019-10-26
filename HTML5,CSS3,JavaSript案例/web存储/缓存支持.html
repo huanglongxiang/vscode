@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    function checkStorageSupport() {
+        // 判定是否支持存储
+        var output = window.sessionStorage != null ? "支持":"不支持";
+        var output2 = window.localStorage != null ? "支持":"不支持";
+        document.body.innerText = output+" "+output2;  
+        console.log(window.sessionStorage);//针对一个session进行存储
+        console.log(window.localStorage);//没有时间限制的数据存储
+        // 数据存储
+        sessionStorage.setItem('key',1);
+        localStorage.setItem('keys',2);
+        //调用数据
+        var value = +sessionStorage.getItem('key');
+        var value1 = localStorage.getItem('keys');
+        //存储都是以字符串的形式进行存储，所以需要在接收时，来将其转换为需的类型
+        console.log(typeof value,value);
+        console.log(typeof value1,value1);
+        //清除数据
+        sessionStorage.clear();     
+        //用JSON对Storage数据进行处理 
+        
+       
+    }
+    checkStorageSupport();
+</script>
+</body>
+</html>

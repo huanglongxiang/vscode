@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script>
+    function canvas(){
+        var canvas = document.querySelector('canvas');
+        var ctx = canvas.getContext('2d');
+        // 控制字体类型
+        ctx.font = 'Italic 40px Sans-Serif';
+        // 控制字体内容和字体位置
+        ctx.strokeText('Hello world!',40,50);
+        // 控制字体颜色，支持css值
+        ctx.fillStyle = '#ccc';
+        ctx.font = 'Bold 40px Sans-Serif';
+        // ctx.textBaseline = 'Top';
+        // 控制字体内容和字体位置
+        ctx.fillText('Hello world!',40,100);
+    }
+</script>
+<body onload="canvas()">
+    <canvas id="myCanvas"></canvas>
+</body>
+</html>

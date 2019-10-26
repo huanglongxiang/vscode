@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+
+        }
+
+        canvas {
+            position: absolute;
+            left: 40%;
+        }
+
+        img {
+            position: absolute;
+            left: 50%;
+        }
+    </style>
+</head>
+
+<body onload="canverImg()">
+    <img src="../img/u=2350302849,3323337377&fm=26&gp=0.jpg" alt="canvas ime" id="imgSampleImage">
+    &nbsp;
+    <canvas id="myCanvas">
+        不支持
+    </canvas>
+    <canvas id="myCanvas1">
+            不支持
+        </canvas>
+    <!-- <canvas id="canvas"></canvas> -->
+    <script>
+        // 切割图片
+        function canverImg() {
+            var canvas = document.querySelector('canvas');
+            var canvas2 = document.getElementById('myCanvas1');
+            var ctx = canvas.getContext('2d');
+            var ctx2 =canvas2.getContext('2d');
+            ctx.beginPath();
+            ctx2.beginPath();
+            var img = document.getElementById('imgSampleImage');
+            ctx.drawImage(img, 0, 0, 100, 80, 0, 0,100, 80);
+            // ctx2.drawImage(img,100,0,100,80,0,0,100,80);
+            
+            ctx.fill();//结束当前操作
+            ctx.drawImage(img, 100, 0, 100, 80,100, 0,100, 80);
+            // ctx.closePath();
+            //  ctx2.drawImage(img,100, 0, 100, 100, 0, 0, 100, 100);
+            // console.log(a);
+
+
+            // ctx.drawImage(img, 200, 0, 100, 80, 0, 0, 100, 80);
+           
+            // ctx.drawImage(img, 200, 200, 100, 80, 0, 0, 100, 80);
+
+            //    参数：2、3、控制切割位置
+            //              4、5、原图大小，6、7移动位置  8、9剪切宽度
+        }
+
+    </script>
+</body>
+
+</html>

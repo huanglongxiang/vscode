@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+<body onload="drawShape()">
+    <canvas id="myCanvas" width="800" height="300">
+
+    </canvas>
+    <script>
+        function drawShape(){
+            var canvas = document.querySelector('canvas');
+            var ctx = canvas.getContext('2d');
+            //绘制贝塞尔曲线
+            ctx.beginPath();
+            ctx.bezierCurveTo(100,700,10,30,1500,900);
+            ctx.bezierCurveTo(20,70,30,10,35,7);
+            ctx.moveTo(100,150);
+            ctx.stroke();
+            //绘制二次贝塞尔曲线
+            ctx.beginPath();
+            ctx.moveTo(10,15);
+            ctx.quadraticCurveTo(200,10,300,150);
+            ctx.stroke();
+        }
+    </script>
+</body>
+</html>

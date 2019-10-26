@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script>
+    function drawShape(){
+        var canvas = document.querySelector('canvas');
+        var ctx = canvas.getContext('2d');
+        // 控制元素阴影
+       ctx.fillStyle = 'blue';
+       ctx.fillRect(0,0, 80,80);
+        ctx.globalCompositeOperation = 'source-atop';//控制遮盖层的各种状态
+        ctx.fillStyle = '#f30';
+        ctx.beginPath();
+        ctx.arc(75,75,25,0,Math.PI*2,false); //Math.PI*2:求圆公式
+        ctx.fill();
+    }
+</script>
+<body onload="drawShape()">
+    <canvas id="myCanvas" width="160" height="160" style="border: 1px solid red;">
+        不支持
+    </canvas>
+</body>
+</html>

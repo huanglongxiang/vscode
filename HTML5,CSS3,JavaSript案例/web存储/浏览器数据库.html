@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //判定支持，并进行操作，入口
+        function DBtext() {
+            if (!window.openDatabase) {
+                console.log('不支持');
+            } else {
+                var db = openDatabase('myDB', '1.0', 'TestDB', 5 * 1024 * 1024);
+                console.log('数据库创建成功！');
+                // operationDB(db);
+                // addDB(db)
+                // searchDB(db);
+                // updateDB(db);
+                deleteDB(db);
+            }
+        }
+        
+        //创建以及添加表，并对其表进行操作
+        function operationDB(db) {
+            //创建数据表
+            db.transaction(function (tx) {
+                tx.executeSql(
+
+                    'create table if not exists one_table (one_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name TEXT)',
+
+                    [],
+
+                    function (tx, result) {
+                        console.log('数据库表创建成功！');
+                    },
+
+                    function (tx, result) {
+                        console.log('数据库表创建失败！');
+                    })
+            });
+        }
+        
+        //插入数据
+        function addDB(db) {
+
+            db.transaction(function (tx) {
+                var names = ['Tom', 'Rose', 'Kate', 'lisa'];
+                for (let i = 0; i < names.length; i++) {
+                    console.log(names[i]);
+                    //executesql该方法可以用于插入数据，等等一些与数据库有关的操作都是通过此方法实现
+                    tx.executeSql(
+
+                        'insert into  one_table (name) values(?)',
+
+                        [names[i]],
+
+                        function (tx, result) {
+                            console.log('插入成功');
+                        },
+
+                        function (tx, result) {
+                            console.log('插入失败' + result.message);
+                        });
+                }
+            })
+        }
+
+        //查询数据
+        function searchDB(db) {
+            db.transaction(function(tx){
+                tx.executeSql(
+                    'select * from one_table',
+                    [],
+                    function(tx,date) {
+                        var len = date.rows.length,i,msg;
+                        var p = document.createElement('p');
+                        p.innerText = '返回行：' + len;
+                        document.body.appendChild(p);
+                        for (let i = 0; i < len; i++) {
+                            var ps = document.createElement('p');
+                            //写入读取数据
+                            ps.innerText = date.rows.item(i).name;
+                            document.body.appendChild(ps);
+                        }
+                    },
+                    function(tx,error) {
+                        //打印错误信息
+                        console.log(error.message)
+                    }
+                )
+            })
+        }
+        
+        //修改数据
+        function updateDB(db){
+            db.transaction(function(tx){
+                tx.executeSql(
+                    'update one_table set name=? where one_id=?',
+                    ['Tomas','1'],
+                    function(tx,date) {
+                        console.log('修改成功');
+                        searchDB(db);
+                    },
+                    function(tx,error) {
+                        console.log(error.message);
+                    }
+                )
+            })
+        }
+        
+        //删除数据
+        function deleteDB(db) {
+            db.transaction(function(tx) {
+                tx.executeSql(
+                    'delete from one_table where one_id=?',
+                    [2],
+                    function(tx,date) {
+                        console.log('删除成功');
+                        searchDB(db);
+                    },
+                    function(tx,error) {
+                        console.log(error.message);
+                    }
+                ) 
+            })
+        }
+        
+        // 启动监听
+        window.addEventListener('load', DBtext, false);
+
+
+    </script>
+</body>
+
+</html>
