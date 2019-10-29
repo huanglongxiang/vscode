@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        window.webkitRequestFileSystem(window.TEMPORARY,1024*1024,onInitFs,errorHandler);
+        function onInitFs(fs){
+            fs.root.getFile(
+                'file_log.txt',
+                {create:true,exclusive:true},
+                function(fileEntry) {
+                    alert(fileEntry.name);
+                },
+                errorHandler
+            );
+        }
+        function errorHandler(e) {
+            console.log(e);
+        }
+        
+    </script>
+</body>
+</html>

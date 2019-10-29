@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function handleFile(files) {
+        //    BLOB 用于将文件转为二进制进行存储
+          if (typeof FileReader === 'underfined') {
+                //兼容IE浏览器
+                if ('Microsoft Internet Explorer' === navigator.appName) {
+                    let preview = document.getElementById('preview');
+                    preview.filters.item('DXImage Transform.Microsoft.AlphaImageLoader').src = document.getElementById('fileInput').value;
+                    document.getElementById('image').style.display = 'none';
+                }else{
+                    alert('抱歉，您的浏览器不支持~~~');
+                }
+          }else{
+              for (let i = 0; i < files.length; i++) {
+                var file = files[i];
+                var imageType = /image*/;
+              
+                // 通过type属性进行图片格式过滤,通过match方法检测
+                console.log(file.type.match(imageType));
+                if (!file.type.match(imageType)) {
+                    continue;
+                }
+                //定义fileReader对象
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    let result = document.getElementById('preview');
+                    // 将地址以HTML形式存储 this.result:将文件地址进行编码
+                    result.innerHTML = '<img src="'+this.result+'" id="image" alt="">'
+                }
+                //将图片渲染到HTML页面中
+                reader.readAsDataURL(file);
+              }
+          }
+        }
+        
+        //检测是否支持fileAPI
+        function fileSuppot() {
+            if (window.File && window.FileReader && window.FileList && window.Blob) {
+                console.log('支持以上API');
+            }else{
+                console.log('不支持以上API');
+            }
+        }
+    </script>
+    <!-- multiple可让文本上传多个文件 -->
+    请选择：
+    <input type="file" id="myfile" onChange="handleFile(this.files);">
+    <br>
+    <div id="preview">
+        <img src="" id="image" alt="">
+    </div>
+</body>
+
+</html>

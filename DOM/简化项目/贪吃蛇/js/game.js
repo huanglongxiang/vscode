@@ -1,4 +1,4 @@
-(function () {
+;(function () {
    var that;
 
     function Game(map){
@@ -59,11 +59,8 @@
                 break;
         }
     }
-    
 
     window.Game = Game;
 })()
 
-var map = document.getElementById('map');
-var game = new Game(map);
-game.start();
+

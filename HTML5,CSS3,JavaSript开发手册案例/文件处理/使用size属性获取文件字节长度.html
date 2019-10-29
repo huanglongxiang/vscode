@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function bt_Click() {
+            let nBytes = 0;
+            let fileInput = document.getElementById('myfile').files;//获取文件
+            let fileNum = fileInput.length;    //获取数量
+            console.log(fileNum);
+            for (let i = 0; i < fileNum; i++) {
+                nBytes = fileInput[i].size;                //获取文件大小
+                let fileName = fileInput.item(i);      //获取文件名称
+                let fileSize = nBytes + 'bytes';        //获取单位
+                let num = 0;
+                let cUnit = ['KIB','MIB','GIB','TIB','PIB','EIB','ZIB','YIB'];  //设置容量单位
+                for (let nApprox = nBytes / 1024; nApprox > 1;nApprox /= 1024,  num++) {
+                    //设置每个文件的大小  toFixed   转浮点，并且保留三位小数
+                    fileSize = nApprox.toFixed(3) + ' ' + cUnit[num] + '(' + nBytes + 'bytes)';
+                    
+                }
+                console.log(fileName + fileSize);
+            }
+        }
+    </script>
+    <!-- multiple可让文本上传多个文件 -->
+    <input type="file" id="myfile" multiple>
+    <input type="button" onclick="bt_Click()" value="提交">
+</body>
+
+</html>

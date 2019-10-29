@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function bt_Click() {
+            let fileInput = document.getElementById('myfile');
+            let files = fileInput.files;    //files是一个fieList对象
+            let file;
+            for (let i = 0; i < files.length; i++) {//遍历所有文件
+                file = files.item(i);//取得一个文件
+                //第二种方式
+                // file =files[i];
+                console.log(file.name);
+            }
+        }
+    </script>
+    <input type="file" id="myfile" multiple>
+    <input type="button" onclick="bt_Click()" value="提交">
+</body>
+
+</html>

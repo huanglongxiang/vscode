@@ -1,4 +1,4 @@
-(function () {
+;(function () {
     var absolute = 'absolute';
     var len = [];
     /* 2、创建蛇对象 */

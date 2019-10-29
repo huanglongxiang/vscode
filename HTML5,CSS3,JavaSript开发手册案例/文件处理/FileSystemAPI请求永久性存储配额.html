@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        window.webkitStorageInfo.requestQuota(PERSISTENT,5*1024*1024,function(granteBytes) {
+            window.webkitRequestFileSystem(PERSISTENT,granteBytes,onInitFs,errorHandler);
+        },function(e) {
+            console.log('error',e);
+        })
+        function errorHandler(fs) {
+            alert('报错');
+        }
+        function onInitFs(fs) {
+            alert(fs.name);
+        }
+    </script>
+</body>
+</html>

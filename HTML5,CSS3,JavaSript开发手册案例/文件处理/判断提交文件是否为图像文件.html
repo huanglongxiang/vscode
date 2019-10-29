@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function bt_Click() {
+            let fileInput = document.getElementById('myfile');
+            let files = fileInput.files;//获取文件
+            let file;
+            for (let i = 0; i < files.length; i++) {
+                file = fileInput.files[i];
+                //判断类型是否是图片类型，Blob接口type属性使用'image/'开头，后跟图像类型的形式。
+                if (!/image\/\w+/.test(file.type)) {
+                    alert(file.name+'请注意，您提交的不是图像文件！');
+                    break;
+                }else{
+                    alert(file.name + '文件提交成功，谢谢！');
+                }
+            }
+        }
+    </script>
+    <!-- multiple可让文本上传多个文件 -->
+    <input type="file" id="myfile" multiple>
+    <input type="button" onclick="bt_Click()" value="提交">
+</body>
+
+</html>
