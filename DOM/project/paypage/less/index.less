@@ -1,0 +1,58 @@
+/* 第一屏  begin*/
+.first-screen{
+    background: #fadd67 url('../img/t1fpyqfltdxxaiulhh-990-600.png') no-repeat center bottom;
+}
+/* 控制导航颜色 */
+#fp-nav ul li a span,
+.fp-slidesNav ul li a span{
+    background: red;
+}
+.first-screen-content{
+    width: 949px;
+    height: 834px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+
+    img{
+        position: absolute;
+
+       &:nth-of-type(1){
+           top: 0;
+           right: 0;
+           animation: firstanimate 2.5s infinite;
+       } 
+       &:nth-of-type(2){
+            bottom: 45%;
+            left: 28%;
+            animation: towanimate 3s infinite;
+        } 
+       &:nth-of-type(3){
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 150px;
+        } 
+    }
+}
+/* 第一屏  end*/
+/* 动画begin */
+/* 第一屏动画  begin*/
+@keyframes firstanimate{
+    50%{
+        top:-5%;
+    }
+    100%{
+        top: 0;
+    }
+}
+@keyframes towanimate{
+    50%{
+        bottom:42%;
+    }
+    100%{
+        bottom:45%;
+    }
+}
+/* 第一屏动画  end*/
+/* 动画end */

@@ -59,7 +59,7 @@
                 break;
         }
     }
-
+    
     window.Game = Game;
 })()
 

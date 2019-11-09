@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div{
+            width: 200px;
+            height: 200px;
+            display: inline-block;
+            border: 1px solid;
+            vertical-align: middle;
+        }
+        div:nth-of-type(1){
+            border-color: aqua;
+        }
+        div:nth-of-type(2){
+            border-color: pink;
+        }
+        div:nth-of-type(3){
+            border-color: red;
+        }
+        p{
+            text-align: center;
+            background-color:lightblue;
+            width: 100%;
+            margin: 0;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box1" id="box1">
+        <p id="p1" draggable="true">拼搏，为了未来而努力</p>
+        <p id="p2"  draggable="true">拼搏，为了未来而努力</p>
+        <p id="p3" draggable="true">拼搏，为了未来而努力</p>
+        <p id="p4" draggable="true">拼搏，为了未来而努力</p>
+    </div>
+    <div class="box2" id="box2"></div>
+    <div class="box3" id="box3"></div>
+    <script>
+        /* 完整的拖拽+释放  draggable属性，让元素能拖拽
+        ondragstart：源对象开始被拖动
+        ondrag：源对象被拖动过程中(鼠标可能在移动也可能未移动)//重复执行
+        ondragend：源对象被拖动结束
+        ondragenter：目标对象被源对象拖动着进入
+        ondragover：目标对象被源对象拖动着悬停在上方//重复执行
+        ondragleave：源对象拖动着离开了目标对象
+        ondrop：源对象拖动着在目标对象上方释放
+        通过事件委任的形式给子元素添加事件
+        1.找到目标，让其能进行拖拽
+        2.移动目标到容器中
+        3.将目标放入容器中，并且删除原来盒子中的目标 */
+        //  document.ondragstart = function(e){
+        //     //当鼠标开始进行拖动时需要将事件源的ID进行存储  通过target来获取源对象
+        //     let p = e.target;
+        //     e.dataTransfer.setData('text/html',p.id)
+        //  }
+        //  document.ondragover = function(e){
+        //      //在浏览器器中默认会将ondrop给禁用,发生事件冒泡,这里给ondragover设置,主要是将默认事件取消
+        //      e.preventDefault();
+        //  }
+        //  document.ondrop = function(e){
+        //     //获取目标事件源 
+        //     let target = e.target;
+        //     let p = document.getElementById(e.dataTransfer.getData('text/html'));
+        //     target.appendChild(p);
+        //  }
+
+        document.ondragstart = function(e){
+            let p = e.target;
+            e.dataTransfer.setData('text/html',p.id);
+        }
+
+        document.ondragover = function(e){
+            e.preventDefault();
+        }
+        document.ondrop = function(e){
+            let a = e.target;
+            let p = document.getElementById(e.dataTransfer.getData('text/html'))
+            a.appendChild(p);
+        }
+    </script>
+</body>
+</html>

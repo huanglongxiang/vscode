@@ -1,5 +1,0 @@
-{
-    "less.compile": {
-        "out":    "${workspaceRoot}//css//", // false => DON'T output .css files (overridable per-file, see below)
-    }
-}

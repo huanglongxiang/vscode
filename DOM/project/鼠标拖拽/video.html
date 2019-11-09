@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/video.css">
+</head>
+<body>
+    <figure>
+        <figcaption>视频播放器</figcaption>
+        <div class="play">
+            <video src="./video/chrome.mp4" id="video"></video>
+            <div class="control">
+                <a href="javascript:void(0)" class="swith fa fa-play" id="play"></a>
+                <div class="progress" id="progress">
+                    <div class="line"></div>
+                </div>
+                <div class="times" id="time">
+                    <span>00:00:00</span>
+                    /
+                    <span>00:00:00</span>
+                </div>
+                <a href="javascript:void(0)" class="full fa fa-arrows-alt" id="arrows"></a>
+            </div>
+        </div>
+    </figure>
+    <script src="./js/jquery.min.js"></script>
+   <script src="./js/video.js"></script>
+    
+</body>
+</html>
