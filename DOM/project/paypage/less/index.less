@@ -1,6 +1,7 @@
 /* 第一屏  begin*/
 .first-screen{
     background: #fadd67 url('../img/t1fpyqfltdxxaiulhh-990-600.png') no-repeat center bottom;
+    z-index: 1;
 }
 /* 控制导航颜色 */
 #fp-nav ul li a span,
@@ -36,6 +37,236 @@
     }
 }
 /* 第一屏  end*/
+/* 第二屏  begin*/
+.second-screen{
+    background:  #84a2d4 url('../img/t1zdgpfi8exxca6rfn-2000-600.png') no-repeat center bottom;
+    z-index: 2;
+    .second-screen-content{
+        width: 990px;
+        height: 500px;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        /* 第二屏动画 */
+        img{
+            position:  absolute;
+
+            &:nth-of-type(1){
+                right: -3%;
+                bottom: 55%;
+                opacity: 0;
+            }
+            &:nth-of-type(2){
+                bottom: 57%;
+                right: 42%;
+                opacity: 0;
+            }
+            &:nth-of-type(3){
+                bottom: 55%;
+                right: 39%;
+                display: none;
+            }
+            &:nth-of-type(4){
+                bottom: 40%;
+                right: 22%;
+                width: 58px;
+                display: none;
+            }
+            &:nth-of-type(5){
+                bottom: 108%;
+                right: 50%;
+                transform: translateX(50%);
+            }
+            &:nth-of-type(6){
+                bottom: 108%;
+                right: 50%;
+                transform: translateX(50%);
+                opacity: 0;
+            }
+            &:nth-of-type(7){
+                bottom: 68%;
+                right: 49.5%;
+                width: 102px;
+                opacity: 0;
+                z-index: 5;
+            }
+        }
+    }
+}
+/* 第二屏  end*/
+/* 第三屏  begin*/
+.third-screen{
+    background-color: #ef674d;
+    z-index: 1;
+
+    .third-screen-centent{
+        position: absolute;
+        left: 50%;
+        bottom: 50px;
+        transform: translateX(-50%);
+        background: url('../img/main.png') no-repeat center center;
+        width:990px;
+        height: 500px;
+        z-index: 1;
+    }
+    img{
+        position: absolute;
+
+            &:nth-of-type(1),
+            &:nth-of-type(2){
+                bottom:123px;
+                right: 311px;
+                transform: translateX(50%);
+            }
+            &:nth-of-type(2){
+                opacity: 0;
+            }
+            &:nth-of-type(3),
+            &:nth-of-type(6){
+                bottom: 34%;
+                left: 26%;
+                opacity: 0;
+            }
+            &:nth-of-type(4),
+            &:nth-of-type(5){
+                bottom: 10px;
+                right: 246px;
+            }
+            &:nth-of-type(5){
+                opacity: 0;
+            }
+            &:nth-of-type(6){
+                z-index: 2;
+            }
+    }
+   
+}
+/* 第三屏  end*/
+/* 第四屏  begin*/
+.fourth-screen{
+    background:#fed url('../img/t1iresfnxaxxca6rfn-2000-600.png') no-repeat center bottom;
+    display: flex;
+
+
+    div{
+        position: absolute;
+        .payCar{
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 407px;
+            height: 346px;
+            animation: normal;
+    
+            img {
+                position: absolute;
+                
+                &:nth-of-type(1){
+                    left: 38%;
+                    bottom: 380px;
+                    opacity: 0;
+                }
+                &:nth-of-type(2){
+                    z-index: 11px;
+                }
+            }
+        }
+
+        .cloud{
+            left: 0;
+            animation: cloudfirstanimate 60s infinite;
+            bottom: 80%
+        }
+        .text{
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 60%;
+
+            img{                
+                &:nth-of-type(2){
+                    position: absolute;
+                    top: 4px;
+                    opacity: 0;
+                }
+            }
+        }
+
+        .receipt{
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 25%;
+            opacity: 0;
+
+            img{
+                &:nth-of-type(2){
+                    position: absolute;
+                    left: 50%;
+                    bottom: 60%;
+                    transform: translateX(-50%);
+                }
+            }
+        }
+    }
+}
+/* 第四屏  end*/
+/* 第五屏  begin*/
+.frive-screen{
+    background:#d04759 url('../img/t1yisqfa4exxa3gmkg-2000-1500.png');
+    overflow: hidden;
+    .othiser{
+        img{
+            position: absolute;
+            
+            &:nth-of-type(1){
+                left: 20%;
+                top: 20%;
+                // opacity: 0;
+                // anim
+            }
+            &:nth-of-type(2){
+                left: 20%;
+                bottom: 200px;
+                z-index: 1;
+            }
+            &:nth-of-type(3){
+                left: 24%;
+                bottom: 270px;
+                z-index: 0;
+            }
+            &:nth-of-type(4){
+                left: 27%;
+                bottom: 926px;
+                z-index: 0;
+            }
+            
+        }
+    }
+    .mouse{
+        img{
+            position: absolute;
+            
+           
+            &:nth-of-type(1),
+            &:nth-of-type(2){
+                right: 20%;
+                bottom: 200px;
+            }
+            &:nth-of-type(2){
+                opacity: 0;
+            }
+            &:nth-of-type(3){
+                right: 24%;
+                bottom: -375px;
+            }
+
+        }
+    }
+
+}
+/* 第五屏  end*/
+
+
 /* 动画begin */
 /* 第一屏动画  begin*/
 @keyframes firstanimate{
@@ -55,4 +286,30 @@
     }
 }
 /* 第一屏动画  end*/
+/* 第四屏动画  begin*/
+@keyframes cloudfirstanimate{
+    33.33%{
+        left: 50%;
+    }
+    66.66%{
+        left: -20%;
+    }
+   100%{
+        left: 0%;
+    }
+}
+/* 第四屏动画  end*/
+/* 第五屏动画  begin*/
+@keyframes fiveanimate{
+    33.33%{
+        left: 50%;
+    }
+    66.66%{
+        left: -20%;
+    }
+   100%{
+        left: 0%;
+    }
+}
+/* 第五屏动画  end*/
 /* 动画end */
