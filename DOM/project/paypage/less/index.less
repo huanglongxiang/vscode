@@ -214,15 +214,17 @@
 .frive-screen{
     background:#d04759 url('../img/t1yisqfa4exxa3gmkg-2000-1500.png');
     overflow: hidden;
+    perspective: 500;
+    -webkit-perspective: 500;
     .othiser{
+        
         img{
             position: absolute;
             
             &:nth-of-type(1){
                 left: 20%;
                 top: 20%;
-                // opacity: 0;
-                // anim
+                opacity: 0;
             }
             &:nth-of-type(2){
                 left: 20%;
@@ -230,18 +232,22 @@
                 z-index: 1;
             }
             &:nth-of-type(3){
-                left: 24%;
+                left: 27%;
                 bottom: 270px;
                 z-index: 0;
             }
             &:nth-of-type(4){
-                left: 27%;
+                left: 24%;
                 bottom: 926px;
                 z-index: 0;
             }
             
         }
     }
+    .dEffects{
+        animation: dEffects05 3s forwards; //让动画保持到最后一针
+    }
+
     .mouse{
         img{
             position: absolute;
@@ -262,13 +268,133 @@
 
         }
     }
-
 }
 /* 第五屏  end*/
+/* 第六屏  begin*/
+.six-screen{
+    background: #84d9ed url('../img/t1dvj.fn0gxxb0_fua-2500-600.png') no-repeat 0 100%;
+    .box{
+        img{
+            position: absolute;
 
+            &:nth-of-type(1){
+                left: 123px;
+                bottom: 500px;
+                z-index: 1;
+            }
+            &:nth-of-type(2){
+                bottom: 101%;
+                left: 24%;
+                opacity: 0;
+                z-index: 0;
+            }
+            &:nth-of-type(3){
+                left: 0%;
+                top: 10%;
+                animation: cloudfirstanimate 30s infinite;
+            }
+            &:nth-of-type(4){
+                left: 0%;
+                top:34%;
+                opacity: 0;
+            }
+        }
+    }
+    .car{
+        img{
+            position: absolute;
 
-/* 动画begin */
-/* 第一屏动画  begin*/
+            &:nth-of-type(1){
+                left: 24%;
+                bottom: 0px;
+                z-index: 1;
+            }
+            &:nth-of-type(2){
+                left: 36%;
+                bottom: 13%;
+                display: none;
+            }
+            &:nth-of-type(3){
+                height: 90px;
+                left: 30%;
+                bottom:1%;
+                z-index: 0;
+            }
+        }
+    }
+    .girl{
+        img{
+            position: absolute;
+           
+
+            &:nth-of-type(1){
+                height: 90px;
+                left: 72%;
+                bottom: 119px;
+                opacity: 0;
+            }
+            &:nth-of-type(2){
+                display: none;
+                right: 285px;
+                bottom: 116px;
+            }
+            &:nth-of-type(3){
+                left: 51%;
+                bottom: 402px;
+                display: none;
+            }
+        }
+    }
+}
+/* 第六屏  end*/
+/* 第七屏  begin*/
+.serven-screen{
+    background:#8ac060 url('../img/t1wf1tfctaxxa3gmkg-2000-1500.png') no-repeat center bottom;
+
+    .hp{
+        position: absolute;
+        left: 35%;
+        bottom:  40%;
+        opacity: 0;
+    }
+
+}
+/* 第七屏  end*/
+/* 第八屏  begin*/
+.eight-screen{
+    background: url('../img/ksgw.png');
+
+    .ksgw{
+        img{
+            position: absolute;
+            &:nth-of-type(1),
+            &:nth-of-type(2){
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: 365px;
+                cursor: pointer;
+            }
+            &:nth-of-type(2){
+                display: none;
+            }
+        }
+    }
+    .other{
+        img{
+            position: absolute;
+            &:nth-of-type(1){
+                bottom: 403px;
+                left: 50%;
+                margin-left: 240px;
+                cursor: pointer;
+            }
+            &:nth-of-type(2){
+                bottom: 0;
+            }
+        }
+    }
+}
+/* 第八屏  end*/
 @keyframes firstanimate{
     50%{
         top:-5%;
@@ -300,15 +426,10 @@
 }
 /* 第四屏动画  end*/
 /* 第五屏动画  begin*/
-@keyframes fiveanimate{
-    33.33%{
-        left: 50%;
-    }
-    66.66%{
-        left: -20%;
-    }
-   100%{
-        left: 0%;
+@keyframes dEffects05{
+    100%{
+        transform: translateZ(100px) rotateY(360deg);
+        opacity: 1;
     }
 }
 /* 第五屏动画  end*/
