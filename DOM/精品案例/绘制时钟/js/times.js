@@ -61,10 +61,10 @@ function drawHour(hour, minute) {
     ctx.restore();//重置画布到之前保存时的状态
 }
 //画分针
-function drawMinute(minute) {
+function drawMinute(minute,second) {
     ctx.save();             //保存画布
     ctx.beginPath();
-    var rad = 2 * Math.PI / 60 * minute;//定义弧度
+    var rad = 2 * Math.PI / 60 * (minute + (second / 60));//定义弧度
     ctx.rotate(rad);
     ctx.moveTo(0, 10 * rem);//移动原点
     ctx.lineTo(0, -r + 30  * rem);//定义线的位置
@@ -74,11 +74,11 @@ function drawMinute(minute) {
     ctx.restore();//重置画布到之前保存的状态
 }
 //画秒针
-function drawSecond(second) {
+function drawSecond(second,milliseconde) {
     ctx.save();             //保存画布
     ctx.beginPath();
     ctx.fillStyle = 'red';
-    var rad = 2 * Math.PI / 60 * second;//定义弧度
+    var rad = 2 * Math.PI / 60 * (second + (milliseconde/1000));//定义弧度
     ctx.rotate(rad);
     ctx.moveTo(-2 * rem, 20 * rem);//移动原点
     ctx.lineTo(2 * rem, 20 * rem);
@@ -105,11 +105,12 @@ function draw() {
     var second = data.getSeconds();
     drawBackground();
     drawHour(hour, minute);
-    drawMinute(minute);
-    drawSecond(second);
+    drawMinute(minute,second);
+    drawSecond(second,data.getMilliseconds());
     drawDot();
     ctx.restore();
+    data = null;
 }
 draw();
-setInterval(draw,1000);
+setInterval(draw,10);
 
