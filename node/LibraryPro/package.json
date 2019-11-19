@@ -1,0 +1,13 @@
+{
+  "name": "LibraryPro",
+  "version": "1.0.0",
+  "main": "main.js",
+  "license": "MIT",
+  "devDependencies": {
+    "art-template": "^4.13.2",
+    "express": "^4.17.1",
+    "express-art-template": "^1.0.1",
+    "mysql": "^2.17.1",
+    "path": "^0.12.7"
+  }
+}
