@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>海报画廊</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #555555;
+            font-family: 'Avenir Next', 'Lantinghei SC';
+            font-size: 14px;
+        }
+
+        .wrap {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 50%;
+            margin-top: -300px;
+            background-color: #333333;
+            overflow: hidden;
+            /* 添加视距 */
+            -webkit-perspective: 800px;
+        }
+
+        /* 海报样式 */
+        .photo {
+            width: 260px;
+            height: 320px;
+            position: absolute;
+            z-index: 1;
+            box-shadow: 0 0 1px rgba(0, 0, 0, .01);
+            -webkit-transition: all 1s;
+        }
+
+        @font-face {
+            font-family: 'icons';
+            src: url('./icomoon.woff') format('woff');
+            font-weight: normal;
+            font-size: normal;
+        }
+
+        .photo .side {
+            width: 100%;
+            height: 100%;
+            background-color: #eeeeee;
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 20px;
+            /* 内容会在边框之内呈现 */
+            box-sizing: border-box;
+        }
+
+        .photo .side-front {
+            
+        }
+
+        .photo .side-front .image {
+            width: 100%;
+            height: 250px;
+            line-height: 250px;
+            overflow: hidden;
+        }
+
+        .photo .side-front .image img {
+            width: 100%;
+        }
+
+        .photo .side-front .caption {
+            text-align: center;
+            font-size: 16px;
+            line-height: 50px;
+        }
+
+        .photo .side-back {}
+
+        .photo .side-back .desc {
+            color: #666666;
+            font-size: 14px;
+            line-height: 1.5em;
+        }
+
+        /* 当前选中的海报样式 */
+        .photo_center {
+            width: 260px;
+            height: 320px;
+            left: 50%;
+            top: 50%;
+            margin: -160px 0 0 -130px;
+            z-index: 999;
+        }
+
+        /* 负责翻转 */
+        .photo-wrap{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            /* 为了让图像支持一个正面与反面 */
+            /* 支持子元素的3D效果 */
+            -webkit-transform-style: preserve-3d;
+            -webkit-transition: all 1s;
+        }
+
+        .photo-wrap .side-front{
+            -webkit-transform: rotateY(0deg);
+        }
+        .photo-wrap .side-back{
+            -webkit-transform: rotateY(180deg);
+        }
+        .photo-wrap .side{
+            /* 当元素不面向屏幕时隐藏 */
+            -webkit-backface-visibility: hidden;
+        }
+        .
+        .photo_front .photo-wrap{
+            -webkit-transform: rotateY(0deg);
+        }
+        .photo_back .photo-wrap{
+            -webkit-transform: rotateY(180deg);
+        }
+        /* 导航条与控制按钮设置 */
+        nav{
+            width: 80%;
+            height: 30px;
+            line-height: 30px;
+            position: absolute;
+            left: 10%;
+            bottom: 20px;
+            z-index: 999;
+            background-color: #ffffff;
+            text-align: center;
+        }
+        /* 普通样式 */
+        nav .i{
+            width: 30px;
+            height: 30px;
+            display: inline-block;
+            cursor: pointer;
+            border-radius: 50%;
+            background-color: #aaaaaa;
+            text-align: center;
+            /* 等比缩放元素 */
+            -webkit-transform: scale(.48);
+            -webkit-transition: all .5s;
+        }
+        nav .i::after{
+            content: '\e965';
+            font-family: 'icons';
+            font-size: 80%;
+            display: inline-block;
+            line-height: 30px;
+            text-align: center;
+            color: #ffffff;
+            opacity: 0;
+        }
+        /* 选中样式 */
+        nav .i_current{
+            -webkit-transform: scale(1);
+        }
+        nav .i_current::after{
+            opacity: 1;
+        }
+        nav .i_back{
+            -webkit-transform: rotateY(180deg);
+            background-color: #555555;
+        }
+        /* 优化 */
+        .photo{
+            left: 50%;
+            top: 50%;
+            margin: -160px 0 0 -130px;
+        }
+        .photo-wrap{
+            /* 固定旋转轴 */
+            -webkit-transform-origin: 0% 50%;
+        }
+        .photo_front .photo-wrap{
+            -webkit-transform: translateX(0) rotateY(0deg);
+        }
+        .photo_back .photo-wrap{
+            -webkit-transform: translateX(260px) rotateY(180deg);
+        }
+    </style>
+</head>
+
+<body onselectstart="return false;">
+    <div class="wrap" id="wrap">
+
+        <!-- photo 负责平移，旋转 -->
+        <div class="photo photo_front" onclick="turn(this)" id="photo_{{index}}">
+            <!-- photo-wrap 负责翻转 -->
+            <div class="photo-wrap">
+                <div class="side  side-front">
+                    <p class="image">
+                        <img src="./photo/{{imgs}}" alt="" srcset="">
+                    </p>
+                    <p class="caption">{{caption}}</p>
+                </div>
+                <div class="side side-back">
+                    <p class="desc">{{desc}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./photo/data.js"></script>
+    <script>
+        var data = data;
+        /* 通用函数   jq中选择器的原理 */
+        function g(element){
+            var node = element.substr(0,1) == '.' ? 'getElementsByClassName':'getElementById';
+            return document[node](element.substr(1));
+        }
+        
+        /* 生成随机数 */
+        function getRandom(arr){
+            var max = Math.max(arr[0],arr[1]);
+            var min = Math.min(arr[0],arr[1]);
+            return Math.floor(Math.random()*(max - min)+min);
+        }
+        
+        /* 生成海报  template实现原理 */
+        function addPhoto(){
+            var template = g('#wrap').innerHTML;
+            var html = [];  //生成画报
+            var nav = [];   //生成导航
+            for (const s in data) {
+                var _html = template
+                                    .replace('{{index}}',s)
+                                    .replace('{{imgs}}',data[s].img)
+                                    .replace('{{caption}}',data[s].caption)
+                                    .replace('{{desc}}',data[s].desc);
+                html.push(_html);
+                nav.push('<span class="i" id="nav_'+s+'" onclick="turn(g(\'#photo_'+s+'\'))"></span>');
+            };
+            //渲染到页面上
+            html.push('<nav>'+nav.join('')+'</nav>');
+            g('#wrap').innerHTML = html.join('');
+            pitchPhoto(getRandom([0,19]));
+        }
+        addPhoto();
+        
+        /* 计算分区范围 */
+        function range(){
+            //用于存放左右分区的范围
+            var range = {left:{x:[],y:[]},right:{x:[],y:[]}};
+            // 固定值宽高获取
+            var wrap = {
+                w:g('#wrap').clientWidth,
+                h:g('#wrap').clientHeight
+            };
+            var photo = {
+                w:g('.photo')[0].clientWidth,
+                h:g('.photo')[0].clientHeight
+            };
+            //计算范围
+            range.wrap = wrap;
+            range.photo = photo;
+
+            range.left.x = [0-photo.w,(wrap.w-photo.w)/2];
+            range.left.y = [0-photo.h,wrap.h];
+
+            range.right.x = [(wrap.w+photo.w)/2,wrap.w+photo.w];
+            range.right.y = range.left.y;
+
+            return range;
+        }
+
+        /*  海报排序 让当前海报垂直居中 */
+        function pitchPhoto(n){
+            var _photo = g('.photo');
+            var photo  = [];    //用于存放图片信息，虽然_photo有长度，但是它并不是真正的数组，所以要将其变化为一个真正的数组
+            for (let i = 0; i < _photo.length; i++) {
+                // 通过正则来判定是否含有某一个类名，\s*用来清空空格
+                _photo[i].className = _photo[i].className.replace(/\s*photo_center\s*/,'');
+                _photo[i].style.top = "";
+                _photo[i].style.left = "";
+                _photo[i].style['-webkit-transform'] = 'rotate(360deg) scale(1.3)';
+                photo.push(_photo[i]);
+            }
+            var pitch = g('#photo_'+n);
+            pitch.className += ' photo_center ';
+            var current = photo.splice(n,1)[0];
+            //得到左右分区下图片的数量
+            var left_photo = photo.splice(0,Math.floor(photo.length / 2));
+            var right_photo = photo;
+            var ranges = range();
+            //遍历左边区域
+            for (let i in left_photo) {
+                var left = left_photo[i];
+                left.style.left = getRandom(ranges.left.x)+'px';
+                left.style.top = getRandom(ranges.left.y)+'px';
+                left.style['-webkit-transform'] = 'rotate('+getRandom([-150,150])+'deg) scale(1)'
+            }
+            //遍历右边区域
+            for (let i in right_photo) {
+                var right = right_photo[i];
+                right.style.left = getRandom(ranges.right.x)+'px';
+                right.style.top = getRandom(ranges.right.y)+'px';
+                right.style['-webkit-transform'] = 'rotate('+getRandom([-150,150])+'deg) scale(1)'
+            }
+            //通过传入值与导航条进行关联
+            var navs = g('.i');
+            for (let i = 0; i < navs.length; i++) {//清空其余样式
+                navs[i].className = navs[i].className.replace(/\s*i_current\s*/,' ');
+                navs[i].className = navs[i].className.replace(/\s*i_back\s*/,' ');
+            }
+            g('#nav_'+n).className += ' i_current ';
+        }
+
+        //1、翻面控制
+        function turn(elem){
+            var cls = elem.className;
+            //获取id，通过split方法将字符串拆解成一个数组，取后面的值
+            var n = elem.id.split('_')[1];
+            //点击按钮控制对应图片到中心显示
+            if (!/photo_center/.test(cls)) {
+                return pitchPhoto(n);
+            }
+            // 通过正则与test方法来验证，传入参数中是否有正则中的字符串
+            if(/photo_front/.test(cls)){
+                cls = cls.replace(/photo_front/,'photo_back');
+                g('#nav_'+n).className += ' i_back ';
+            }else{
+                cls = cls.replace(/photo_back/,'photo_front');
+                g('#nav_'+n).className = g('#nav_'+n).className.replace(/\s*i_back\s*/,' ');
+            }
+            return elem.className = cls;
+        }
+    </script>
+</body>
+</html>
