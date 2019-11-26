@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>端午节粽子</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            background: #000000;
+            min-width: 1200px;
+            min-height: 600px;
+            font-family: 'WenQuanYi Micro Hei', SimSun, sans-serif;
+        }
+
+        .main {
+            width: 1200px;
+            height: 600px;
+            background: #000 url('./img/bg.jpg');
+            position: absolute;
+            left: 50%;
+            top: 20%;
+            margin-left: -600px;
+            margin-right: -300px;
+            overflow: hidden;
+        }
+
+        /* 粽子 盒子，所有原件都在这里*/
+        .c_zongzi_box{
+            width: 312px;
+            height: 305px;
+            position: absolute;
+            left: 700px;
+            top: 184px;
+        }
+        .c_zongzi {
+            width: 312px;
+            height: 305px;
+            background: url('./img/zz.png');
+        }
+        /* 绳子 */
+        .c_shengzi_1{
+            width: 218px;
+            height: 180px;
+            background: url('./img/line_1.png');
+            position: absolute;
+            left: 10px;
+            top: 100px;
+        }
+        .c_shengzi_2{
+
+        }
+
+        /* 粽子肉 */
+        .c_zongzirou{
+            width: 288px;
+            height: 206px;
+            background: url('./img/zzr_1.png');
+            background-size: 288px 206px;
+            position: absolute;
+            left: 50px;
+            top: 34px;
+            z-index: 110;
+        }
+
+        /* 左叶子 */
+        .c_zuoye{
+            width: 147px;
+            height: 266px;
+            background: url('./img/leaf_left.png');
+            position: absolute;
+            left: 0px;
+            top: -30px;
+            z-index: 101;
+        }
+        /* 右叶子 */
+        .c_youye{
+            width: 318px;
+            height: 338px;
+            background: url('./img/leaf_right.png');
+            position: absolute;
+            left: 80px;
+            top: -60px;
+            z-index: 111;
+        }
+        /* 底页 */
+        .c_diye{
+            width: 618px;
+            height: 468px;
+            background: url('./img/leaf_expand.png');
+            position: absolute;
+            left: -150px;
+            top: -45px;
+            z-index: 99
+        }
+
+        /* 字1 */
+        .c_t_1{
+            width: 180px;
+            height: 100px;
+            background: url('./img/t_jixiang.png');
+            position: absolute;
+            left: 50%;
+            top: 32%;
+            margin-left:-70px ;
+            margin-right: -50px;
+            z-index: 200;
+            /* 指定缩放与缩放对齐方式 */
+            transform-origin: center center;
+            transform: scale(.8);
+        }
+        .c_t_2{
+            width: 180px;
+            height: 100px;
+            background: url('./img/t_ruyi.png');
+            position: absolute;
+            left: 50%;
+            top: 32%;
+            margin-left:-70px ;
+            margin-right: -50px;
+            z-index: 200;
+            /* 指定缩放与缩放对齐方式 */
+            transform-origin: center center;
+            transform: scale(.8);
+        }
+        /* 祝福语文字 */
+        .text{
+            width: 400px;
+            height: 370px;
+            position: absolute;
+            left: 180px;
+            top: 140px;
+            font-size: 14px;
+            line-height: 20px;
+            color: #333333;
+        }
+        .text .caption{
+            width: 400px;
+            height: 240px;
+            background: url('./img/caption.png') no-repeat;
+            margin-left: 40px;
+        }
+        .text .to{
+            width: 400px;
+            margin-top: 10px;
+            margin-left: 40px;
+        }
+        .text .msg{
+            width: 400px;
+            margin-top: 10px;
+            margin-left: 40px;
+        }
+        .text .from{
+            width: 400px;
+            margin-top: 10px;
+            margin-left: 40px;
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="c_zongzi_box">
+            <div class="c_zongzi"></div>
+            <div class="c_shengzi_1"></div>
+
+            <div class="c_zongzirou"></div>
+            <div class="c_zuoye"></div>
+            <div class="c_youye"></div>
+            <div class="c_diye"></div>
+
+            <div class="c_t_1"></div>
+            <div class="c_t_2"></div>
+
+        </div>
+        <div class="text">
+            <div class="caption"></div>
+            <div class="to">慕课网的小伙伴们：</div>
+            <div class="msg">在端午节来临之际，小木给大家送来心意了，祝大家吉祥，如意，幸福，快快乐乐每一天慕课网永远与你相伴</div>
+            <div class="from">小木</div>
+        </div>
+    </div>
+</body>
+
+</html>

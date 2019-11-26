@@ -7,6 +7,6 @@ app.get('/books',server.allbook);
 app.get('/books/book/:id',server.getbookbyid);
 app.post('/books/book',server.addbook);
 app.delete('/books/book/:id',server.removebook);
-app.put('   ',server.updatabook);
+app.put('/books/book',server.updatabook);
 
 module.exports = app;

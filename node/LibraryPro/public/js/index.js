@@ -58,6 +58,7 @@ $(function () {
     }
     let updataBook = (form,newpath) => {
         //修改
+        console.log(form,newpath);
         $.ajax({
             type:'put',
             dataType:'json',
