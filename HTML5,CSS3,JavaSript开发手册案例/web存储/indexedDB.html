@@ -30,6 +30,7 @@
         req.onsuccess = function(e){
             db = this.result;
             showObjectData();
+            return;
         };
         req.onupgradeneeded = function(e){
             db = this.result;
