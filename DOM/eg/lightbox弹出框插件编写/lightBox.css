@@ -1,0 +1,103 @@
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td { margin:0; padding:0; } 
+body, button, input, select, textarea { font:12px/1.5 tahoma, arial, \5b8b\4f53; 
+    font-family: '微软雅黑';
+} 
+h1, h2, h3, h4, h5, h6{ font-size:100%; } 
+address, cite, dfn, em, var { font-style:normal; } 
+code, kbd, pre, samp { font-family: couriernew, courier, monospace; } 
+small{ font-size:12px; } 
+ul, ol { list-style:none; } 
+a { text-decoration:none; } 
+sup { vertical-align:text-top; } 
+sub{ vertical-align:text-bottom; } 
+legend { color:#000; } 
+fieldset, img { border:0; } 
+button, input, select, textarea { font-size:100%; } 
+table { border-collapse:collapse; border-spacing:0; }
+.cleafix::after{
+    content: '';
+    display: block;
+    clear: both;
+    overflow: hidden;
+    height: 0;
+}
+.cleafix{
+    *zoom: 1;
+}
+/* -------------------------------------------- */
+#G-lightBox-mask{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.5;
+    /* 滤镜 */
+    filter: alpha(opacity=50%);
+    z-index: 10000;
+    display: none;
+}
+#G-lightBox-popup{
+    position: fixed;
+    width: 300px;
+    left: 50%;
+    margin-left: -150px;
+    z-index: 10001;
+    display: none;
+}
+
+#G-lightBox-popup .lightBox-pic-view{
+    position: relative;
+    border: 5px solid #ffffff;
+    border-radius: 3px;
+    background:#fff url('../lightbox弹出框插件编写/icon/loading.gif') no-repeat center center;
+    overflow: hidden;
+}
+#G-lightBox-popup .lightBox-pic-view .lightBox-btn{
+    position: absolute;
+    top: 0;
+    width: 40%;
+    height: 100%;
+    z-index: 1;
+   
+}
+#G-lightBox-popup .lightBox-pic-view .lightBox-next-btn{
+    right: 0;
+}
+#G-lightBox-popup .lightBox-pic-view .lightBox-prev-btn{
+    left: 0;
+}
+.lightBox-prev-btn-show{
+    background: url('../lightbox弹出框插件编写/icon/prev.png') no-repeat left center;
+    cursor: pointer;
+}
+.lightBox-next-btn-show{
+    background: url('../lightbox弹出框插件编写/icon/next.png') no-repeat right center;
+    cursor: pointer;
+}
+.lightBox-img{
+    display: block;
+}
+.lightBox-pic-cation{
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.5);
+    margin: 0 5px;
+    margin-top: -60px;
+}
+.lightBox-caption-area{
+    padding: 10px 5px;
+    color: #ffffff;
+}
+.lightBox-of-index{
+    color: #999999;
+}
+.lightBox-close-btn{
+    position: absolute;
+    width: 27px;
+    height: 27px;
+    background: url('../lightbox弹出框插件编写/icon/close.png') no-repeat center center;
+    right: 10px;
+    top: 13px;
+    z-index: 2;
+}
