@@ -1,6 +1,12 @@
 ; (function () {
-    let LightBox = function () {
+    var LightBox = function (settings) {
         var self = this;
+
+        //参数处理
+        this.settings = {
+            speed: 500,
+        }
+        $.extend(this.settings, settings || {});
         /* 创建遮罩层和弹出框 */
         this.popupMask = $('<div id="G-lightBox-mask">');
         this.popupWin = $('<div id="G-lightBox-popup">');
@@ -25,6 +31,8 @@
         //准备开发事件委托，获取组数据
         this.groupName = null;
         this.groupData = [];  //放置同一组数据
+
+        //注册图片点击事件
         this.bodyNode.delegate('.js-lightBox,*[data-role=lightBox]', 'click', function (e) {
             //阻止事件冒泡
             e.stopPropagation();
@@ -48,14 +56,18 @@
         this.popupMask.click(function () {
             $(this).fadeOut();
             self.popupWin.fadeOut();
+            self.clear = false;
         });
         this.close.click(function () {
             self.popupMask.fadeOut();
             self.popupWin.fadeOut();
+            self.clear = false;
         })
 
         //显示左右切换图标
         this.flag = true;//动画执行标识
+
+        //向上和向下切换
         this.nextBtn.hover(function () {
             if (!$(this).hasClass('disablet') && self.groupData.length > 1) {
                 $(this).addClass('lightBox-next-btn-show');
@@ -64,9 +76,9 @@
             if (!$(this).hasClass('disablet') && self.groupData.length > 1) {
                 $(this).removeClass('lightBox-next-btn-show');
             }
-        }).click(function(e){
+        }).click(function (e) {
             e.stopPropagation();
-            if (!$(this).hasClass('disablet')&&self.flag) {
+            if (!$(this).hasClass('disablet') && self.flag) {
                 self.flag = false;
                 self.goto('next');
             }
@@ -79,44 +91,66 @@
             if (!$(this).hasClass('disablet') && self.groupData.length > 1) {
                 $(this).removeClass('lightBox-prev-btn-show');
             }
-        }).click(function(e){
+        }).click(function (e) {
             e.stopPropagation();
-            if (!$(this).hasClass('disablet')&&self.flag) {
+            if (!$(this).hasClass('disablet') && self.flag) {
                 self.flag = false;
                 self.goto('prev');
             }
-        })
+        });
+
+        //绑定窗口调整事件
+        var timeer = null;
+        //判断视口变化
+        this.clear = false;
+        $(window).resize(function () {
+            if (self.clear) {
+                window.clearTimeout(timeer)
+                timeer = window.setTimeout(function () {
+                    self.loadPicSize(self.groupData[self.index].src);
+                }, 500);
+            }
+
+        }).keyup(function (e) {
+            if (self.clear) {
+                if (e.which == 38 || e.which == 37) {
+                    self.prevBtn.click();
+                } else if (e.which == 40 || e.which == 39) {
+                    self.nextBtn.click();
+                }
+            }
+        });
     };
     //方法集
     LightBox.prototype = {
         //实现向上与向下切换
-        goto:function(dir){
+        goto: function (dir) {
             //向下切换
             if (dir === 'next') {
                 this.index++;
                 //判断是否到达底部
-                if (this.index>=this.groupData.length-1) {
-                    this.nextBtn.addClass('disablet').removeClass('lightBox-next-btn-show'); 
+                if (this.index >= this.groupData.length - 1) {
+                    this.nextBtn.addClass('disablet').removeClass('lightBox-next-btn-show');
                 }
                 //同时监测向上切换是否是第一张
                 if (this.index != 0) {
                     this.prevBtn.removeClass('disablet');
                 }
                 //拿数据并实现下一张图片的切换
-                let src = this.groupData[this.index].src;
+                var src = this.groupData[this.index].src;
                 this.loadPicSize(src);
             }
             //向上切换
-            else if(dir === 'prev'){
+            else if (dir === 'prev') {
                 this.index--;
                 //逻辑同上
                 if (this.index <= 0) {
                     this.prevBtn.addClass('disablet').removeClass('lightBox-prev-btn-show')
                 }
-                if (this.index != this.groupData.length-1) {
+                if (this.index != this.groupData.length - 1) {
                     this.nextBtn.removeClass('disablet');
                 }
-                let src = this.groupData[this.index].src;
+                var src = this.groupData[this.index].src;
                 this.loadPicSize(src);
             }
         },
@@ -137,6 +171,7 @@
                 self.changePic(width, height);
             });
         },
+
         //设置弹出层宽高
         changePic: function (width, height) {
             var self = this;
@@ -152,13 +187,13 @@
             this.picView.animate({
                 width: width - 10,
                 height: height - 10
-            });
+            }, self.settings.speed);
             this.popupWin.animate({
                 width: width,
                 height: height,
                 marginLeft: -(width / 2),
                 top: (winHeight - height) / 2,
-            }, function () {
+            }, self.settings.speed, function () {
                 //显示图片信息
                 self.images.css({
                     width: width - 10,
@@ -166,11 +201,13 @@
                 }).fadeIn();
                 self.picCation.fadeIn();
                 self.flag = true;//修改动画执行标识
+                self.clear = true;//根据视口变化修改长宽
             });
             //设置描述文字和当前索引
             this.imgText.text(this.groupData[this.index].caption);
             this.imgIndex.text('当前索引：' + (this.index + 1) + ' of ' + this.groupData.length);
         },
+
         //判断图片是否加载完成
         preLoadImg: function (src, callback) {
             var img = new Image();
@@ -187,6 +224,7 @@
             }
             img.src = src;
         },
+
         //过度图片
         showMaskAndPopup: function (sourceSrc, currentId) {
             var self = this;
@@ -215,7 +253,7 @@
                 top: -viewHeight,
             }).animate({
                 top: (winHeight - viewHeight) / 2,
-            }, function () {
+            }, self.settings.speed, function () {
                 //动画加载完成之后，需要加载图片
                 self.loadPicSize(sourceSrc);
             });
@@ -234,9 +272,8 @@
                     this.nextBtn.addClass('disablet');
                 }
             }
-
-
         },
+
         //获得当前点击图片的索引
         getIndexOf: function (currentId) {
             var index = 0;
@@ -251,6 +288,7 @@
 
             return index;
         },
+
         //初始化弹框
         initPopup: function (obj) {
             var self = this;

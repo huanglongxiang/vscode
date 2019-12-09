@@ -62,7 +62,13 @@
 <script src="./lightBox.js"></script>
 <script>
     $(function(){
-        var lightBox = new LightBox();
+        var lightBox = new LightBox({
+            speed:600,
+            maxWidth:900,
+            maxHeight:1000,
+            opasite:0.5
+        });
+        $.ajax({})
     })
 </script>
 </html>

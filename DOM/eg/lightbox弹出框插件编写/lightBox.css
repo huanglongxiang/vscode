@@ -37,6 +37,8 @@ table { border-collapse:collapse; border-spacing:0; }
     filter: alpha(opacity=50%);
     z-index: 10000;
     display: none;
+    /* 这里加载背景图是为了兼容IE9及以下的浏览器，不支持无背景元素的空标签 */
+    background: url('./icon/opacity.png') repeat top left;
 }
 #G-lightBox-popup{
     position: fixed;
@@ -60,7 +62,8 @@ table { border-collapse:collapse; border-spacing:0; }
     width: 40%;
     height: 100%;
     z-index: 1;
-   
+    /* 这里加载背景图是为了兼容IE9及以下的浏览器，不支持无背景元素的空标签 */
+    background: url('./icon/transparent.png') repeat top left;
 }
 #G-lightBox-popup .lightBox-pic-view .lightBox-next-btn{
     right: 0;
@@ -68,11 +71,11 @@ table { border-collapse:collapse; border-spacing:0; }
 #G-lightBox-popup .lightBox-pic-view .lightBox-prev-btn{
     left: 0;
 }
-.lightBox-prev-btn-show{
+#G-lightBox-popup .lightBox-pic-view .lightBox-prev-btn-show{
     background: url('../lightbox弹出框插件编写/icon/prev.png') no-repeat left center;
     cursor: pointer;
 }
-.lightBox-next-btn-show{
+#G-lightBox-popup .lightBox-pic-view .lightBox-next-btn-show{
     background: url('../lightbox弹出框插件编写/icon/next.png') no-repeat right center;
     cursor: pointer;
 }
@@ -84,6 +87,8 @@ table { border-collapse:collapse; border-spacing:0; }
     background-color: rgba(0, 0, 0, 0.5);
     margin: 0 5px;
     margin-top: -60px;
+    /* 这里加载背景图是为了兼容IE9及以下的浏览器，不支持无背景元素的空标签 */
+    background: url('./icon/opacity.png') repeat top left;
 }
 .lightBox-caption-area{
     padding: 10px 5px;

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 双向绑定 -->
+        <input type="text" v-model="inputValue">
+        <button @click="add">添加</button>
+        <ul>
+            <to-template
+                v-for='(item,i) in listadd'
+                :key="i"
+                :content='item'
+                :index='i'
+                @delete="handRemove"
+            ></to-template>
+        </ul>
+    </div>
+    <script>
+        Vue.component('to-template', {
+            props:['content','index'],
+            template:'<li @click="handClick">{{content}}</li>',
+            methods: {
+                handClick(){
+                    //向父组件传递需要执行的自定义事件
+                    this.$emit('delete',this.index);
+                }
+            },
+        })
+
+        new Vue({
+            el:'#app',
+            data:{
+                inputValue:'',
+                listadd:[],
+            },
+            methods: {
+                add(){
+                   this.listadd.push(this.inputValue); 
+                   this.inputValue = '';
+                },
+                handRemove(index){
+                    //可以直接获取到索引
+                    this.listadd.splice(index,1);
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>
