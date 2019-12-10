@@ -1,0 +1,229 @@
+.header {
+  width: 100%;
+  height: 54px;
+  border-bottom: 1px solid #ccc;
+  line-height: 54px;
+  display: flex;
+  justify-content: space-between;
+  /* 头部导航栏 */
+  /* 头部logo */
+}
+.header .topBar {
+  width: 180px;
+  height: 54px;
+  background-color: #cf1132;
+  text-align: center;
+  float: left;
+}
+.header .topBar a {
+  display: block;
+  height: 100%;
+  width: 100%;
+  color: #ffffff;
+  font-size: 14px;
+  font-family: cursive;
+}
+.header .topBar a i {
+  display: inline-block;
+  width: 25px;
+  height: 13px;
+  background: url(../images/header/head精灵.png);
+  background-position: -90px -305px;
+  vertical-align: text-top;
+}
+.header #NIE-topBar-news {
+  width: 420px;
+  height: 54px;
+  position: absolute;
+  left: 180px;
+  top: 0;
+}
+.header #NIE-topBar-abc-b {
+  position: absolute;
+  top: 54px;
+  z-index: 5;
+  display: none;
+}
+.header .topLogo a {
+  display: block;
+  width: 133px;
+  height: 44px;
+  background: url('../images/header/headLogo.png');
+  margin-top: 5px;
+}
+.header .more {
+  width: 140px;
+  height: 54px;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  background-color: #ac9768;
+}
+.header .more ul {
+  height: 216px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.header .more a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: white;
+  font-size: 13px;
+}
+h3 {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  font-size: 30px;
+}
+.warp {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  background: url('../images/wapplePage/bg.jpg') no-repeat;
+  background-size: 100% 100%;
+  overflow: hidden;
+  /* 添加视距 */
+  perspective: 2000px;
+  /*  photo负责平移，旋转*/
+  /* 动态添加的样式 选中样式 */
+  /* 翻面 */
+  /* 导航条 */
+  /* 优化项目 */
+  /* 固定旋转轴 */
+}
+.warp .photo {
+  width: 450px;
+  height: 320px;
+  position: absolute;
+  z-index: 1;
+  transition: all 1s ease;
+  cursor: pointer;
+  /* 负责翻面 */
+}
+.warp .photo .photo_wrap {
+  height: 320px;
+  transform-style: preserve-3d;
+  transition: all 1s ease;
+  /* 通用样式 */
+  /* 正面样式 */
+  /* 反面样式 */
+}
+.warp .photo .photo_wrap .side {
+  width: 100%;
+  height: 320px;
+  background-color: #eee;
+  padding: 20px;
+  position: absolute;
+  box-sizing: border-box;
+  backface-visibility: hidden;
+}
+.warp .photo .photo_wrap .side_front {
+  transform: rotateY(0);
+  /* 图像 */
+  /* 设置字体 */
+}
+.warp .photo .photo_wrap .side_front .images {
+  width: 100%;
+  line-height: 250px;
+  overflow: hidden;
+}
+.warp .photo .photo_wrap .side_front .images img {
+  width: 100%;
+  display: block;
+}
+.warp .photo .photo_wrap .side_front .caption {
+  text-align: center;
+  font-size: 16px;
+  line-height: 50px;
+}
+.warp .photo .photo_wrap .side_back {
+  transform: rotateY(180deg);
+}
+.warp .photo .photo_wrap .side_back .desc {
+  color: #666666;
+  font-size: 15px;
+  line-height: 1.6em;
+}
+.warp .photo_center {
+  left: 50%;
+  top: 50%;
+  margin-top: -160px;
+  margin-left: -225px;
+  z-index: 10;
+}
+.warp .photo_font .photo_wrap {
+  transform: rotateY(0deg);
+}
+.warp .photo_back .photo_wrap {
+  transform: rotateY(180deg);
+}
+@font-face {
+  font-family: 'icons';
+  src: url('../font/icomoon3.woff');
+  font-weight: normal;
+  font-size: normal;
+}
+.warp nav {
+  width: 80%;
+  height: 5%;
+  line-height: 30px;
+  left: 10%;
+  position: absolute;
+  bottom: 10%;
+  z-index: 22;
+  text-align: center;
+  /* 选中 */
+  /* 选中翻转 */
+}
+.warp nav .i {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 50%;
+  background: #aaa;
+  text-align: center;
+  transform: scale(0.48);
+  transition: all 0.5s ease;
+}
+.warp nav .i::after {
+  content: '\e965';
+  font-family: 'icons';
+  font-size: 80%;
+  display: inline-block;
+  line-height: 30px;
+  text-align: center;
+  color: #fff;
+  opacity: 0;
+}
+.warp nav .i_current {
+  transform: scale(1);
+}
+.warp nav .i_current::after {
+  opacity: 1;
+}
+.warp nav .i_back {
+  transform: rotateY(180deg);
+  background-color: #555;
+}
+.warp .photo {
+  left: 50%;
+  top: 50%;
+  margin: -160px 0 0 --130px;
+}
+.warp .photo_wrap {
+  transform-origin: 80% center;
+}
+.warp .photo_font .photo_wrap {
+  transform: translateX(0) rotateY(0deg);
+}
+.warp .photo_back .photo_wrap {
+  transform: translateX(-260px) rotateY(180deg);
+}

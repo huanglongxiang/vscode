@@ -1,0 +1,813 @@
+/* 头部 */
+.header {
+    width: 100%;
+    height: 54px;
+    border-bottom: 1px solid #ccc;
+    line-height: 54px;
+    display: flex;
+    justify-content: space-between;
+
+    /* 头部导航栏 */
+    .topBar {
+        width: 180px;
+        height: 54px;
+        background-color: #cf1132;
+        text-align: center;
+        float: left;
+
+        a {
+            display: block;
+            height: 100%;
+            width: 100%;
+            color: #ffffff;
+            font-size: 14px;
+            font-family: cursive;
+
+            i {
+                display: inline-block;
+                width: 25px;
+                height: 13px;
+                background: url(../images/head精灵.png);
+                background-position: -90px -305px;
+                vertical-align: text-top;
+            }
+        }
+
+    }
+
+    #NIE-topBar-news {
+        width: 420px;
+        height: 54px;
+        position: absolute;
+        left: 180px;
+        top: 0;
+    }
+
+    #NIE-topBar-abc-b {
+        position: absolute;
+        top: 54px;
+        z-index: 5;
+        display: none;
+    }
+
+    /* 头部logo */
+    .topLogo a {
+        display: block;
+        width: 133px;
+        height: 44px;
+        background: url('../images/headLogo.png');
+        margin-top: 5px;
+    }
+
+    .more {
+        width: 140px;
+        height: 54px;
+        border-left: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+        text-align: center;
+        overflow: hidden;
+        position: relative;
+        background-color: #ac9768;
+
+        ul {
+            height: 216px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            color: white;
+            font-size: 13px;
+        }
+    }
+}
+
+#main {
+    position       : relative;
+    overflow       : hidden;
+    height         : 947px;
+    width          : 100%;
+    background     : url('../images/homePage/[yys.163.com][11]bg42f248c.jpg') no-repeat;
+    background-size: 100% 100%;
+}
+
+#top_bar {
+    position  : absolute;
+    z-index   : 20;
+    width     : 100%;
+    height    : 100px;
+    min-width : 1280px;
+    box-sizing: border-box;
+
+    /* 导航模块 */
+    #top_nav {
+        float       : right;
+        padding-top : 35px;
+        margin-right: 15px;
+
+        li {
+            position: relative;
+            display : inline-block;
+            height  : 65px;
+
+            .aclass {
+                display    : block;
+                width      : 100px;
+                height     : 100%;
+                text-align : center;
+                line-height: 35px;
+                color      : #fff;
+                transition : all .5 ease;
+                font-size  : 16px;
+            }
+
+            .line {
+                display            : block;
+                position           : absolute;
+                right              : -7px;
+                top                : 8px;
+                width              : 15px;
+                height             : 24px;
+                background-image   : url('../images/homePage/[yys.163.com][630]commonz66d6473.png');
+                background-position: -173px -71px;
+            }
+
+            &:hover a {
+                color     : #cc4336;
+                transition: all 1s ease;
+            }
+        }
+    }
+
+    /* logn模块 */
+    .logo {
+        position: absolute;
+        width   : 100px;
+        height  : 342px;
+        left    : 50px;
+        top     : 38px;
+
+        span {
+            display        : block;
+            width          : 100%;
+            height         : 100%;
+            background     : url('../images/homePage/[yys.163.com][985]logo2.png');
+            background-size: 100% 100%;
+        }
+    }
+
+    /* 二维码扫码下载模块 */
+    .er_download_wrap {
+        position: absolute;
+        width   : 350px;
+        height  : 123px;
+        top     : 327px;
+        right   : -310px;
+        // right: 0;/* 动画实现 */
+
+        .er_download-content {
+            width                     : 100%;
+            height                    : 100%;
+            background                : #fccc00;
+            border-radius             : 10px;
+            border-bottom-right-radius: 0;
+            border-top-right-radius   : 0;
+            box-shadow                : 0 0 7px 4px #feeb00 inset;
+
+            /* 按钮 */
+            .btn {
+                width              : 22px;
+                height             : 105px;
+                display            : block;
+                position           : absolute;
+                background-image   : url(../images/homePage/[yys.163.com][100]indexze1a4fac.png);
+                background-position: -103px -120px;
+                top                : 50%;
+                transform          : translate(10px, -50%);
+            }
+
+            .abtnremove {
+                background-position: -348px -233px;
+                height             : 23px;
+                top                : 26px;
+            }
+
+            /* 内容 */
+            .er_btn_centent {
+                width   : 300px;
+                height  : 100%;
+                position: absolute;
+                right   : 0;
+
+                .er_Img {
+                    float        : left;
+                    width        : 91px;
+                    height       : 91px;
+                    background   : #fff;
+                    padding      : 8px;
+                    border-radius: 5px;
+                    position     : relative;
+                    left         : 0;
+                    top          : 7px;
+
+                    .ewm {
+                        width : 100%;
+                        height: 100%;
+                    }
+
+                    .line {
+                        position : absolute;
+                        top      : 0;
+                        right    : 0;
+                        animation: line 2s infinite;
+                    }
+
+                }
+
+                .buttons {
+                    width   : 171px;
+                    position: relative;
+                    left    : 114px;
+                    top     : 7px;
+
+                    a {
+                        display         : block;
+                        margin-bottom   : 5px;
+                        height          : 51px;
+                        background-image: url(../images/homePage/[yys.163.com][100]indexze1a4fac.png);
+
+                        &::hover {
+                            background-color: rgba(255, 255, 255, .5);
+                        }
+                    }
+
+                    .link_app {
+                        background-position: -223px -153px;
+                    }
+
+                    .link_andored {
+                        background-position: -223px -51px;
+                    }
+
+
+                }
+
+            }
+
+        }
+    }
+
+}
+
+/* 式神录内容 */
+#content,
+.container {
+    width : 1379px;
+    margin: 0 auto;
+}
+
+#content {
+    width : 1379px;
+    margin: 0 auto;
+
+    /* 左边 */
+    .left_container {
+        width      : 188px;
+        float      : left;
+        padding-top: 30px;
+        margin-left: 15%;
+        .slogn {
+            background-image: url('../images/homePage/[yys.163.com][100]indexze1a4fac.png');
+            width           : 103px;
+            height          : 298px;
+            margin          : 0 auto;
+            margin-bottom   : 35px;
+        }
+
+        /* 式神种类列表 */
+        ul {
+            width        : 100%;
+            margin-bottom: 15px;
+
+            li {
+                width : 100%;
+                height: 50px;
+
+                a {
+                    position: relative;
+                    display : block;
+                    width   : 100%;
+                    height  : 30px;
+
+                    span,
+                    i {
+                        background-image: url('../images/homePage/[yys.163.com][100]indexze1a4fac.png');
+                    }
+
+                    i {
+                        height : 25px;
+                        display: block;
+                        margin : 0 auto;
+                    }
+
+                    .all {
+                        width              : 49px;
+                        height             : 29px;
+                        background-position: -223px -262px;
+                    }
+
+                    &:hover .all {
+                        width              : 53px;
+                        background-position: -267px -233px;
+                    }
+
+                    .ld {
+                        width              : 53px;
+                        background-position: -170px -196px;
+                    }
+
+                    &:hover .ld {
+                        width              : 51px;
+                        background-position: -272px -262px;
+                    }
+
+                    .sp {
+                        width              : 26px;
+                        background-position: -275px -204px;
+                    }
+
+                    &:hover .sp {
+                        width              : 28px;
+                        background-position: -320px -233px;
+                    }
+
+                    .ssr {
+                        width              : 39px;
+                        background-position: -299px -204px;
+                    }
+
+                    &:hover .ssr {
+                        background-position: -235px -204px;
+                    }
+
+                    .sr {
+                        width              : 24px;
+                        background-position: -339px -204px;
+                    }
+
+                    &:hover .sr {
+                        width              : 27px;
+                        background-position: -363px -204px;
+                    }
+
+                    .r {
+                        width              : 12px;
+                        background-position: -223px -204px;
+                    }
+
+                    &:hover .r {
+                        width              : 15px;
+                        background-position: -235px -233px;
+                    }
+
+                    .n {
+                        width              : 12px;
+                        background-position: -223px -233px;
+                    }
+
+                    &:hover .n {
+                        width              : 15px;
+                        background-position: -251px -233px;
+                    }
+
+                    .gt {
+                        width              : 51px;
+                        height             : 23px;
+                        background-position: -170px -173px;
+                    }
+
+                    &:hover .gt {
+                        background-position: -324px -262px;
+                        height             : 25px;
+                    }
+
+                    .aress {
+                        position           : absolute;
+                        width              : 31px;
+                        height             : 19px;
+                        left               : 10px;
+                        top                : 3px;
+                        opacity            : 0;
+                        background-position: -103px -225px;
+                    }
+
+                    &:hover .aress {
+                        opacity   : 1;
+                        left      : 30px;
+                        transition: all 0.5s ease;
+                    }
+                }
+            }
+
+            li.active .all {
+                width              : 53px;
+                background-position: -267px -233px;
+            }
+
+            li.active .ld {
+                width              : 51px;
+                background-position: -272px -262px;
+            }
+
+            li.active .sp {
+                width              : 28px;
+                background-position: -320px -233px;
+            }
+
+            li.active .ssr {
+                background-position: -235px -204px;
+            }
+
+            li.active .sr {
+                width              : 27px;
+                background-position: -363px -204px;
+            }
+
+            li.active .r {
+                width              : 15px;
+                background-position: -235px -233px;
+            }
+
+            li.active .n {
+                width              : 15px;
+                background-position: -251px -233px;
+            }
+
+            li.active .gt {
+                background-position: -324px -262px;
+                height             : 25px;
+            }
+        }
+
+        /* 搜索框 */
+        .search_part {
+            width: 67%;
+            height: 25px;
+            border: 2px solid #000;
+            margin: 0 auto;
+
+            &::before {
+                content            : '';
+                background-image   : url('../images/homePage/[yys.163.com][100]indexze1a4fac.png');
+                float              : left;
+                width              : 20px;
+                height             : 20px;
+                margin-top         : 3px;
+                margin-left        : 3px;
+                background-position: -370px -233px;
+            }
+
+            input {
+                float      : left;
+                border     : 0;
+                width: 42%;
+                height     : 25px;
+                line-height: 25px;
+                outline    : none;
+                text-indent: 4px;
+                /* 控制文本框全部透明 */
+                background: 0 0;
+            }
+
+            .search_btn {
+                float      : left;
+                width      : 48px;
+                height     : 100%;
+                line-height: 25px;
+                color      : #000;
+                font-size  : 14px;
+                text-align : center;
+                border-left: 2px solid #000;
+
+                &:hover {
+                    color: #c5852a;
+                }
+            }
+
+        }
+    }
+
+    /* 右边 */
+    .right_container {
+        float: left;
+        width: 980px;
+
+        /* 式神模块 */
+        .shishen_contarner {
+            position   : relative;
+            width: 929px;
+            height     : 576px;
+            overflow   : auto;
+            margin-top : 115px;
+            &::-webkit-scrollbar{
+                background-color: rgba(0, 0, 0, 0);
+            }
+
+            .shishen_centent {
+                .s_c_item {
+                    width        : 148px;
+                    height       : 163px;
+                    margin-bottom: 30px;
+                    display      : inline-block;
+
+                    a {
+                        display : block;
+                        width   : 100%;
+                        height  : 100%;
+                        color   : #333;
+                        position: relative;
+
+                        .pic_wrap {
+                            display : block;
+                            margin  : 0 auto;
+                            width   : 120px;
+                            height  : 120px;
+                            position: relative;
+
+                            img {
+                                width : 100%;
+                                height: 100%;
+                            }
+
+                            .cover {
+                                width              : 100%;
+                                height             : 100%;
+                                position           : absolute;
+                                left               : 0;
+                                right              : 0;
+                                background-image   : url('../images/homePage/[yys.163.com][100]indexze1a4fac.png');
+                                background-position: -103px 0px;
+                            }
+                        }
+
+                        .name {
+                            display    : block;
+                            line-height: 40px;
+                            text-align : center;
+                        }
+
+                        .hover {
+                            position  : absolute;
+                            z-index   : 2;
+                            top       : 0;
+                            left      : 0;
+                            width     : 100%;
+                            height    : 100%;
+                            background: rgba(255, 255, 255, .8);
+                            opacity   : 0;
+
+                            em {
+                                position   : absolute;
+                                left       : 50%;
+                                margin-left: -22px;
+                                top        : 36px;
+                                display    : block;
+                                width      : 45px;
+                                height     : 53px;
+                                background-image : url('../images/homePage/[yys.163.com][100]indexze1a4fac.png');
+                                background-repeat: no-repeat;
+                                background-position: -170px -120px;
+                            }
+                        }
+
+                        &:hover .hover {
+                            opacity   : 1;
+                            transition: all 0.8s;
+                        }
+                    }
+
+                }
+            }
+        }
+
+        /* 滚动模块 */
+        .scroll_tip {
+            width        : 130px;
+            margin       : 0 auto;
+            margin-bottom: 35px;
+            position: relative;
+            p {
+                color      : #bd9f57;
+                font-size  : 14px;
+                text-align : center;
+                line-height: 28px;
+
+            }
+
+            i {
+                position: absolute;
+                width              : 20px;
+                height             : 16px;
+                left: 50%;
+                transform: translateX(-50%);
+                background-image   : url('../images/homePage/[yys.163.com][100]indexze1a4fac.png');
+                background-position: -134px -225px;
+                background-repeat  : no-repeat;
+                top: 34px;
+                animation: topdown 1s infinite;
+            }
+        }
+
+        /* 分享*/
+        .Nie_share {
+            display    : block;
+            position   : relative;
+            width      : 100%;
+            margin     : 0 auto;
+            padding-top: 20px;
+            z-index    : 20;
+            text-align : center;
+
+            .nie_share06 {
+                display   : table;
+                text-align: center;
+                margin    : 0 auto;
+                font-size : 14px;
+
+
+                .nie_share06_txt {
+                    height     : 35px;
+                    line-height: 35px;
+                    color      : #333;
+                    float      : left;
+                }
+
+                .nie_share06_btn {
+                    padding: 0;
+                    margin : 0;
+                    float  : left;
+
+                    li {
+                        display        : inline-block;
+                        text-decoration: none;
+                        text-align     : left;
+                        margin-right   : 9px;
+                        font-size      : 0;
+
+                        a {
+                            display     : table;
+                            margin-right: 3px;
+                            color       : #333;
+                            text-align  : center;
+                            font-size   : 14px;
+                            height      : 35px;
+
+                            .iconfont {
+                                font-size     : 20px;
+                                vertical-align: middle;
+                                display       : table-cell;
+                                padding-right : 4px;
+                            }
+
+                            em {
+                                margin-right  : 9px;
+                                margin-left   : 9px;
+                                vertical-align: middle;
+                                display       : table-cell;
+                            }
+                        }
+
+                        &:hover a em,
+                        &:hover a .iconfont {
+                            color: #d8493e;
+                        }
+                    }
+                }
+            }
+        }
+
+        /* 底部模块 */
+        .Nie_copyRight {
+            margin-left: -20px;
+            
+            .NIE_copyRight_new_inner {
+                width      : 1124px;
+                text-align : left;
+                margin     : 0 auto;
+                padding    : 15px 0 10px;
+                font-size  : 12px;
+                line-height: 20px;
+
+                /* logo 模块 */
+                .nie_cn_logo {
+                    display       : inline-block;
+                    vertical-align: middle;
+                    height        : 48px;
+                    min-width     : 300px;
+
+                    a {
+                        display       : inline-block;
+                        vertical-align: top;
+                        margin-top    : 2px;
+
+                        &:nth-of-type(2) {
+                            margin-right: 19px;
+                        }
+
+                        &:nth-of-type(3) {
+                            margin-right: 19px;
+                        }
+
+                        &:nth-of-type(4) {
+                            margin-right: 19px;
+                        }
+                    }
+                }
+
+                /* 友情连接模块 */
+                .friendshop {
+                    display       : inline-block;
+                    vertical-align: middle;
+                    height        : 48px;
+                    min-width     : 300px;
+
+                    a {
+                        color: #000;
+
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+
+                    p:nth-of-type(2) {
+                        margin-top: 10px;
+                    }
+
+                    .familyPlatform {
+                        color           : #fff;
+                        background-color: #610000;
+                        height          : 26px;
+                        line-height     : 26px;
+                        padding         : 3px 3px;
+                        float           : right;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* 动画实现 */
+.draw-enter,
+.draw-leave-to {
+    right: 0px;
+}
+
+.draw-enter-active,
+.draw-leave-active {
+    transition: all 0.5s ease;
+}
+
+@keyframes line {
+    0% {
+        top: 0px;
+    }
+
+    100% {
+        top: 100px;
+    }
+}
+@keyframes topdown{
+    0%{
+        top:35px ;
+    }
+    50%{
+        top: 50px;
+    }
+    100%{
+        top: 35px;
+    }
+}
+/* 工具 */
+.scrolls{
+    width: 10px;
+    height: 576px;
+    position: absolute;
+    right: 10%;
+   top: 114px;
+    
+    .scroll_line{
+        width: 10px;
+        height: 50px;
+        background: #ccc;
+        display: none;
+        border-radius: 10px;
+        position: absolute;
+        top: 0px;
+
+    }
+}

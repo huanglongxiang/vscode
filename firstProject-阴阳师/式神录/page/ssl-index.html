@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>式神录</title>
+    <link rel="shortcut icon" href="../images/indexPage/[yys.163.com][114]icon.ico">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/ssl-index.css">
+    <link rel="stylesheet" href="../font/iconfont.css">
+    <link rel="stylesheet" href="../css/fan-topbar.css">
+    <script src="../js/vue.min.js"></script>
+    <style>
+        /* 可以设置不同的进入和离开动画 */
+        /* 设置持续时间和动画函数 */
+        .slide-fade-enter-active,
+        .slide-fade-leave-active {
+            transition: all 1s ease;
+        }
+
+        .slide-fade-enter,
+        .slide-fade-leave-to {
+            transform: translateY(500px);
+            opacity: 0;
+        }
+    </style>
+    <script src="../js/jquery-1.12.4.js"></script>
+    <!-- <script src="../js/jquery.min.js"></script> -->
+    
+</head>
+
+<body>
+    <!-- 头部 -->
+    <div class="header">
+        <!-- 头部导航栏 -->
+        <div class="topBar" id="topBar">
+            <a href="#">
+                <i></i>
+                游戏全目录
+            </a>
+        </div>
+        <div id="NIE-topBar-news" class style="display: block;">
+            <span>
+                <img id="" src="../images/fan-动漫-头部小.jpg" alt="">
+                <a href="https://ssr.163.com/fab/">
+                    <img id="NIE-topBar-abc-b" src="../images/fan-动漫-头部大.jpg" alt="">
+                </a>
+            </span>
+        </div>
+        <!-- 头部logo -->
+        <div class="topLogo">
+            <a href="http://game.163.com/"></a>
+        </div>
+        <div class="more">
+            <ul class="moreUl">
+                <li> <a href="#">性感彭林</a></li>
+                <li> <a href="#">在线发牌</a></li>
+                <li> <a href="#">了解更多</a></li>
+                <li> <a href="#">性感彭林</a></li>
+            </ul>
+        </div>
+        <!-- 隐藏的游戏全目录-->
+        <div class="game_order" id="game_order">
+            <div class="gorder">
+                <div class="orders">
+                    <span class="orders_title">
+                        客户端游戏
+                    </span>
+                    <div class="order_ul">
+                        <span class="ul_span">角色扮演</span>
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <span>梦幻西电脑版</span>
+
+                                    <i class="no1"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>大话西游</span>
+                                    <i class="hot"></i>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#">
+
+                                    <span>我的世界</span>
+                                    <i class="new"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>梦幻西电脑版</span>
+
+                                    <i class="no1"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>大话西游</span>
+                                    <i class="hot"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+
+                                    <span>我的世界</span>
+                                    <i class="new"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>梦幻西电脑版</span>
+
+                                    <i class="no1"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>大话西游</span>
+                                    <i class="hot"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+
+                                    <span>我的世界</span>
+                                    <i class="new"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>梦幻西电脑版</span>
+
+                                    <i class="no1"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>大话西游</span>
+                                    <i class="hot"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+
+                                    <span>我的世界</span>
+                                    <i class="new"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>梦幻西电脑版</span>
+
+                                    <i class="no1"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>大话西游</span>
+                                    <i class="hot"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+
+                                    <span>我的世界</span>
+                                    <i class="new"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="order_ul">
+                        <span class="ul_span">竞技/休闲</span>
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <span>梦幻西电脑版</span>
+
+                                    <i class="no1"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>大话西游</span>
+                                    <i class="hot"></i>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#">
+
+                                    <span>我的世界</span>
+                                    <i class="new"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>梦幻西电脑版</span>
+
+                                    <i class="no1"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>大话西游</span>
+                                    <i class="hot"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+
+                                    <span>我的世界</span>
+                                    <i class="new"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>梦幻西电脑版</span>
+
+                                    <i class="no1"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>大话西游</span>
+                                    <i class="hot"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+
+                                    <span>我的世界</span>
+                                    <i class="new"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>梦幻西电脑版</span>
+
+                                    <i class="no1"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>大话西游</span>
+                                    <i class="hot"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+
+                                    <span>我的世界</span>
+                                    <i class="new"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>梦幻西电脑版</span>
+
+                                    <i class="no1"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>大话西游</span>
+                                    <i class="hot"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+
+                                    <span>我的世界</span>
+                                    <i class="new"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="orders">
+                    <span class="orders_title">
+                        手机游戏
+                    </span>
+                    <div class="order_ul">
+                        <span class="ul_span">竞技/休闲</span>
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <span>梦幻西电脑版</span>
+
+                                    <i class="no1"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>大话西游</span>
+                                    <i class="hot"></i>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#">
+
+                                    <span>我的世界</span>
+                                    <i class="new"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>梦幻西电脑版</span>
+
+                                    <i class="no1"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>大话西游</span>
+                                    <i class="hot"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+
+                                    <span>我的世界</span>
+                                    <i class="new"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>梦幻西电脑版</span>
+
+                                    <i class="no1"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>大话西游</span>
+                                    <i class="hot"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+
+                                    <span>我的世界</span>
+                                    <i class="new"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>梦幻西电脑版</span>
+
+                                    <i class="no1"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>大话西游</span>
+                                    <i class="hot"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+
+                                    <span>我的世界</span>
+                                    <i class="new"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>梦幻西电脑版</span>
+
+                                    <i class="no1"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>大话西游</span>
+                                    <i class="hot"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+
+                                    <span>我的世界</span>
+                                    <i class="new"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="order_ul">
+                        <span class="ul_span">竞技/休闲</span>
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <span>梦幻西电脑版</span>
+
+                                    <i class="no1"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>大话西游</span>
+                                    <i class="hot"></i>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#">
+
+                                    <span>我的世界</span>
+                                    <i class="new"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>梦幻西电脑版</span>
+
+                                    <i class="no1"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>大话西游</span>
+                                    <i class="hot"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+
+                                    <span>我的世界</span>
+                                    <i class="new"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>梦幻西电脑版</span>
+
+                                    <i class="no1"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>大话西游</span>
+                                    <i class="hot"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+
+                                    <span>我的世界</span>
+                                    <i class="new"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>梦幻西电脑版</span>
+
+                                    <i class="no1"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>大话西游</span>
+                                    <i class="hot"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+
+                                    <span>我的世界</span>
+                                    <i class="new"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>梦幻西电脑版</span>
+
+                                    <i class="no1"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>大话西游</span>
+                                    <i class="hot"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+
+                                    <span>我的世界</span>
+                                    <i class="new"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="orders">
+                    <span class="orders_title">
+                        游戏辅助
+                    </span>
+                    <div class="order_ul">
+                        <span class="ul_span">竞技/休闲</span>
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <span>梦幻西电脑版</span>
+
+                                    <i class="no1"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>大话西游</span>
+                                    <i class="hot"></i>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#">
+
+                                    <span>我的世界</span>
+                                    <i class="new"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>梦幻西电脑版</span>
+
+                                    <i class="no1"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>大话西游</span>
+                                    <i class="hot"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+
+                                    <span>我的世界</span>
+                                    <i class="new"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>梦幻西电脑版</span>
+
+                                    <i class="no1"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>大话西游</span>
+                                    <i class="hot"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+
+                                    <span>我的世界</span>
+                                    <i class="new"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>梦幻西电脑版</span>
+
+                                    <i class="no1"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>大话西游</span>
+                                    <i class="hot"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+
+                                    <span>我的世界</span>
+                                    <i class="new"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>梦幻西电脑版</span>
+
+                                    <i class="no1"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>大话西游</span>
+                                    <i class="hot"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+
+                                    <span>我的世界</span>
+                                    <i class="new"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 头部结束 -->
+    <div id="main">
+        <div id="top_bar">
+            <!-- 导航模块 begin -->
+            <div id="top_nav">
+                <ul>
+                    <li v-for="item in list" :key="item.id">
+                        <a href="javascript:;" class="aclass">{{item.txt}}</a>
+                        <span class="line" v-if="item.id != '8'"></span>
+                    </li>
+                </ul>
+            </div>
+            <!-- 导航模块 end -->
+            <!-- log模块begin -->
+            <a href="javascript:;" class="logo">
+                <span></span>
+            </a>
+            <!-- log模块 end-->
+            <!-- 二维码扫码下载模块 begin -->
+            <div class="er_download_wrap" id="download">
+                <div class="er_download-content">
+                    <a class="btn" @click="move" href="javasricpt:;"></a>
+                    <div class="er_btn_centent">
+                        <div class="er_Img">
+                            <img src="../images/homePage/[yys.163.com][39826].png" alt="" class="ewm">
+                            <img src="../images/homePage/[yys.163.com][12]linef7b07c8.png" class="line" alt="">
+                        </div>
+                        <div class="buttons">
+                            <a href="" class="link_app"></a>
+                            <a href="" class="link_andored"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 二维码扫码下载模块 end -->
+        </div>
+        <!-- 式神列表 begin -->
+        <div id="content">
+            <div class="container cleafix">
+                <!-- 左边内容 -->
+                <div class="left_container">
+                    <div class="slogn"></div>
+                    <ul id="shishen_list">
+
+                        <li v-for="(item,i) in sslist" :key="i" @click="classify">
+                            <a href="javascript:;">
+                                <span class="aress"></span>
+                                <i v-bind:class="item"></i>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <div class="search_part">
+                        <input type="text" name="" id="">
+                        <a href="javascript:;" class="search_btn">搜索</a>
+                    </div>
+
+
+                </div>
+                <!-- 右边内容 -->
+                <div class="right_container">
+                    <div class="scrolls" id="scroll">
+                        <div class="scroll_line" id="scorll_line"></div>
+                    </div>
+                    <!-- 式神区域 -->
+                    <div class="shishen_contarner" id="cententBox">
+
+                        <div class="shishen_centent" id="centent">
+                            <happy-scroll color="rgba(0,0,0,.5)" size="5">
+                                <transition-group name="slide-fade" appear>
+                                    <div v-for="item in shishen" :key="item.id" class="s_c_item">
+                                        <a href="./ssl-detaile.html">
+                                            <span class="pic_wrap">
+                                                <img v-bind:src="'../images/homePage/'+item.src" alt="">
+                                                <i class="cover"></i>
+                                            </span>
+                                            <span class="name" v-text="item.id"></span>
+                                            <span class="hover">
+                                                <em></em>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </transition-group>
+                            </happy-scroll>
+                        </div>
+                    </div>
+                    <!-- 滚动条区域 -->
+                    <div class="scroll_tip">
+                        <p>滚动加载更多式神</p>
+                        <i></i>
+                    </div>
+                    <div class="Nie_share">
+                        <div class="nie_share06 cleafix">
+                            <span class="nie_share06_txt">分享到：</span>
+                            <ul class="nie_share06_btn">
+                                <li v-for="(item,i) in share" :key="i">
+                                    <a href="javascript:;">
+                                        <i class="iconfont" v-bind:class="item.iconfont"></i>
+                                        <em>{{item.txt}}</em>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- 底部内容 -->
+                    <div class="Nie_copyRight">
+                        <div class="NIE_copyRight_new_inner">
+                            <div class="nie_cn_logo">
+                                <a v-bind:href="item.url" v-for="item in logoslist">
+                                    <img v-bind:src="item.logoImg" alt="">
+                                </a>
+                            </div>
+                            <div class="friendshop">
+                                <p>
+                                    <span v-for="(item,i) in friendline" :key="i">
+                                        <a href="item.url">
+                                            {{item.txt}}
+                                        </a>
+                                        <i v-if="i != friendline.length-1">&nbsp;-&nbsp;</i>
+                                    </span>
+                                </p>
+                                <p>网易公司版权所有 ©1997-2019
+                                    <a href="https://jiazhang.gm.163.com/" class="familyPlatform">点击查看家长关爱平台 > </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 式神列表 end -->
+    </div>
+    <script src="../js/dom.js"></script>
+    <script src="../js/fan-topBar.js"></script>
+    
+</body>
+
+</html>

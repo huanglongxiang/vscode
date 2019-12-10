@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /* 京都商业街 */
+        .part_jingdu {
+            margin-bottom: 57px;
+            position: relative;
+            height: 264px;
+            background-color: blue;
+            width: 1060px;
+        }
+        .part_title {
+            background-position: -725px -297px;
+            width: 53px;
+            height: 184px;
+            margin-right: 67px;
+        }
+        ul {
+            width: 2700px;
+            height: 244px;
+            position: relative;
+        }
+        li {
+            float: left;
+            width: 250px;
+            height: 174px;
+            margin-right: 20px;
+            position: relative;
+            background-color: purple;
+        }
+        .jingdu_box {
+            width: 1060px;
+            height: 305px;
+            float: left;
+            padding-top: 20px;
+            position: relative;
+            top: -20px;
+            overflow: auto;
+            background-color: yellow;
+            float: right;
+        }
+        .jingdu_box::-webkit-scrollbar {
+            display: none;
+        }
+        .scrools {
+            background: rgb(239, 239, 239);
+            top: 307px;
+            left: 0px;
+            position: absolute;
+            opacity: 1;
+            cursor: default;
+            display: block;
+            width: 1060px;
+            height: 5px;
+        }
+        .scroll_line {
+            position: absolute;
+            width: 154px;
+            background-color: rgb(255, 255, 255);
+            border: 1px solid rgb(194, 160, 96);
+            background-clip: padding-box;
+            border-radius: 0px;
+            left: 0px;
+            top: -14px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="part_jingdu">
+        <a href="#" class="part_title"></a>
+        <div class="jingdu_box">
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <div class="scrools">
+            <div class="scroll_line">
+                拖动
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    /* 变量声明 */
+    let jingdu_box = document.querySelector('.jingdu_box');
+    let ul = jingdu_box.children[0];
+    let part_jingdu = document.querySelector('.part_jingdu');
+    let scroll_line = document.querySelector('.scroll_line');
+    let scroll = document.querySelector('.scrools');
+    let steep = 0;
+    let steep2 = 0;
+    /* 事件注册 */
+    jingdu_box.addEventListener('mouseenter', mouseMoveOut, false);
+    jingdu_box.addEventListener('mouseleave', leaves, false);
+    scroll_line.addEventListener('mousedown', dragLine, false);
+    document.addEventListener('mouseup', removeMouse, false);
+    /* 事件方法 */
+    /* 通过拖拽来实现滚动 */
+    function dragLine(e) {
+        let mouseLeft = e.pageX - part_jingdu.offsetLeft - scroll_line.offsetLeft;
+        /* 限定边界 */
+        let left = 0;
+        let right = part_jingdu.offsetWidth - scroll_line.offsetWidth;
+        let x = 0, boxX, Tx;
+        x = e.pageX - scroll_line.offsetLeft;
+
+        /* 滚动 */
+        document.onmousemove = function (ev) {
+            boxX = ev.pageX - x;
+            boxX = boxX < 0 ? 0 : boxX;
+            boxX = scroll.clientWidth - scroll_line.clientWidth < boxX ? scroll.clientWidth - scroll_line.clientWidth : boxX;
+            scroll_line.style.left = boxX + 'px';
+            Tx = boxX / (scroll.clientWidth - scroll_line.clientWidth) * (ul.scrollWidth - jingdu_box.clientWidth);
+            ul.style.left = -Tx + 'px';
+        }
+    }
+    function removeMouse() {
+        document.onmousemove = null;
+        /* 保存当前滚动值 */
+        steep2 = -scroll_line.offsetLeft;
+        steep = parseInt(ul.offsetLeft);
+    }
+    /* 通过滚轮来控制内容横向滚动 */
+    function scrolls(e) {
+        steep += (e.wheelDelta * (scroll.offsetWidth / ul.offsetWidth)) / (scroll.clientWidth - scroll_line.clientWidth) * (ul.scrollWidth - jingdu_box.clientWidth);
+        steep = -steep < 3 ? -3 : steep;
+        steep = -steep > 1722 ? -1722 : steep;
+        steep2 += (e.wheelDelta * (scroll.offsetWidth / ul.offsetWidth));
+        steep2 = steep2 <= 0 ? steep2 : 0;
+        steep2 = -(scroll.clientWidth - scroll_line.clientWidth) > steep2 ? -(scroll.clientWidth - scroll_line.clientWidth) : steep2;
+        ul.style.left = steep +'px';
+        scroll_line.style.left = -steep2 + "px";
+    }
+    function countScroll(e) {
+        let dis_left = e.target.scrollLeft * (jingdu_box.offsetWidth / ul.clientWidth);
+        scroll_line.style.left = dis_left + "px"
+    }
+    function leaves() {
+        jingdu_box.removeEventListener('wheel', scrolls, false);
+        document.onmousewheel = null;
+    }
+    function mouseMoveOut() {
+        jingdu_box.addEventListener('wheel', scrolls, false);
+    }
+</script>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>同人画廊</title>
+    <link rel="shortcut icon" href="../images/indexPage/[yys.163.com][114]icon.ico">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/ssl-wapple.css">
+</head>
+
+<body onselectstart="return false">
+    <!-- 容器 -->
+    <div class="warp" id="wrap">
+        <!-- photo负责平移，旋转 -->
+        <div class="photo photo_font " onclick="turn(this)" id="photo_{{index}}">
+            <!-- 负责翻面 -->
+            <div class="photo_wrap">
+                <!-- 正面 -->
+                <div class="side side_front">
+                    <p class="images">
+                        <img src="../images/wapplePage/{{src}}" alt="">
+                    </p>
+                    <p class="caption">{{caption}}</p>
+                </div>
+                <!-- 反面 -->
+                <div class="side side_back">
+                    <p class="desc">{{desc}}</p>
+                </div>
+            </div>
+        </div>
+        <!-- 导航 -->
+    </div>
+    <script src="../images/wapplePage/data.js"></script>
+    <script src="../js/dom_index.js"></script>
+</body>
+</html>

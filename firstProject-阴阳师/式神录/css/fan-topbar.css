@@ -1,0 +1,100 @@
+.game_order {
+    position: absolute;
+    top: 54px;
+    width: 100%;
+    background-color: #fff;
+    opacity: 0.95;
+
+    z-index: 99;
+    display: none;
+    -webkit-transition: height .4s ease 0s;
+    -o-transition: height .4s ease 0s;
+    -moz-transition: height .4s ease 0s;
+    transition: height .4s ease 0s;
+
+}
+
+.gorder {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.orders {
+    float: left;
+    padding-left: 25px;
+    border-right: 1px solid #eaeaea;
+    padding-bottom: 25px;
+}
+
+.orders:last-child {
+    border: none;
+}
+
+.orders span.orders_title {
+    color: #cf1132;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 40px;
+    display: block;
+    width: 100%;
+
+}
+
+.order_ul {
+    width: 180px;
+    float: left;
+    margin-right: 20px;
+    margin-left: 15px;
+}
+
+.order_ul .ul_span {
+    font-size: 16px;
+    color: #1C1C1C;
+    font-weight: 400;
+    height: 40px;
+    width: 100%;
+    display: block;
+
+
+}
+
+.order_ul li {
+    line-height: 20px;
+    font-size: 12px;
+    width: 100%;
+    padding-right: 10px;
+    height: 20px;
+    padding-bottom: 30px;
+}
+
+.order_ul li a {
+    color: #1C1C1C;
+}
+
+.order_ul li a span {
+    float: left;
+}
+
+.order_ul li a i {
+    font-weight: 400;
+    display: block;
+    line-height: 24px;
+    float: right;
+    width: 25px;
+    height: 20px;
+    background-image: url(../images/sprite-w_dd519f4.png);
+    background-repeat: no-repeat;
+
+}
+
+.order_ul li a i.no1 {
+    background-position: right -267px;
+}
+
+.order_ul li a i.hot {
+    background-position: right -144px;
+}
+
+.order_ul li a i.new {
+    background-position: right -206px;
+}
