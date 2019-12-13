@@ -21,10 +21,17 @@ const routes = [
   {
     path: '/2-2',
     name: '2-2',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import('../views/2-2.vue')
+    component: () => import('../views/2-2各种请求方式实现.vue')
+  },
+  {
+    path: '/2-3',
+    name: '2-3',
+    component: () => import('../views/2-3并发实现.vue')
+  },
+  {
+    path: '/ListDemo',
+    name: 'ListDemo',
+    component: () => import('../views/ListDemo.vue')
   }
 ]
 
