@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>小球运动</title>
+</head>
+<body>
+    <canvas id="canvas" style="border: 1px solid #aaa;display: block;margin: 50px auto">
+        当前浏览器不支持
+    </canvas>
+    <script>
+        //运动学应用
+        let ball = {
+            x:512,
+            y:100,  //坐标
+            r:20,   //半径
+            g:2,    //加速度
+            vx:-4,  //速度1  以向量的方式表示
+            vy:-4,   //速度2  以向量的方式表示   
+            color:'#005588'
+        }
+        window.onload = function () {
+            let canvas = document.querySelector('canvas');
+            let context = canvas.getContext('2d');
+
+            canvas.width = 1024;
+            canvas.height = 768;
+
+            setInterval(()=>{
+                render(context);
+                update();
+            },10)
+        }
+        function render(ctx){
+            //通过上下文找到当前画布的环境，之后在得到宽高 ,可清空指定区域的内容
+            ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height)
+
+            console.log(ctx.canvas.width,ctx.canvas.height);
+            ctx.fillStyle = ball.color;
+            ctx.beginPath();
+            ctx.arc(ball.x,ball.y,ball.r,0,2*Math.PI);
+            ctx.closePath();
+
+            ctx.fill();
+        }
+        function update(){
+            ball.x += ball.vx;  //改变x轴运动
+            ball.y += ball.vy;  //y轴运动
+            ball.vy += ball.g;  //给小球添加速度
+
+            //碰撞检测 ,监测小球坐标是否触碰到边界
+            if (ball.y >= 768 - ball.r) {
+                ball.y = 768-ball.r;
+                //加入摩擦系数，让其反弹时速度有所损耗
+                ball.vy = -ball.vy*0.75;   
+            }
+        }
+    </script>
+</body>
+</html>
