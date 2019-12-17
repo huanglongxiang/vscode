@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas style="border: 1px solid #aaa;display: block;margin: 50px auto"></canvas>
+    <script>
+        let canvas = document.querySelector('canvas');
+        canvas.width=800;
+        canvas.height = 800;
+        //addColorStop 可以添加多个  createLinearGradient 0，0起始坐标位置， 800，800结束坐标位置
+        //fillRect 与createLinearGradient 参数相同，起始与结束坐标可以超过画布限制
+        let ctx = canvas.getContext('2d');
+        let linearGrad = ctx.createLinearGradient(0,0,800,800);
+        linearGrad.addColorStop(0.0,'white');
+        linearGrad.addColorStop(1.0,'black');
+        ctx.fillStyle = linearGrad;
+        ctx.fillRect(0,0,300,300);
+
+        
+       
+    </script>
+</body>
+</html>

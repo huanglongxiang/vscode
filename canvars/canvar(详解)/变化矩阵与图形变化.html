@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas style="border: 1px solid #aaa;display: block;margin: 50px auto"></canvas>
+    <script>
+        let canvas = document.querySelector('canvas');
+        canvas.width=800;
+        canvas.height = 800;
+        
+        let ctx = canvas.getContext('2d');
+        ctx.fillStyle = 'red';
+        ctx.strokeStyle = '#058'
+        ctx.lineWidth = 5;
+        //========矩阵原理==========
+        //a  c  e
+        //b  d  f
+        //0  0  1
+        //========================
+        //a,d  水平、垂直缩放
+        //b,c  水平、迟滞倾斜
+        //e,f  水平、垂直位移
+        //transform(a,b,c,d,e,f);
+        //setTransform(a,b,c,d,e,f);
+        //========================
+        //由于transform 在canvars中具有叠加性，多个transform会作用在一个画面元素中
+        ctx.save();
+        ctx.transform(1,0,0,1,50,100);
+        ctx.transform(2,0,0,1.5,0,0);
+        ctx.transform(1,-0.2,-0.2,1,0,0);
+        //该函数可以直接忽略之前transform的影响
+        ctx.setTransform(1,0,0,1,100,100);
+        ctx.fillRect(50,50,300,300);
+        ctx.strokeRect(50,50,300,300);
+        ctx.restore();
+
+        
+       
+    </script>
+</body>
+</html>

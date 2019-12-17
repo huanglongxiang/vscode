@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas style="border: 1px solid #aaa;display: block;margin: 50px auto"></canvas>
+    <script>
+        let canvas = document.querySelector('canvas');
+        canvas.width=1200;
+        canvas.height = 800;
+        
+        let ctx = canvas.getContext('2d');
+        //线性渐变应用
+       /*  let skyStyle = ctx.createLinearGradient(0,0,0,canvas.height);
+        skyStyle.addColorStop(0.0,'black')
+        skyStyle.addColorStop(1.0,'#46019d'); */
+
+        //镜像渐变的应用 createRadialGradient 
+        let skyStyle = ctx.createRadialGradient(
+            canvas.width / 2 , canvas.height, 0 ,
+            canvas.width / 2 ,canvas.height, canvas.height
+        );
+        // createPattern 图片填充，可以添加另外一块canver  或 video
+        skyStyle.addColorStop(0.0,'#46019d');
+        skyStyle.addColorStop(1.0,'black');
+
+        ctx.fillStyle = skyStyle;
+
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+
+        for (let i = 0; i < 200; i++) {
+            let r = Math.random()*5+5;
+            let x = Math.random()*canvas.width;
+            let y = Math.random()*canvas.height*0.65;
+            let rot = Math.random()*180;
+            drawStar(ctx,x,y,r,rot);
+        }
+
+        //只负责对图形进行相关的变化        
+        function drawStar(ctx,x,y,R,rot) {
+            ctx.save();//保存图形当前状态
+            //变化图形
+            ctx.translate(x,y);
+            ctx.rotate(rot / 180 * Math.PI);
+            ctx.scale(R,R);
+
+            startPath(ctx);
+            //设置固定样式
+            ctx.fillStyle = '#fb3';
+            // ctx.strokeStyle = '#fd5';
+            // ctx.lineWidth = 3;
+            // ctx.lineJoin = 'round';
+
+            ctx.fill();
+            // ctx.stroke();
+
+            ctx.restore();//返回到之前的节点
+        }
+        
+        //只设定五角星的基本路径
+        function startPath(ctx) {
+            ctx.beginPath();
+            for (let i = 0; i < 5; i++) {
+                ctx.lineTo(
+                    Math.cos((18+i*72)/180*Math.PI),
+                    -Math.sin((18+i*72)/180*Math.PI),
+                )
+                ctx.lineTo(
+                    Math.cos((54+i*72)/180*Math.PI)*0.5,
+                    -Math.sin((54+i*72)/180*Math.PI)*0.5,
+                )
+            }
+        }
+       
+    </script>
+</body>
+</html>

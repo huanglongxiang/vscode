@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas style="border: 1px solid #aaa;display: block;margin: 50px auto"></canvas>
+    <script>
+        let canvas = document.querySelector('canvas');
+        canvas.width=800;
+        canvas.height = 800;
+        
+        let ctx = canvas.getContext('2d');
+        fillRoundRect(ctx,150,150,500,500,10,'#bbada0');
+        for (let i = 0; i < 4; i++) {
+           for (let j = 0; j <4; j++) {
+               fillRoundRect(ctx,170+i*120,170+j*120,100,100,6,'#ccc0b3')
+           }
+        }
+
+        function fillRoundRect(ctx,x,y,width,height,radius,fillColor) {
+            if (2*radius>width ||2*radius>height) {
+                return;
+            }
+            ctx.save();
+            ctx.translate(x,y);
+            pathRoundRect(ctx,width,height,radius);
+            ctx.fillStyle = fillColor||'black';
+            ctx.fill();
+            ctx.restore();
+        }
+        function strokeRoundRect(ctx,x,y,width,height,radius,linewidth,strokeColor) {
+            if (2*radius>width ||2*radius>height) {
+                return;
+            }
+            ctx.save();
+            ctx.translate(x,y);
+            pathRoundRect(ctx,width,height,radius);
+            ctx.linewidth = linewidth || 1;
+            ctx.strokeStyle = strokeColor || 'black';
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        //绘制圆角矩形逻辑
+        function pathRoundRect(ctx,width,height,radius) {
+            ctx.beginPath();
+
+            ctx.arc(width-radius,height-radius,radius,0,Math.PI / 2 );
+            ctx.lineTo(radius,height);
+            ctx.arc(radius,height-radius,radius,Math.PI / 2 ,Math.PI);
+            ctx.lineTo(0,radius);
+            ctx.arc(radius,radius,radius,Math.PI,Math.PI*3/2);
+            ctx.lineTo(width-radius,0);
+            ctx.arc(width-radius,radius,radius,Math.PI *3 /2,Math.PI*2);
+
+            ctx.closePath()
+        }
+
+        
+       
+    </script>
+</body>
+</html>
