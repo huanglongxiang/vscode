@@ -5,12 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+   <!--[if IE]>
+        <script src="../lib/excanvas.js"></script>
+    <![endif]-->
 </head>
+
 <body>
-    <canvas style="border: 1px solid #aaa;display: block;margin: 50px auto"></canvas>
+    <canvas style="border: 1px solid #aaa;display: block;margin: 50px auto">
+    
+    </canvas>
     <script>
-        let canvas = document.querySelector('canvas');
-        let searchLight = {
+        var canvas = document.querySelector('canvas');
+        var searchLight = {
             x:400,
             y:400,
             radius:150,
@@ -20,14 +26,14 @@
         canvas.width=1200;
         canvas.height = 800;
         
-        let ctx = canvas.getContext('2d');
+        var ctx = canvas.getContext('2d');
         //绘制背景，绘制探照等，渲染文字
-        setInterval(() => {
+        setInterval(function() {
             draw(ctx);
             updata(canvas.width,canvas.height)
         }, 40);
         function draw(ctx) {
-            let canvas = ctx.canvas;
+            var canvas = ctx.canvas;
             ctx.clearRect(0,0,canvas.width,canvas.height);
             ctx.save()
             ctx.beginPath();
