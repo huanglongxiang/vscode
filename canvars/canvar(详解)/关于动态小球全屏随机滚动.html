@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .canvas-box{
+        position: relative;
+        width: 1200px;
+        height: 800px;
+        margin: 50px auto
+    }
+    .canvas-box canvas{
+        border: 1px solid #aaa;
+    }
+    .canvas-box .console{
+        position: absolute;
+        top: 30px;
+        left: 30px;
+        background-color: rgba(0, 85, 116, 0.7);
+        padding: 5px 20px 25px 20px;
+        border-radius: 10px 10px;
+    }
+    .canvas-box .console h1{
+        color: white;
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .canvas-box .console #canvas-btn{
+        display: inline-block;
+        background-color: #8b0;
+        color: white;
+        font-size: 14px;
+        padding: 5px 15px;
+        border-radius: 6px 6px;
+        text-decoration: none;
+        margin-top: 10px;
+        margin-right: 20px;
+    }
+    .canvas-box .console #canvas-btn:hover{
+        text-decoration: none;
+        background-color: #7a0;
+    }
+    .canvas-box .console .color-btn{
+        display: inline-block;
+        padding: 5px 15px;
+        border-radius: 6px 6px;
+        font-size: 14px;
+        margin-top: 10px;
+        margin-right: 5px;
+        text-decoration: none;
+    }
+    .canvas-box .console .color-btn:hover{
+        text-decoration: none;
+    }
+    .console #white-canvas-btn{
+        background-color: white;
+    }
+    .console #black-canvas-btn{
+        background-color: black;
+    }
+</style>
+<body>
+    <div class="canvas-box">
+        <canvas>
+            对不起，您的浏览器不支持canvars
+        </canvas>
+        <div class="console">
+            <h1>Canvas绘图之旅</h1>
+            <a href="javascript:;"  id="canvas-btn">停止运动</a>
+            <a href="javascript:;" class="color-btn" id="white-canvas-btn">&nbsp;</a>
+            <a href="javascript:;" class="color-btn" id="black-canvas-btn">&nbsp;</a>
+        </div>
+    </div>
+    <script>
+        let balls = [];//存放小球
+        let isMove = true;//控制小球是否运动
+        let bgcolor = 'white';//控制背景颜色
+        let canvas = document.querySelector('canvas');
+        let ctx = canvas.getContext('2d');//画布
+
+        canvas.width = 1200;
+        canvas.height = 800;
+
+        //画原
+        for (let i = 0; i < 100; i++) {
+            let r = Math.floor(Math.random() * 255);
+            let g = Math.floor(Math.random() * 255);
+            let b = Math.floor(Math.random() * 255);
+            let radius = Math.random() * 50 + 20;
+            //一个小球的状态
+            let aball = {
+                color: 'rgb(' + r + ',' + g + ',' + b + ')',
+                radius: radius,
+                x: Math.random() * (canvas.width - 2 * radius) + radius,
+                y: Math.random() * (canvas.height - 2 * radius) + radius,
+                //xy的位移位置，算法为随机算法，保证每一个小球的运行位置的随机性
+                vx: (Math.random() * 5 + 5) * Math.pow(-1, Math.floor(Math.random() * 100)),
+                vy: (Math.random() * 5 + 5) * Math.pow(-1, Math.floor(Math.random() * 100))
+            }
+            balls.push(aball);
+        }
+        //动画
+        setInterval(() => {
+            drow(ctx);
+            if (isMove) {
+                updata(canvas.width, canvas.height);
+            }
+        }, 50);
+        //重新绘制
+        function drow(ctx) {
+            let canvas = ctx.canvas;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (bgcolor == 'black') {
+                ctx.fillStyle = 'black';
+                ctx.fillRect(0,0,canvas.width,canvas.height);
+            }
+            for (let i = 0; i < balls.length; i++) {
+                //设置遮挡部分
+                // ctx.globalCompositeOperation = 'lighter';//遮挡
+                ctx.globalCompositeOperation = 'xor';//遮挡
+                ctx.fillStyle = balls[i].color;
+                ctx.beginPath();
+                ctx.arc(balls[i].x, balls[i].y, balls[i].radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        //修改位置
+        function updata(width, height) {
+            for (let i = 0; i < balls.length; i++) {
+                balls[i].x += balls[i].vx;
+                balls[i].y += balls[i].vy;
+
+                if (balls[i].x - balls[i].radius <= 0) {
+                    balls[i].vx = -balls[i].vx;
+                    balls[i].x = balls[i].radius;
+                }
+                if (balls[i].x + balls[i].radius >= width) {
+                    balls[i].vx = -balls[i].vx;
+                    balls[i].x = width - balls[i].radius
+                }
+                if (balls[i].y - balls[i].radius <= 0) {
+                    balls[i].vy = -balls[i].vy;
+                    balls[i].y = balls[i].radius;
+                }
+                if (balls[i].y + balls[i].radius >= height) {
+                    balls[i].vy = -balls[i].vy;
+                    balls[i].y = height - balls[i].radius;
+                }
+            }
+        }
+        document.querySelector('#canvas-btn').onclick = function(e){
+            isMove = !isMove;
+            if (isMove) {
+                e.target.innerText = '停止运动' 
+            }else{
+                e.target.innerText = '开始运动' 
+            }
+        }
+        document.querySelector('#white-canvas-btn').onclick = function(e){
+            bgcolor = 'white';
+        }
+        document.querySelector('#black-canvas-btn').onclick = function(e){
+            bgcolor = 'black';
+        }
+
+    </script>
+</body>
+
+</html>

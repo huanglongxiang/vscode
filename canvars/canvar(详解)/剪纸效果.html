@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas style="border: 1px solid #aaa;display: block;margin: 50px auto"></canvas>
+    <script>
+        //非零环绕，在图形内部发出一条射线，与 图形边缘相交，如果 通过绘制方向来控制图像的里外层，顺时针为1 逆时针为-1 ,canvas会通过这个属性来判定究竟是在哪块区域
+        let balls = [];
+        let canvas = document.querySelector('canvas');
+        canvas.width=1200;
+        canvas.height = 800;
+        let ctx = canvas.getContext('2d');
+        ctx.beginPath();
+        //rect:仅仅代表绘制路径 前两个参数为起始位置
+        ctx.rect(100,100,600,600);
+        pathRect(ctx,200,200,400,200);//逆时针绘制
+        pathTriangle(ctx,300,450,150,650,450,650);
+        ctx.arc(550,550,100,0,Math.PI*2,true);
+        ctx.closePath()
+
+      
+        ctx.fillStyle = '#058';
+        ctx.shadowColor="#000"
+        ctx.shadowOffsetX = 10;
+        ctx.shadowOffsetY = 10;
+        ctx.shadowBlur = 5;
+        ctx.fill();
+
+
+        //绘制矩形逆时针
+        function pathRect(ctx,x,y,width,height) {
+            ctx.moveTo(x,y);
+            ctx.lineTo(x,y+height);
+            ctx.lineTo(x+width,y+height);
+            ctx.lineTo(x+width,y);
+            ctx.lineTo(x,y);
+        }
+        //绘制逆时针三角形
+        function pathTriangle(ctx,x1,y1,x2,y2,x3,y3) {
+            ctx.moveTo(x1,y1);
+            ctx.lineTo(x2,y2);
+            ctx.lineTo(x3,y3);
+            ctx.moveTo(x1,y1)
+        }
+    </script>
+</body>
+</html>

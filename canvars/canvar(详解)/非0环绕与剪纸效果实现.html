@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas style="border: 1px solid #aaa;display: block;margin: 50px auto"></canvas>
+    <script>
+        //非零环绕，在图形内部发出一条射线，与 图形边缘相交，如果 通过绘制方向来控制图像的里外层，顺时针为1 逆时针为-1
+        let balls = [];
+        let canvas = document.querySelector('canvas');
+        canvas.width=1200;
+        canvas.height = 800;
+        let ctx = canvas.getContext('2d');
+        ctx.beginPath();
+        ctx.arc(600,400,300,0,Math.PI*2,true);
+        ctx.arc(600,400,150,0,Math.PI*2,false);
+        ctx.closePath()
+
+        ctx.shadowColor = '#000';
+        ctx.shadowOffsetX = 10;
+        ctx.shadowOffsetY = 10;
+        ctx.shadowBlur = 10;
+        ctx.fillStyle = '#058';
+        ctx.fill();
+
+    </script>
+</body>
+</html>

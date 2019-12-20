@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas style="border: 1px solid #aaa;display: block;margin: 50px auto"></canvas>
+    <script>
+        let canvas = document.querySelector('canvas');
+        canvas.width=800;
+        canvas.height = 800;
+        let ctx = canvas.getContext('2d');
+
+        //保存当前moveTo 方法
+        let originalMoveTo = CanvasRenderingContext2D.prototype.moveTo;
+        //等一存储x,y的函数
+        CanvasRenderingContext2D.prototype.lastMoveToloc = {};
+        //重写moveTo方法
+        CanvasRenderingContext2D.prototype.moveTo = function (x,y) {
+            originalMoveTo.apply(ctx,[x,y]);
+
+            this.lastMoveToloc.x = x;
+            this.lastMoveToloc.y = y;
+        }
+        //五角星路径
+        CanvasRenderingContext2D.prototype.figure_fillStar = function (r, R, rot) {
+            this.beginPath();
+            for (let i = 0; i < 5; i++) {
+                this.lineTo(
+                    Math.cos((18 + i * 72 - rot) / 180 * Math.PI) * R +this.lastMoveToloc.x,
+                    -Math.sin((18 + i * 72 - rot) / 180 * Math.PI) * R + this.lastMoveToloc.y,
+                )
+                this.lineTo(
+                    Math.cos((54 + i * 72 - rot) / 180 * Math.PI) * r + this.lastMoveToloc.x,
+                    -Math.sin((54 + i * 72 - rot) / 180 * Math.PI) * r + this.lastMoveToloc.y,
+                )
+            }
+            this.closePath();
+            this.fill();
+        }
+        window.onload = function (params) {
+            canvas.width = 800;
+            canvas.height = 800;
+            ctx.fillStyle = '#058';
+            ctx.moveTo(200,200);
+            ctx.figure_fillStar(50,100,10);
+        }
+    </script>
+</body>
+</html>

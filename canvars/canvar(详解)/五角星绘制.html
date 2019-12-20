@@ -1,51 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
     <canvas style="border: 1px solid #aaa;display: block;margin: 50px auto"></canvas>
     <script>
         let canvas = document.querySelector('canvas');
-        canvas.width=800;
+        canvas.width = 800;
         canvas.height = 800;
-        
+
         let ctx = canvas.getContext('2d');
         ctx.fillStyle = 'black';
-        ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+
+        //将自己绘制的五角星加入到canvas的原型中
+        CanvasRenderingContext2D.prototype.fillStar = function (r, R, x, y, rot) {
+            this.beginPath();
+            for (let i = 0; i < 5; i++) {
+                this.lineTo(
+                    Math.cos((18 + i * 72 - rot) / 180 * Math.PI) * R + x,
+                    -Math.sin((18 + i * 72 - rot) / 180 * Math.PI) * R + y,
+                )
+                this.lineTo(
+                    Math.cos((54 + i * 72 - rot) / 180 * Math.PI) * r + x,
+                    -Math.sin((54 + i * 72 - rot) / 180 * Math.PI) * r + y,
+                )
+            }
+            this.closePath();
+            this.fill();
+        }
 
         for (let i = 0; i < 200; i++) {
-            let r = Math.random()*10+10;
-            let x = Math.random()*canvas.width;
-            let y = Math.random()*canvas.height;
-            let rot = Math.random()*180;
+            let r = Math.random() * 10 + 10;
+            let x = Math.random() * canvas.width;
+            let y = Math.random() * canvas.height;
+            let rot = Math.random() * 180;
+            // ctx.fillStar(r / 2.0, r, x, y, rot);
+
             starArtist(ctx,r/2.0,r,x,y,rot);
         }
 
-        
-        
 
-        function starArtist(ctx,r,R,x,y,rot){
-             //五角星每一个角度都是18度，（分为内角和外角，第一层循环负责定位内角，内层循环负责定位外角）计算弧度 
+
+        function starArtist(ctx, r, R, x, y, rot) {
+            //五角星每一个角度都是18度，（分为内角和外角，第一层循环负责定位内角，内层循环负责定位外角）计算弧度 
             //Math.cos(18+i*72)/180*Math.PI 角度转弧度  18为每一角的度数，72为这个角与下一个角相同的角的距离度数
             //300 外圆的半径，150里圆的半径
             //lineJoin改变衔接处的样式  miterLimit 改变最小能显示的度数 只有当lineJoin为miter ,默认值是10，时才能使用 round
-            ctx.beginPath();
-            for (let i = 0; i < 5; i++) {
+            /* ctx.beginPath(); */
+          /*   for (let i = 0; i < 5; i++) {
                 ctx.lineTo(
-                    Math.cos((18+i*72-rot)/180*Math.PI)*R+x,
-                    -Math.sin((18+i*72-rot)/180*Math.PI)*R+y,
+                    Math.cos((18 + i * 72 - rot) / 180 * Math.PI) * R + x,
+                    -Math.sin((18 + i * 72 - rot) / 180 * Math.PI) * R + y,
                 )
                 ctx.lineTo(
-                    Math.cos((54+i*72-rot)/180*Math.PI)*r+x,
-                    -Math.sin((54+i*72-rot)/180*Math.PI)*r+y,
+                    Math.cos((54 + i * 72 - rot) / 180 * Math.PI) * r + x,
+                    -Math.sin((54 + i * 72 - rot) / 180 * Math.PI) * r + y,
                 )
-            }
-            ctx.closePath();
-
+            } */
+            ctx.fillStar(r, R, x, y, rot)
             ctx.fillStyle = '#fb3';
             ctx.strokeStyle = '#fd5';
             ctx.lineWidth = 3;
@@ -56,4 +76,5 @@
         }
     </script>
 </body>
+
 </html>

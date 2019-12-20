@@ -14,6 +14,8 @@
         canvas.height = 800;
         
         let ctx = canvas.getContext('2d');
+        //画月亮
+      
         //线性渐变应用
        /*  let skyStyle = ctx.createLinearGradient(0,0,0,canvas.height);
         skyStyle.addColorStop(0.0,'black')
@@ -27,9 +29,7 @@
         // createPattern 图片填充，可以添加另外一块canver  或 video
         skyStyle.addColorStop(0.0,'#46019d');
         skyStyle.addColorStop(1.0,'black');
-
         ctx.fillStyle = skyStyle;
-
         ctx.fillRect(0,0,canvas.width,canvas.height);
 
         for (let i = 0; i < 200; i++) {
@@ -39,7 +39,28 @@
             let rot = Math.random()*180;
             drawStar(ctx,x,y,r,rot);
         }
+        fillMoon(ctx,2,900,200,100,30);
+        drawLand(ctx);
 
+        //画绿地
+        function drawLand(ctx){
+            ctx.save()
+
+            ctx.beginPath();
+            ctx.moveTo(0,600);
+            ctx.bezierCurveTo(540,400,660,800,1200,600);
+            ctx.lineTo(1200,800);
+            ctx.lineTo(0,800);
+            ctx.closePath();
+
+            let landStyle = ctx.createLinearGradient(0,800,0,0);
+            landStyle.addColorStop(0.0,'#030');
+            landStyle.addColorStop(1.0,'#580');
+            ctx.fillStyle = landStyle;
+            ctx.fill();
+            ctx.restore()
+        }
+        
         //只负责对图形进行相关的变化        
         function drawStar(ctx,x,y,R,rot) {
             ctx.save();//保存图形当前状态
@@ -76,6 +97,27 @@
             }
         }
        
+        //画月亮
+        function fillMoon(cxt,d,x,y,R,rot,fillColor) {
+            cxt.save();
+            cxt.translate(x,y);
+            cxt.rotate(rot*Math.PI/180);
+            cxt.scale(R,R);
+            pathMoon(cxt,d);
+            cxt.fillStyle = fillColor || '#fb5';
+            cxt.fill();
+            cxt.restore();
+        }
+        function pathMoon(cxt,d){
+            cxt.beginPath();
+            cxt.arc(0,0,1,0.5*Math.PI,1.5*Math.PI,true);
+            cxt.moveTo(0,-1);
+            cxt.arcTo(d,0,0,1,dis(0,-1,d,0)/d);
+            cxt.closePath();
+        }
+        function dis(x1,y1,x2,y2) {
+            return Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+        }
     </script>
 </body>
 </html>

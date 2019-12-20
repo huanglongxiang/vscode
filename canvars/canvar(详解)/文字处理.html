@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas style="border: 1px solid #aaa;display: block;margin: 50px auto"></canvas>
+    <script>
+        let canvas = document.querySelector('canvas');
+        canvas.width=800;
+        canvas.height = 800;
+        let ctx = canvas.getContext('2d');
+        
+        ctx.font = 'bold 40px Arial';
+        ctx.fillStyle = '#666';
+        ctx.strokeStyle = '#666'
+        ctx.lineWidth = 1;
+
+        ctx.fillText('龙飞凤舞',40,100);
+        ctx.strokeText('龙飞凤舞',40,200);
+
+        let linearGrad = ctx.createLinearGradient(0,0,800,0);
+        linearGrad.addColorStop(0.0,'red');
+        linearGrad.addColorStop(0.25,'#666');
+        linearGrad.addColorStop(0.5,'#333');
+        linearGrad.addColorStop(0.75,'#000');
+        linearGrad.addColorStop(1.0,'#fff');
+        ctx.fillStyle = linearGrad;
+        ctx.fillText('凤舞九天',40,300)
+
+        let textWidth = ctx.measureText('凤舞九天').width;
+        ctx.fillText('字符宽度'+textWidth+'px',40,400);
+    </script>
+</body>
+</html>

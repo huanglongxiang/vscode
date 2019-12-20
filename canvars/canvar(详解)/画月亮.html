@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas style="border: 1px solid #aaa;display: block;margin: 50px auto"></canvas>
+    <script>
+        let canvas = document.querySelector('canvas');
+        canvas.width=800;
+        canvas.height = 800;
+        
+        let ctx = canvas.getContext('2d');
+        
+        //tanACO = R/AC = AH/HC
+        //定义外圆弧
+        ctx.arc(400,400,300,0.5*Math.PI,1.5*Math.PI,true);
+        ctx.moveTo(400,100);
+        //arcTo画内圆
+        ctx.arcTo(1200,400,400,700,(400-100)*dis(400,100,1200,400)/(1200 - 400));
+        ctx.stroke();
+        
+        function dis(x1,y1,x2,y2) {
+            //求内圆半径
+            return Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+        }
+    </script>
+</body>
+</html>

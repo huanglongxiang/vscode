@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas style="border: 1px solid #aaa;display: block;margin: 50px auto"></canvas>
+    <script>
+        let canvas = document.querySelector('canvas');
+        let ctx = canvas.getContext('2d');
+        let balls = [];
+       
+        window.onload = function () {
+            canvas.width=800;
+            canvas.height = 800; 
+            //创建十个小球
+            for (let i = 0; i < 10; i++) {
+                var aBall = {
+                    x:Math.random()*canvas.width,
+                    y:Math.random()*canvas.height,
+                    r:Math.random()*50+20,
+                }                
+                balls.push(aBall);
+            }
+            //绘制小球路径
+            drow()
+            //创建事件（重点，给画布元素绑定事件）
+            canvas.addEventListener('mousemove',detect);
+        }
+        function drow(x,y) {
+            ctx.clearRect(0,0,canvas.width,canvas.height)
+            for (let i = 0; i < balls.length; i++) {
+                ctx.beginPath();
+                ctx.arc(
+                    balls[i].x,
+                    balls[i].y,
+                    balls[i].r,
+                    0,Math.PI*2)
+                if (ctx.isPointInPath(x,y)) {
+                    ctx.fillStyle = 'red';
+                } else {
+                    ctx.fillStyle = '#058';
+                }
+                ctx.fill();
+            }
+        }
+        function detect(event) {
+            //鼠标点击在canvas中获取位置的方法getBoundingClientRect 是js函数，用来获取保卫框的各种属性
+            let x = event.clientX -canvas.getBoundingClientRect().left;
+            let y = event.clientY- canvas.getBoundingClientRect().top;
+            drow(x,y);
+            //遍历画布中的小球
+           /*  for (let i = 0; i < balls.length; i++) {
+                //每次点击便是一次重绘，canvars本质是不可更改的
+                ctx.beginPath();
+                ctx.arc(
+                    balls[i].x,
+                    balls[i].y,
+                    balls[i].r,
+                    0,Math.PI*2
+                )
+                //判断鼠标点击是否在该坐标位置范围,本质是当点击某一个小球时，会遍历整个画布，看该点击位置是否有画布的元素，有true，没有
+                //false
+                console.log(ctx.isPointInPath(x,y));
+                if (ctx.isPointInPath(x,y)) {
+                    ctx.fillStyle = 'red',
+                    ctx.fill();
+                }
+            } */
+        }
+    </script>
+</body>
+</html>
