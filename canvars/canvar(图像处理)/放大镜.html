@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body style="background-color: #ccc;">
+    <canvas id="canvas"
+        style="display: block;margin: 0;border: 1px solid #aaaaaa;display: block;margin: 0 auto;"></canvas>
+    <canvas id="bgImg" style="display: none;"></canvas>
+    <!-- 加载水印 -->
+    <script>
+        var canvas = document.getElementById('canvas');//可见图片
+        var bgImg = document.getElementById('bgImg');//不可见大图
+
+        var imgContext = canvas.getContext('2d');//可见
+        var bgImgContext = bgImg.getContext('2d');//不可见
+        var image = new Image();
+        var isMouseDown = false;  //判断鼠标状态
+        var scale = 0; //缩放倍数
+
+        window.onload = function () {
+            canvas.width = 1150;
+            canvas.height = 760;
+
+            image.src = './img/img-lg.jpg';
+            image.onload  = function () {
+                //设定大图的宽高
+                bgImg.width = image.width;
+                bgImg.height = image.height;
+                scale = bgImg.width / canvas.width; //设置大小图之间的倍数
+                imgContext.drawImage(image,0,0,canvas.width,canvas.height);  
+                bgImgContext.drawImage(image,0,0);//设置不可见大图 
+            }
+            function windowToCanvas(x,y) {
+                //获取画布在页面中
+                var bbox =  canvas.getBoundingClientRect();
+                //返回数据
+                return {
+                    x:x - bbox.left,
+                    y:y - bbox.top
+                }
+            }
+
+            canvas.onmousedown = function (e) {
+                e.preventDefault();
+                var mouseXorY =  windowToCanvas(e.clientX,e.clientY);
+                isMouseDown = true;
+                //绘制放大镜，传入状态和x和y的数值
+                drawCanvasWithMagnifier(true,mouseXorY);
+            }
+            canvas.onmousemove = function (e) {
+                e.preventDefault();
+                if (isMouseDown) {
+                    var mouseXorY =  windowToCanvas(e.clientX,e.clientY);
+                    drawCanvasWithMagnifier(true,mouseXorY);
+                }
+            }
+            canvas.onmouseup = function (e) {
+                e.preventDefault();
+                isMouseDown = false;
+                drawCanvasWithMagnifier(false);
+            }
+            canvas.onmouseleave = function (e) {
+                e.preventDefault();
+                isMouseDown = false;
+                drawCanvasWithMagnifier(false);
+            }
+            function drawCanvasWithMagnifier(isMouseDown,mouseXorY) {
+                //清空画布
+                imgContext.clearRect(0,0,canvas.width,canvas.height);
+                imgContext.drawImage(image,0,0,canvas.width,canvas.height);
+                if (isMouseDown) {
+                    //绘制放大镜
+                    drawGlass(mouseXorY);
+                }
+            }
+            function drawGlass(mouseXorY) {
+                var imglg_cx = mouseXorY.x * scale;
+                var imglg_cy = mouseXorY.y * scale;
+
+                var mr = 200;
+
+                var cx = imglg_cx - 200;
+                var cy = imglg_cy - 200;
+
+                var dx = mouseXorY.x - 200;
+                var dy = mouseXorY.y - 200;
+
+                imgContext.save();
+                imgContext.beginPath();
+                imgContext.lineWidth = 10;
+                imgContext.strokeStyle = "red";
+                imgContext.arc(mouseXorY.x,mouseXorY.y,mr,0,Math.PI*2);
+                imgContext.stroke();
+                imgContext.clip();
+                imgContext.drawImage(
+                    bgImg,
+                    cx,cy,
+                    mr*2,mr*2,
+                    dx,dy,
+                    mr*2,mr*2
+                )
+                imgContext.restore();
+            }
+        }
+    </script>
+</body>
+
+</html>

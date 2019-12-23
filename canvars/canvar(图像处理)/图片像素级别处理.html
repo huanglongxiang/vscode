@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div style="margin: 20px auto;width: 1700px;">
+        <canvas id="canvasa" style="display: inline-block;margin: 0;border: 1px solid #aaaaaa;margin: 0 auto;"
+            width="800" height="560"></canvas>
+        <canvas id="canvasb" width="800" height="560"
+            style="margin: 0;border: 1px solid #aaaaaa;margin: 0 auto;display: inline-block;"></canvas>
+    </div>
+    <div style="clear: both;"></div>
+    <div style="text-align: center;margin-top: 50px;font-size: 20px;">
+        <a href="javascript:;" onclick="files()">灰色</a>
+        <a href="javascript:;" onclick="getBlackWhilte()">黑白</a>
+        <a href="javascript:;" onclick="getinverse()">反色</a>
+        <a href="javascript:;" onclick="fuzzy()">模糊</a>
+        <a href="javascript:;" onclick="msk()">马赛克</a>
+    </div>
+    <script>
+        var canvasa = document.querySelector('#canvasa');
+        var canvasb = document.querySelector('#canvasb');
+
+        var contexta = canvasa.getContext('2d');
+        var contextb = canvasb.getContext('2d');
+        var image = new Image();
+
+        image.src = './img/giral1.jpg';
+        image.onload = function () {
+            contexta.drawImage(image, 0, 0, canvasa.width, canvasa.height);
+        }
+        /* 
+            r-pixelData[4*i+0]
+            g-pixelData[4*i+1]
+            b-pixelData[4*i+2]
+            a-pixelData[4*i+3]
+
+            第x行 第y列的像素
+            i = x* width +y;
+            r-pixelData[4*i+0]   红
+            g-pixelData[4*i+1]  绿
+            b-pixelData[4*i+2]  
+            a-pixelData[4*i+3]
+        */
+        // 灰色照片
+        function files() {
+            //获取画布A中的图片全部信息  imageData 每四个值表示一个像素值，四个值对应这r,g,b,a四个通道的值
+            var imageData = contexta.getImageData(0, 0, canvasa.width, canvasa.height);
+            //得到图片的所有像素数据
+            var pixelData = imageData.data;
+            for (let i = 0; i < canvasb.width * canvasb.height; i++) {
+                var r = pixelData[4 * i + 0];
+                var g = pixelData[4 * i + 1];
+                var b = pixelData[4 * i + 2];
+
+                //实现灰度计算，算法固定，由图像学家提出
+                var grad = r * 0.3 + g * 0.59 + b * 0.11;
+
+
+                pixelData[4 * i + 0] = grad;
+                pixelData[4 * i + 1] = grad;
+                pixelData[4 * i + 2] = grad;
+            }
+
+            //将数据put到画布b中,需要注意的是getImageData会存在跨域的问题，所以尽量让图片在同域的情况下操作
+            contextb.putImageData(imageData, 0, 0, 0, 0, canvasb.width, canvasb.height);
+        }
+        //黑白照
+        function getBlackWhilte() {
+            //获取画布A中的图片全部信息  imageData 每四个值表示一个像素值，四个值对应这r,g,b,a四个通道的值
+            var imageData = contexta.getImageData(0, 0, canvasa.width, canvasa.height);
+            //得到图片的所有像素数据
+            var pixelData = imageData.data;
+            for (let i = 0; i < canvasb.width * canvasb.height; i++) {
+                var r = pixelData[4 * i + 0];
+                var g = pixelData[4 * i + 1];
+                var b = pixelData[4 * i + 2];
+                var v = 0;
+                //实现灰度计算，算法固定，由图像学家提出
+                var grad = r * 0.3 + g * 0.59 + b * 0.11;
+                //实现黑白计算
+                if (grad > 255 / 2) {
+                    v = 255;
+                } else {
+                    v = 0;
+                }
+                pixelData[4 * i + 0] = v;
+                pixelData[4 * i + 1] = v;
+                pixelData[4 * i + 2] = v;
+            }
+            //将数据put到画布b中,需要注意的是getImageData会存在跨域的问题，所以尽量让图片在同域的情况下操作
+            contextb.putImageData(imageData, 0, 0, 0, 0, canvasb.width, canvasb.height);
+        }
+        //反色
+        function getinverse() {
+            //获取画布A中的图片全部信息  imageData 每四个值表示一个像素值，四个值对应这r,g,b,a四个通道的值
+            var imageData = contexta.getImageData(0, 0, canvasa.width, canvasa.height);
+            //得到图片的所有像素数据
+            var pixelData = imageData.data;
+            for (let i = 0; i < canvasb.width * canvasb.height; i++) {
+                var r = pixelData[4 * i + 0];
+                var g = pixelData[4 * i + 1];
+                var b = pixelData[4 * i + 2];
+                //反色实现
+                pixelData[4 * i + 0] = 255 - r;
+                pixelData[4 * i + 1] = 255 - g;
+                pixelData[4 * i + 2] = 255 - b;
+            }
+            //将数据put到画布b中,需要注意的是getImageData会存在跨域的问题，所以尽量让图片在同域的情况下操作
+            contextb.putImageData(imageData, 0, 0, 0, 0, canvasb.width, canvasb.height);
+        }
+        //模糊算法实现  图形算法
+        function fuzzy() {
+            /* 
+                实现思路：
+                1.保存一份图像数据副本
+                2.第二张图参考第一张图的数据，（根据周围的像数点，来变化自身的像数值）
+                需要两个循环，获取横向与纵向周围的数据点
+            */
+            //参考值，
+            var totalImageData = contexta.getImageData(0, 0, canvasa.width, canvasa.height);
+            var totalData = totalImageData.data;
+
+            //变化值
+            var imageData = contexta.getImageData(0, 0, canvasa.width, canvasa.height);
+            var pixelData = imageData.data;
+
+
+            //加大模糊层度
+            var barR = 3; //半径为3的正方形
+            var barNum = (3*2+1)*(3*2+1);//计算出正方形所对应的数值，一共有多少块像素
+            //遍历每一个像素点
+            for (let i = barR; i < canvasa.height-barR; i++) {
+                for (let j = barR; j < canvasa.width-barR; j++) {
+                    //用来记录周围像素点，rgb各自的总和，及周围8个点 r&g&b 的总和
+                    var totalr = 0, totalg = 0, totalb = 0;
+                    //遍历以该点为中心，其余八个点的数值
+                    for (let dx = -barR; dx <= barR; dx++) {
+                        for (let dy = -barR; dy <= barR; dy++) {
+                            //获取这个像数点相对于整个画布的坐标
+                            let x = i + dx;
+                            let y = j + dy;
+
+                            //获取周围谁在位移(及，中心点)
+                            let p = x * canvasa.width + y;
+                            totalr += totalData[p * 4 + 0];
+                            totalg += totalData[p * 4 + 1];
+                            totalb += totalData[p * 4 + 2];
+                        }
+                    }
+                    //得到位移的像素点（谁在位移）
+                    let p = i * canvasa.width + j;
+                    //获得九个像素点的平均值
+                      pixelData[p*4+0]=totalr/barNum;
+                      pixelData[p*4+1]=totalg/barNum;
+                      pixelData[p*4+2]=totalg/barNum;
+                }
+            }
+            contextb.putImageData(imageData, 0, 0, 0, 0, canvasb.width, canvasb.height);
+        }
+
+        //马赛克算法实现 
+        function msk() {
+            var totalImageData = contexta.getImageData(0,0,canvasa.width,canvasa.height);
+            var totalData = totalImageData.data;
+            var pixelimageData = contexta.getImageData(0,0,canvasa.width,canvasa.height);
+            var pixelData = pixelimageData.data;
+            var barR = 5;
+            var barNum = barR*barR;
+            for (let i = 0; i < canvasa.height; i+=barR) {
+               for (let j = 0; j < canvasa.width; j+=barR) {
+                  
+                    var totalr = 0,totalg=0,totalb = 0;
+                    for (let dx = 0; dx < barR; dx++) {
+                       for (let dy = 0; dy < barR; dy++) {
+                            var x = i+dx;
+                            var y = j+dy;
+
+                            var p = x*canvasa.width+y;
+                            totalr += totalData[p*4+0];
+                            totalg += totalData[p*4+1];
+                            totalb += totalData[p*4+2];
+                       }
+                    }
+
+                    var resr = totalr / barNum;
+                    var resg = totalg / barNum;
+                    var resb = totalb / barNum;
+
+                    for (let dx = 0; dx < barR; dx++) {
+                       for (let dy = 0; dy < barR; dy++) {
+                           let x = i+dx;
+                           let y = j+dy;
+                           let p = x*canvasa.width+y;
+                           pixelData[p*4+0] = resr;
+                           pixelData[p*4+1] = resg;
+                           pixelData[p*4+2] = resb;
+                       }
+                    }
+
+               }
+            }
+            contextb.putImageData(pixelimageData,0,0,0,0,canvasb.width,canvasb.height);
+        }
+    </script>
+</body>
+
+</html>
