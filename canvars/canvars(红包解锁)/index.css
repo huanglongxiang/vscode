@@ -1,0 +1,48 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.content{
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+img{
+    display: block;
+    filter: blur(30px);
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+#canvas{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.button{
+    position: absolute;
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    color: #ffffff;
+}
+#reset-button{
+    left: 50px;
+    bottom: 20px;
+    background-color: #058;
+}
+#reset-button:hover{
+    background-color: #047;
+}
+#show-button{
+    right: 50px;
+    bottom: 20px;
+    background-color: #085;
+}
+#show-button:hover{
+    background-color: #074;
+}
