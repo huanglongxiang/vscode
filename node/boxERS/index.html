@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>俄罗斯方块单机实现</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <!-- 游戏区域 -->
+    <div class="czs">
+        请用方向键和空格键进行操作：
+        上->旋转
+        下->下移
+        左->左移
+        右->右移
+        空格->坠落
+    </div>
+    <p id="waiting" style="text-align: center;"></p>
+    <div class="square">
+        <h3 class="title">我方游戏区域</h3>
+        <!-- 定义游戏界面 -->
+        <div class="game" id="local_game"></div>
+        <div id="local_next" class="next"></div>
+        <!-- 定义得分面板 -->
+        <div id="info" class="info">
+            <!-- 已用时 -->
+            <div id="times">已用时
+                <span class="time" id="local_timeDiv">0</span>&nbsp;秒
+            </div>
+            <!-- 已得分 -->
+            <div id="scropt">已得分
+                <span class="scropt" id="local_scrop">0</span>&nbsp;分
+            </div>
+            <div id="local_win"></div>
+        </div>
+    </div>
+    <div class="square">
+        <h3 class="title">对方游戏区域</h3>
+        <!-- 定义游戏界面 -->
+        <div class="game" id="side_game"></div>
+        <div id="side_next" class="next"></div>
+        <!-- 定义得分面板 -->
+        <div id="side_info" class="info">
+            <!-- 已用时 -->
+            <div id="times">已用时
+                <span class="time" id="side_timeDiv">0</span>&nbsp;秒
+            </div>
+            <!-- 已得分 -->
+            <div id="scropt">已得分
+                <span class="scropt" id="side_scrop">0</span>&nbsp;分
+            </div>
+            <div id="side_win"></div><br>
+        </div>
+    </div>
+    <script src="./socket-io.js"></script>
+    <script src="./js/square.js"></script>
+    <script src="./js/squareFactory.js"></script>
+    <script src="./js/game.js"></script>
+    <script src="./js/local.js"></script>
+    <script src="./js/remote.js"></script>
+    <script src="./js/script.js"></script>
+</body>
+</html>
