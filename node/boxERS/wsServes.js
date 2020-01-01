@@ -1,13 +1,20 @@
-const app = require('http').createServer();
-const io = require('socket.io')(app);
+const express = require('express');
+const http = require('http');
+const socketIo = require('socket.io');
+// const app = require('http').createServer();
+// const io = require('socket.io')(app);
+
+
+const app = express();
+const ser = http.Server(app);
+const io = socketIo(ser);
 
 const PORT = 3000;
 //客户端计数
 let clientCount = 0;
 //存储客户端socketMap
 let socketMap = {};
-
-app.listen(PORT);
+app.use(express.static('www'));
 
 //公共调用方法
 let proGameURI = function (action,socket) {
@@ -77,5 +84,9 @@ io.on('connection',function (socket) {
         delete(socketMap[socket.clientNum]);
     })
 })
+
+app.listen(PORT,'192.168.23.51',function () {
+    console.log('success');
+});
 
 console.log('webSorket Listent to PORT'+PORT)
