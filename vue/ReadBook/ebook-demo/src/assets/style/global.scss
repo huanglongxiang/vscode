@@ -1,0 +1,16 @@
+@import 'reset';
+
+//1rem = fontSize px
+//1px = (1 / fontSize)rem
+$fontSize:37.5;
+//rem转换
+@function px2rem($px)
+{
+    @return ($px / $fontSize)+rem;
+}
+//居中样式
+@mixin center(){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

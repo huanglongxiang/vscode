@@ -15,7 +15,7 @@ export default {
     HelloWorld
   }
 };
-
+//设置REM的值
 document.addEventListener('DOMContentLoaded',()=>{
   const html = document.querySelector('html');
   let fontSize = window.innerWidth / 10 ;
