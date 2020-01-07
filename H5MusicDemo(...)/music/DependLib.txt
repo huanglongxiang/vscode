@@ -1,0 +1,2 @@
+supervisor  实时监听的小工具
+命令：supervisor bin/www 监听指定文件
