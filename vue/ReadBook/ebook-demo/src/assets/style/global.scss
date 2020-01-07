@@ -14,3 +14,43 @@ $fontSize:37.5;
     justify-content: center;
     align-items: center;
 }
+//字体图标
+.icon{
+    color: #333;
+    font-size: px2rem(20);
+}
+//动画定义
+.showTitle-enter,.showTitle-leave-to{
+    transform: translate3d(0,-100%,0);
+}
+.showTitle-enter-to,
+.showFooter-enter-to{
+    transform: translate3d(0,0,0);
+}
+.showTitle-enter-active,
+.showTitle-leave-active,.showFooter-enter-active,
+.showFooter-leave-active{
+    transition: all 0.3s linear;
+}
+.showFooter-enter,.showFooter-leave-to{
+    transform: translate3d(0,px2rem(108),0);
+}
+//目录动画
+.catalogLeft-enter,
+.catalogLeft-leave-to{
+    transform: translate3d(-100%,0,0);
+}
+.catalogLeft-leave-active,
+.catalogLeft-enter-active{
+    transition: all 0.3s linear;
+}
+//蒙版动画
+.fade-enter,
+.fade-leave-to{
+    opacity: 0;
+}
+.fade-leave-active,
+.fade-enter-active{
+    opacity: 1;
+    transition: all 0.3s linear;
+}
